@@ -2,12 +2,16 @@
 
 ## Getting Started
 
-To run locally, make sure you have [bos-workspace](https://github.com/nearbuilders/bos-workspace) installed.
+To run locally, install packages:
+
+```bash
+pnpm install
+```
 
 Then, run the command:
 
 ```bash
-bw dev
+pnpm run dev
 ```
 
-This will serve the widgets from `http://127.0.0.1:4040/`.
+This will serve the widgets from `http://127.0.0.1:4040/` and start a local gateway.
