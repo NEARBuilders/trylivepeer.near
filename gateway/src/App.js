@@ -31,7 +31,7 @@ function Viewer({ widgetSrc, code }) {
   const searchParams = new URLSearchParams(location.search);
 
   const defaultRoute = {
-    path: "video.every.near/widget/app",
+    path: "trylivepeer.near/widget/index",
     blockHeight: "final",
   };
 
