@@ -1,62 +1,92 @@
-# NEAR BOS Web Component ( custom element )
+# trylivepeer.near
 
-This is a Proof of Concept of embedding a NEAR BOS widget into any web application as a Web Component / Custom element.
+—> [near-bos-webcomponent](https://github.com/petersalomonsen/near-bos-webcomponent) with [livepeer](https://livepeer.org/) installed, deployed to [web4](https://web4.near.page/), in order to provide a sandbox for builders wanting to create decentralized video apps.
 
-Just load react production react bundles into your index.html as shown below, and use the `near-social-viewer` custom element to embed the BOS widget.
+## before you begin
 
-```html
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Near social</title>
-    <script defer="defer" src="/runtime.REPLACE_WITH_BUNDLE_HASH.bundle.js"></script>
-    <script defer="defer" src="/main.REPLACE_WITH_BUNDLE_HASH.bundle.js"></script></head>
-  <body>
-    <h1>NEAR BOS embeddable custom element</h1>
-    <near-social-viewer></near-social-viewer>
-  </body>
-</html>
+These packages utilize `pnpm` for monorepo capabilities.
+
+```cmd
+npm install -g pnpm
 ```
 
+Then, we need to init the git submodules:
 
-## Setup & Development
-
-Initialize repo:
-```
-yarn
+```cmd
+pnpm run init
 ```
 
-Start development version:
-```
-yarn start
-```
+and install dependencies:
 
-Production build:
-
-```
-yarn prod
+```cmd
+pnpm install
 ```
 
-Serve the production build:
+**Note:** In order to run everything on M1 processors, the following steps are also needed:
+- Make sure Xcode Command Line Tools are installed: `xcode-select --install`;
+- Make sure you have a supported Python version (works with 3.11, but not with 3.12);
+- Make sure you are using Node version 18.
 
+Reference: [node-gyp on macOS](https://github.com/nodejs/node-gyp?tab=readme-ov-file#on-macos)
+
+## get started
+
+To modify existing widgets in the /apps directory,
+
+```cmd
+pnpm run dev
 ```
-yarn serve prod
+
+![bos-workspace](./assets/bos-workspace.png)
+
+This will serve the widgets in ./apps to a basic gateway. To view your local widgets, use one of the below methods:
+
+- *Beginner* ~ use the default bos-workspace gateway with default VM, http://localhost:8080
+- *Intermediate* ~ set flags on existing gateways like [near.org](https://near.org/flags) or [everything.dev](https://everything.dev/flags)
+- *Advanced* ~ set flags on the local gateway hooked up to this monorepo's VM
+
+## deploy to web4
+
+(needs [bos-cli-rs](https://github.com/bos-cli-rs/bos-cli-rs))
+
+1. create a subaccount
+
+```cmd
+near account create-account fund-myself web4.alice.near '1 NEAR' autogenerate-new-keypair save-to-keychain sign-as alice.near network-config mainnet sign-with-keychain send
 ```
 
-# Use redirectmap for development
+2. deploy [minimum web4 contract](https://github.com/vgrichina/web4-min-contract)
 
-The NEAR social VM supports a feature called `redirectMap` which allows you to load widgets from other sources than the on chain social db. An example redirect map can look like this:
+```cmd
+cd packages/web4-deploy/data
 
-```json
-{"devhub.near/widget/devhub.page.feed": {"code": "return 'hello';"}}
+near contract deploy web4.alice.near use-file web4-min.wasm without-init-call network-config mainnet sign-with-keychain send
 ```
 
-The result of applying this redirect map is that the widget `devhub.near/widget/devhub.page.feed` will be replaced by a string that says `hello`.
+3. change default widgetSrc in `near-bos-webcomponent/src/App#24` and build
 
-The `near-social-viewer` web component supports loading a redirect map from the session storage, which is useful when using the viewer for local development or test pipelines.
+```cmd
+cd near-bos-webcomponent
+yarn build
+```
 
-By setting the session storage key `nearSocialVMredirectMap` to the JSON value of the redirect map, the web component will pass this to the VM Widget config.
+4. export keys to use in web4 deploy of `dist`
 
-You can also use the same mechanism as [near-discovery](https://github.com/near/near-discovery/) where you can load components from a locally hosted [bos-loader](https://github.com/near/bos-loader) by adding the key `flags` to localStorage with the value `{"bosLoaderUrl": "http://127.0.0.1:3030" }`.
+```cmd
+near account export-account web4.alice.near using-private-key network-config mainnet
+
+NEAR_ENV=mainnet NEAR_SIGNER_KEY=${PRIVATE_KEY} npx web4-deploy dist web4.alice.near --nearfs
+```
+
+5. done, app deployed at alice.near.page
+
+
+
+
+https://docs.livepeer.org/sdks/react/migration/migration-4.x
+
+https://docs.livepeer.org/sdks/javascript
+
+https://github.com/livepeer/livepeer-js/tree/main/example
+
+https://near.social/devhub.near/widget/app?page=post&id=1153

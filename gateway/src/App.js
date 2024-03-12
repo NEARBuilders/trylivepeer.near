@@ -21,6 +21,8 @@ import {
 } from "react-router-dom";
 import { LivepeerCreator } from "./components/LivepeerCreator";
 import { LivepeerPlayer } from "./components/LivepeerPlayer";
+import { Player } from "./components/Player";
+import { Broadcast } from "./components/Broadcast";
 
 const SESSION_STORAGE_REDIRECT_MAP_KEY = "nearSocialVMredirectMap";
 
@@ -113,6 +115,7 @@ function App(props) {
             return <Link {...props} />;
           },
           LivepeerPlayer: (props) => {
+            // replace this
             return (
               <LivepeerConfig client={livepeerClient}>
                 <LivepeerPlayer {...props} />
@@ -120,11 +123,18 @@ function App(props) {
             );
           },
           LivepeerCreator: (props) => {
+            // replace this
             return (
               <LivepeerConfig client={livepeerClient}>
                 <LivepeerCreator {...props} />
               </LivepeerConfig>
             );
+          },
+          Player: (props) => {
+            return <Player {...props} />;
+          },
+          Broadcast: (props) => {
+            return <Broadcast {...props} />;
           },
         },
         config: {
