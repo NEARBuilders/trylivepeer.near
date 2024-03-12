@@ -25,6 +25,11 @@ This will serve the widgets from `http://127.0.0.1:4040/` and start a local gate
 
 ## Usage
 
+In the local gateway (localhost:3000), open `localhost:3000/trylivepeer.near/widget/index`,
+then navigate to the sandbox.
+
+The goal of this project is to expose the below components through the Near Social VM, so that these keywords may be used in Widgets.
+
 ### `Player`
 
 https://docs.livepeer.org/sdks/react/migration/migration-4.x#player
