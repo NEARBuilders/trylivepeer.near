@@ -18,5 +18,6 @@ return (
         </div>
       </div>
     </div>
+    <Widget src="trylivepeer.near/widget/Library" />
   </>
 );
