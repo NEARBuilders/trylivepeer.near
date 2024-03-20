@@ -13,7 +13,7 @@
   ],
   "dependencies": {
     "@braintree/sanitize-url": "^6.0.2",
-    "@livepeer/react": "^2.6.0",
+    "@livepeer/react": "^4.1.0",
     "big.js": "^6.1.1",
     "bn.js": "^5.1.1",
     "bootstrap": "^5.3.1",
