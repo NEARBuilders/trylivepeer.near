@@ -1,18 +1,47 @@
+import React, { useState, useEffect } from "react";
 import * as Player from "@livepeer/react/player";
+import { PlayIcon, PauseIcon } from "@livepeer/react/assets";
+import { Livepeer } from "livepeer";
+// import { createReactClient, studioProvider } from "@livepeer/react";
 import { getSrc } from "@livepeer/react/external";
 
 const PLAYBACK_ID = "8b3bdqjtdj4jsjwa";
 
+// const client = createReactClient({
+// 	provider: studioProvider({ apiKey: LIVEPEER_STUDIO_API_KEY }),
+// });
+
+console.log(process.env);
+
+const livepeer = new Livepeer({
+	apiKey: process.env.REACT_APP_LIVEPEER_STUDIO_API_KEY,
+});
+
 export const getPlaybackSource = async (playbackId = PLAYBACK_ID) => {
 	const playbackInfo = await livepeer.playback.get(playbackId);
 	const src = getSrc(playbackInfo.playbackInfo);
+
+	console.log("-- src");
+	console.log(JSON.stringify(src));
+
 	return src;
 };
 
 export const VideoPlayer = (props) => {
 	// export const DemoPlayer = ({ src }: { src: Src | null }) => {
+	const [src, setSrc] = useState(null);
 
-	const src = getPlaybackSource();
+	useEffect(() => {
+		const fetchSrc = async () => {
+			const fetchedSrc = await getPlaybackSource();
+			setSrc(fetchedSrc);
+		};
+		fetchSrc();
+	}, []);
+
+	if (!src) {
+		return <p>Loading</p>;
+	}
 
 	return (
 		<Player.Root src={src}>
