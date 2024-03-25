@@ -15,7 +15,7 @@ import {
 	useLocation,
 } from "react-router-dom";
 import { VideoPlayer } from "./components/Player";
-import { Broadcast } from "./components/Broadcast";
+import { BroadcastComponent } from "./components/Broadcast";
 
 const SESSION_STORAGE_REDIRECT_MAP_KEY = "nearSocialVMredirectMap";
 
@@ -105,7 +105,7 @@ function App(props) {
 						return <VideoPlayer {...props} />;
 					},
 					Broadcast: (props) => {
-						return <Broadcast {...props} />;
+						return <BroadcastComponent {...props} />;
 					},
 				},
 				config: {

@@ -21,14 +21,10 @@ export const getPlaybackSource = async (playbackId = PLAYBACK_ID) => {
 	const playbackInfo = await livepeer.playback.get(playbackId);
 	const src = getSrc(playbackInfo.playbackInfo);
 
-	console.log("-- src");
-	console.log(JSON.stringify(src));
-
 	return src;
 };
 
 export const VideoPlayer = (props) => {
-	// export const DemoPlayer = ({ src }: { src: Src | null }) => {
 	const [src, setSrc] = useState(null);
 
 	useEffect(() => {
