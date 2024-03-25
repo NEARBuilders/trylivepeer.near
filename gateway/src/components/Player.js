@@ -1,15 +1,10 @@
 import React, { useState, useEffect } from "react";
 import * as Player from "@livepeer/react/player";
 import { PlayIcon, PauseIcon } from "@livepeer/react/assets";
-import { Livepeer } from "livepeer";
-// import { createReactClient, studioProvider } from "@livepeer/react";
 import { getSrc } from "@livepeer/react/external";
+import { Livepeer } from "livepeer";
 
 const PLAYBACK_ID = "8b3bdqjtdj4jsjwa";
-
-// const client = createReactClient({
-// 	provider: studioProvider({ apiKey: LIVEPEER_STUDIO_API_KEY }),
-// });
 
 console.log(process.env);
 
