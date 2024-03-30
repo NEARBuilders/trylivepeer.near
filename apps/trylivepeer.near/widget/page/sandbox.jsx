@@ -1,6 +1,11 @@
-const data = {
+const playerData = {
   key: "value",
+	playerProps: {
+		playbackId: "8b3bdqjtdj4jsjwa",
+	}
 };
+
+const broadcastData = {}
 
 const { Tailwind } = VM.require("klngrs.near/widget/Tailwind") || {
   TailwindWrapper: () => <></>,
@@ -13,7 +18,7 @@ return (
         <div>
           <h1>Player</h1>
 					<Tailwind>
-          	<Widget src="trylivepeer.near/widget/Player" props={data} />
+          	<Widget src="trylivepeer.near/widget/Player" props={playerData} />
 					</Tailwind>
         </div>
       </div>
@@ -21,7 +26,7 @@ return (
         <div>
           <h1>Broadcast</h1>
 					<Tailwind>
-          	<Widget src="trylivepeer.near/widget/Broadcast" props={data} />
+          	<Widget src="trylivepeer.near/widget/Broadcast" props={broadcastData} />
 					</Tailwind>
         </div>
       </div>

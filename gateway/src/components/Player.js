@@ -4,15 +4,11 @@ import { PlayIcon, PauseIcon } from "@livepeer/react/assets";
 import { getSrc } from "@livepeer/react/external";
 import { Livepeer } from "livepeer";
 
-const PLAYBACK_ID = "8b3bdqjtdj4jsjwa";
-
-console.log(process.env);
-
 const livepeer = new Livepeer({
 	apiKey: process.env.REACT_APP_LIVEPEER_STUDIO_API_KEY,
 });
 
-export const getPlaybackSource = async (playbackId = PLAYBACK_ID) => {
+export const getPlaybackSource = async (playbackId) => {
 	const playbackInfo = await livepeer.playback.get(playbackId);
 	const src = getSrc(playbackInfo.playbackInfo);
 
@@ -21,14 +17,27 @@ export const getPlaybackSource = async (playbackId = PLAYBACK_ID) => {
 
 export const VideoPlayer = (props) => {
 	const [src, setSrc] = useState(null);
+	const [playbackId, setPlaybackId] = useState(0);
 
 	useEffect(() => {
+		const newPlaybackId = props.props?.playbackId;
+
+		if (newPlaybackId) {
+			const { playbackId } = props.props;
+
+			setPlaybackId(playbackId);
+		}
+	}, [props?.props]);
+
+	useEffect(() => {
+		if (!playbackId) return;
+
 		const fetchSrc = async () => {
-			const fetchedSrc = await getPlaybackSource();
+			const fetchedSrc = await getPlaybackSource(playbackId);
 			setSrc(fetchedSrc);
 		};
 		fetchSrc();
-	}, []);
+	}, [playbackId]);
 
 	if (!src) {
 		return <p>Loading</p>;
