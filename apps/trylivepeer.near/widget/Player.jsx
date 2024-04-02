@@ -3,6 +3,6 @@
 return (
   <>
     {/* need to be explicit with props when passing from widget to VM */}
-    <Player value={props.key} />
+    <Player value={props.key} props={props.playerProps}/>
   </>
 );
