@@ -1,20 +1,20 @@
 {
-  "name": "trylivepeer.near",
-  "version": "0.0.0",
-  "description": "",
-  "author": "",
-  "license": "MIT",
-  "scripts": {
-    "dev": "concurrently \"pnpm run dev:gateway\" \"pnpm run dev:apps\"",
-    "dev:gateway": "cd gateway && pnpm run start",
-    "dev:apps": "bos-workspace dev",
-    "build": "bos-workspace build"
-  },
-  "devDependencies": {
-    "bos-workspace": "^0.0.1-alpha.5",
-    "concurrently": "^8.2.2"
-  },
-  "workspaces": [
-    "gateway"
-  ]
+	"name": "trylivepeer.near",
+	"version": "0.0.0",
+	"description": "",
+	"author": "",
+	"license": "MIT",
+	"scripts": {
+		"dev": "concurrently \"pnpm run dev:gateway\" \"pnpm run dev:apps\"",
+		"dev-new": "bos-workspace ws dev -g gateway/dist",
+		"dev:gateway": "cd gateway && pnpm run start",
+		"dev:apps": "bos-workspace dev",
+		"build": "bos-workspace build",
+		"init": "git submodule update --init --recursive && pnpm install"
+	},
+	"devDependencies": {
+		"bos-workspace": "^1.0.0-alpha",
+		"concurrently": "^8.2.2"
+	},
+	"workspaces": ["gateway"]
 }
