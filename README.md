@@ -1,5 +1,5 @@
 
-# trylivepeer.near t
+# trylivepeer.near
 
 —> [near-bos-webcomponent](https://github.com/petersalomonsen/near-bos-webcomponent) with [livepeer](https://livepeer.org/) installed, deployed to [web4](https://web4.near.page/), in order to provide a sandbox for builders wanting to create decentralized video apps.
 
