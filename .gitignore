@@ -6,3 +6,4 @@ node_modules
 
 gateway/.env
 gateway-backup/.env
+gateway-backup
