@@ -5,3 +5,5 @@ node_modules
 /build
 
 gateway/.env
+gateway-backup/.env
+gateway-backup
