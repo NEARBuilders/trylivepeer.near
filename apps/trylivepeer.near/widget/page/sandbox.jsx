@@ -22,6 +22,7 @@ return (
           	<Widget src="trylivepeer.near/widget/Broadcast" props={broadcastData} />
         </div>
       </div>
+      <Widget src="trylivepeer.near/widget/SubComponent" />
     </div>
     <Widget src="trylivepeer.near/widget/Library" />
   </>
