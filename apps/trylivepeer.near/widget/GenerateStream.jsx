@@ -1,0 +1,3 @@
+return (
+	<Broadcast.GenerateStream />
+);

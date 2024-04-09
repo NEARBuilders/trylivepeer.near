@@ -19,10 +19,10 @@ return (
       <div className="col">
         <div>
           <h1>Broadcast</h1>
+        		<Widget src="trylivepeer.near/widget/GenerateStream" props={broadcastData} />
           	<Widget src="trylivepeer.near/widget/Broadcast" props={broadcastData} />
         </div>
       </div>
-      <Widget src="trylivepeer.near/widget/SubComponent" />
     </div>
     <Widget src="trylivepeer.near/widget/Library" />
   </>
