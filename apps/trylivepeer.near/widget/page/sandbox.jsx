@@ -1,11 +1,11 @@
 const playerData = {
   key: "value",
-	playerProps: {
-		playbackId: "8b3bdqjtdj4jsjwa",
-	}
+  playerProps: {
+    playbackId: "8b3bdqjtdj4jsjwa",
+  },
 };
 
-const broadcastData = {}
+const broadcastData = {};
 
 return (
   <>
@@ -13,14 +13,24 @@ return (
       <div className="col">
         <div>
           <h1>Player</h1>
-          	<Widget src="trylivepeer.near/widget/Player" props={playerData} />
+          <Widget
+            src="trylivepeer.near/widget/UploadVideo"
+            props={playerData}
+          />
+          <Widget src="trylivepeer.near/widget/Player" props={playerData} />
         </div>
       </div>
       <div className="col">
         <div>
           <h1>Broadcast</h1>
-        		<Widget src="trylivepeer.near/widget/GenerateStream" props={broadcastData} />
-          	<Widget src="trylivepeer.near/widget/Broadcast" props={broadcastData} />
+          <Widget
+            src="trylivepeer.near/widget/GenerateStream"
+            props={broadcastData}
+          />
+          <Widget
+            src="trylivepeer.near/widget/Broadcast"
+            props={broadcastData}
+          />
         </div>
       </div>
     </div>
