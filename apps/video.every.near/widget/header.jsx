@@ -2,6 +2,10 @@ const { Button } = VM.require("video.every.near/widget/Components.button") || {
   Button: () => <></>,
 };
 
+const { href } = VM.require("buildhub.near/widget/lib.url") || {
+  href: () => {},
+};
+
 const Header = styled.div`
   border-bottom: 1px solid #e2e2e2;
   background: #fff;
@@ -102,7 +106,13 @@ const Dropdown = styled.div`
 return (
   <>
     <Header>
-      <img src={logoUrl} />
+      <Link
+        to={href({
+          widgetSrc: "video.every.near/widget/app",
+        })}
+      >
+        <img src={logoUrl} />
+      </Link>
       <div className="d-none d-md-flex align-items-center gap-2">
         <Button type="icon">
           <CodeIcon />

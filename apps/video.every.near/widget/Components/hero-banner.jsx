@@ -2,6 +2,10 @@ const { Button } = VM.require("video.every.near/widget/Components.button") || {
   Button: () => <></>,
 };
 
+const { href } = VM.require("buildhub.near/widget/lib.url") || {
+  href: () => {},
+};
+
 const Heading = styled.h2`
   color: #171717;
   font-family: Poppins;
@@ -98,9 +102,19 @@ const HeroBanner = () => {
         </SubHeading>
       </div>
       <div className="d-flex align-items-center flex-wrap gap-2">
-        <Button>
-          <CodeIcon /> component library
-        </Button>
+        <Link
+          style={{ textDecoration: "none" }}
+          to={href({
+            widgetSrc: "video.every.near/widget/app",
+            params: {
+              page: "library",
+            },
+          })}
+        >
+          <Button>
+            <CodeIcon /> component library
+          </Button>
+        </Link>
         <Button variant="primary">
           <CreateIcon /> create
         </Button>

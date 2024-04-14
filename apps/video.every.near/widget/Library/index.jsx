@@ -1,196 +1,131 @@
-const ROOT_ACCOUNT = "efiz.near";
+const { HeroBanner } = VM.require(
+  "video.every.near/widget/Components.hero-banner"
+) || {
+  HeroBanner: () => <></>,
+};
 
-State.init({
-  widget: state.widget ?? props.widget ?? "Library.Overview",
-});
+const { Button } = VM.require("video.every.near/widget/Components.button") || {
+  Button: () => <></>,
+};
 
-const data = Social.keys(`${ROOT_ACCOUNT}/widget/*`, "final", {
-  return_type: "BlockHeight",
-});
+const { href } = VM.require("buildhub.near/widget/lib.url") || {
+  href: () => {},
+};
 
-const RouterLink = props.RouterLink;
+const { tab } = props;
 
-if (!data) return "";
+const tabs = {
+  library: [
+    { label: "overview", widget: "video.every.near/widget/Library.Overview" },
+  ],
+  livepeer: [
+    { label: "player", widget: "video.every.near/widget/Library.Player" },
+    { label: "creator", widget: "video.every.near/widget/Library.Creator" },
+  ],
+};
 
-function convertToNestedObject(obj) {
-  const result = {};
-  Object.keys(obj)
-    .filter((key) => key !== "index")
-    .forEach((key) => {
-      let parts = key.split(".");
-      let firstPart = parts.shift();
-      if (parts[1] === "demo") {
-        return;
-      }
-      if (parts.length) {
-        result[firstPart] = result[firstPart] || {};
-        result[firstPart][parts.join(".")] = obj[key];
-      } else {
-        result[firstPart] = obj[key];
-      }
-    });
-  return result;
-}
-
-const Wrapper = styled.div`
+const LibraryWrapper = styled.div`
+  padding: 32px 40px;
   display: flex;
-  flex-direction: row;
-  font-family: sans-serif;
+  flex-direction: column;
+  gap: 2rem;
+  height: 100%;
 
-  @media (max-width: 800px) {
-    flex-wrap: wrap;
+  @media (max-width: 768px) {
+    padding: 1.5rem;
   }
 `;
 
-const Sidebar = styled.div`
+const GridContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 1rem;
+`;
+
+const SideBar = styled.div`
+  grid-column: span 3 / span 3;
+  height: 100%;
+
   display: flex;
+  padding: 24px 12px;
   flex-direction: column;
-  gap: 16px;
-  background: #fff;
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-  border-radius: 8px;
-  min-width: 240px;
-  width: 240px;
-  padding: 40px 17px 30px;
-  z-index: 1;
-  bottom: 0;
-  margin-bottom: 40px;
-  height: fit-content;
-
-  @media (max-width: 800px) {
-    width: 100%;
-  }
-
-  h3 {
-    margin: 0;
-    font-size: 14px;
-    font-weight: 500;
-    color: #999;
-    padding: 6px 21px;
-  }
-
-  a {
-    display: block;
-    font-size: 14px;
-    font-weight: 600;
-    padding: 6px 21px;
-    border-radius: 4px;
-    color: #141414;
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
-    text-decoration: none;
-    text-transform: capitalize;
-  }
-
-  a.active {
-    background: #edf4fc !important;
-    color: #4498e0 !important;
-  }
-
-  a:hover {
-    color: #4498e0 !important;
-  }
+  align-items: flex-start;
+  gap: 14px;
+  border-radius: 24px;
+  border: 1px solid #c7c7c7;
 `;
 
 const Content = styled.div`
-  flex: 1;
-  margin-left: 20px;
-  min-height: 70vh;
-  margin-bottom: auto;
-
-  @media (max-width: 800px) {
-    width: 100%;
-    padding: 0;
-    margin: 0;
-  }
+  grid-column: span 9 / span 9;
+  border-radius: 24px;
+  border: 1px solid #c7c7c7;
+  padding: 4rem;
+  word-break: normal;
 `;
 
-const widgets = {
-  index: 0,
-  "Livepeer.Creator": 0,
-  "Livepeer.Creator.demo": 0,
-  "Livepeer.Player": 0,
-  "Livepeer.Player.demo": 0,
-  "Library.Overview": 0,
-};
-const widgetsObj = convertToNestedObject(widgets);
+const labelToFind = props.tab;
+const activeTab =
+  Object.values(tabs)
+    .flatMap((array) => array)
+    .find((obj) => obj.label === labelToFind) ||
+  Object.values(tabs).flatMap((array) => array)[0];
 
-const tabContent = () => {
-  const hasDemo = widgets[`${state.widget}.demo`] !== undefined;
-  return (
-    <Content className="container">
-      <div>
-        <Widget
-          src={`${ROOT_ACCOUNT}/widget/${state.widget}${
-            hasDemo ? ".demo" : ""
-          }`}
-          props={{
-            demoMode: true,
-          }}
-        />
-      </div>
-    </Content>
-  );
-};
-
-const widgetsKeys = Object.keys(widgetsObj)
-  .sort((a, b) => {
-    if (a.toLowerCase() > b.toLowerCase()) return 1;
-    if (a.toLowerCase() < b.toLowerCase()) return -1;
-    return 0;
-  })
-  .sort((a, b) => {
-    if (typeof widgetsObj[a] === "object") return 1;
-    return -1;
-  });
 return (
-  <Wrapper>
-    <Sidebar>
-      {widgetsKeys.map((folder) => {
-        if (typeof widgetsObj[folder] !== "object") {
+  <LibraryWrapper>
+    <HeroBanner />
+    <GridContainer>
+      <SideBar>
+        {Object.keys(tabs).map((tab) => {
           return (
-            <a
-              href={`https://near.social/${ROOT_ACCOUNT}/widget/Library.index?widget=${folder}`}
-              onClick={() => {
-                State.update({
-                  widget: folder,
-                });
-              }}
-              className={state.widget === folder ? "active" : ""}
-            >
-              {folder}
-            </a>
+            <div className="w-100">
+              <p
+                style={{
+                  width: "232px",
+                  height: "40px",
+                  padding: "10px 12px",
+                  textTransform: "capitalize",
+                  marginBottom: "14px",
+                }}
+              >
+                {tab}
+              </p>
+              <div
+                className="d-flex flex-column"
+                style={{
+                  gap: "14px",
+                }}
+              >
+                {tabs[tab].map((item) => {
+                  return (
+                    <Link
+                      style={{ textDecoration: "none", width: "100%" }}
+                      to={href({
+                        widgetSrc: "video.every.near/widget/app",
+                        params: {
+                          page: "library",
+                          tab: item.label,
+                        },
+                      })}
+                    >
+                      <Button
+                        style={{ width: "100%" }}
+                        variant={
+                          activeTab.label === item.label ? "primary" : ""
+                        }
+                      >
+                        {item.label}
+                      </Button>
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
           );
-        }
-        return (
-          <div>
-            <h3>{folder}</h3>
-            {Object.keys(widgetsObj[folder])
-              .sort((a, b) => {
-                if (a.toLowerCase() > b.toLowerCase()) return 1;
-                if (a.toLowerCase() < b.toLowerCase()) return -1;
-                return 0;
-              })
-              .map((widget) => {
-                const fullWidgetName = `${folder}.${widget}`;
-                return (
-                  <a
-                    href={`https://near.social/${ROOT_ACCOUNT}/widget/Library.index?widget=${fullWidgetName}`}
-                    onClick={() => {
-                      State.update({
-                        widget: fullWidgetName,
-                      });
-                    }}
-                    className={state.widget === fullWidgetName ? "active" : ""}
-                  >
-                    {widget}
-                  </a>
-                );
-              })}
-          </div>
-        );
-      })}
-    </Sidebar>
-    {tabContent()}
-  </Wrapper>
+        })}
+      </SideBar>
+      <Content>
+        <Widget src={activeTab.widget} loading="" />
+      </Content>
+    </GridContainer>
+  </LibraryWrapper>
 );
