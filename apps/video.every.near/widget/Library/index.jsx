@@ -21,9 +21,26 @@ const tabs = {
   library: [
     { label: "overview", widget: "video.every.near/widget/Library.Overview" },
   ],
-  livepeer: [
-    { label: "player", widget: "video.every.near/widget/Library.Player" },
-    { label: "creator", widget: "video.every.near/widget/Library.Creator" },
+  // livepeer: [
+  //   { label: "player", widget: "video.every.near/widget/Library.Player" },
+  //   { label: "creator", widget: "video.every.near/widget/Library.Creator" },
+  // ],
+  player: [
+    { label: "player", widget: "video.every.near/widget/Player.Player" },
+    {
+      label: "upload video",
+      widget: "video.every.near/widget/Player.UploadVideo",
+    },
+  ],
+  broadcast: [
+    {
+      label: "broadcast",
+      widget: "video.every.near/widget/Broadcast.Broadcast",
+    },
+    {
+      label: "generate stream",
+      widget: "video.every.near/widget/Broadcast.GenerateStream",
+    },
   ],
 };
 
