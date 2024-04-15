@@ -40,6 +40,10 @@ const GridContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
   gap: 1rem;
+  @media (max-width: 920px) {
+    display: flex;
+    flex-direction: column;
+  }
 `;
 
 const SideBar = styled.div`
@@ -53,6 +57,34 @@ const SideBar = styled.div`
   gap: 14px;
   border-radius: 24px;
   border: 1px solid #c7c7c7;
+
+  .title {
+    width: 100%;
+  }
+
+  p {
+    height: 40px;
+    padding: 10px 12px;
+    text-transform: capitalize;
+    margin-bottom: 14px;
+  }
+
+  @media (max-width: 1010px) {
+    grid-column: span 2 / span 2;
+  }
+
+  @media screen and (max-width: 768px) {
+    border: 0px;
+    flex-direction: row;
+    overflow-x: auto;
+    min-height: auto;
+    flex-wrap: nowrap;
+    flex-shrink: 0;
+
+    .title {
+      width: auto;
+    }
+  }
 `;
 
 const Content = styled.div`
@@ -61,6 +93,13 @@ const Content = styled.div`
   border: 1px solid #c7c7c7;
   padding: 4rem;
   word-break: normal;
+  @media (max-width: 1010px) {
+    grid-column: span 10 / span 10;
+  }
+
+  @media screen and (max-width: 768px) {
+    padding: 1rem;
+  }
 `;
 
 const labelToFind = props.tab;
@@ -70,6 +109,17 @@ const activeTab =
     .find((obj) => obj.label === labelToFind) ||
   Object.values(tabs).flatMap((array) => array)[0];
 
+const StyledLink = styled.div`
+  a {
+    text-decoration: none;
+    width: 100%;
+
+    button {
+      width: 100%;
+    }
+  }
+`;
+
 return (
   <LibraryWrapper>
     <HeroBanner />
@@ -77,45 +127,35 @@ return (
       <SideBar>
         {Object.keys(tabs).map((tab) => {
           return (
-            <div className="w-100">
-              <p
-                style={{
-                  width: "232px",
-                  height: "40px",
-                  padding: "10px 12px",
-                  textTransform: "capitalize",
-                  marginBottom: "14px",
-                }}
-              >
-                {tab}
-              </p>
+            <div className="title">
+              <p>{tab}</p>
               <div
-                className="d-flex flex-column"
+                className="d-flex flex-md-column"
                 style={{
                   gap: "14px",
                 }}
               >
                 {tabs[tab].map((item) => {
                   return (
-                    <Link
-                      style={{ textDecoration: "none", width: "100%" }}
-                      to={href({
-                        widgetSrc: "video.every.near/widget/app",
-                        params: {
-                          page: "library",
-                          tab: item.label,
-                        },
-                      })}
-                    >
-                      <Button
-                        style={{ width: "100%" }}
-                        variant={
-                          activeTab.label === item.label ? "primary" : ""
-                        }
+                    <StyledLink>
+                      <Link
+                        to={href({
+                          widgetSrc: "video.every.near/widget/app",
+                          params: {
+                            page: "library",
+                            tab: item.label,
+                          },
+                        })}
                       >
-                        {item.label}
-                      </Button>
-                    </Link>
+                        <Button
+                          variant={
+                            activeTab.label === item.label ? "primary" : ""
+                          }
+                        >
+                          {item.label}
+                        </Button>
+                      </Link>
+                    </StyledLink>
                   );
                 })}
               </div>

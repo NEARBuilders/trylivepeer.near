@@ -76,31 +76,6 @@ const toggleOpen = () => {
 const Dropdown = styled.div`
   max-height: ${({ open }) => (open ? "500px" : "0")};
   overflow: hidden;
-  opacity: ${({ open }) => (open ? "1" : "0")};
-  transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
-  animation: ${({ open }) => (open ? "slideIn" : "slideOut")} 0.3s ease-out;
-
-  @keyframes slideIn {
-    0% {
-      max-height: 0;
-      opacity: 0;
-    }
-    100% {
-      max-height: 500px;
-      opacity: 1;
-    }
-  }
-
-  @keyframes slideOut {
-    0% {
-      max-height: 500px;
-      opacity: 1;
-    }
-    100% {
-      max-height: 0;
-      opacity: 0;
-    }
-  }
 `;
 
 return (
