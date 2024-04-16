@@ -1,3 +1,6 @@
+// TODO: convert this to a widget
+// - children passed as prop
+
 // const Draggable = ({ children }) => {
 //   const [isDragging, setIsDragging] = useState(false);
 //   const [position, setPosition] = useState({ x: 0, y: 0 });
@@ -54,4 +57,3 @@
 // };
 //
 // return { Draggable };
-//

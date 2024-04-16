@@ -18,6 +18,12 @@ const { href } = VM.require("buildhub.near/widget/lib.url") || {
 //   href: () => {},
 // };
 
+// TODO: why this is not working?
+
+//const { Debugger } = VM.require("video.every.near/widget/Player.Debug") || {
+//  href: () => <span>Debugger not present</span>,
+//};
+
 const { tab } = props;
 
 const tabs = {
@@ -128,7 +134,7 @@ const SideBar = styled.div`
 `;
 
 const Content = styled.div`
-  grid-column: span 9 / span 9;
+  grid-column: span 6 / span 6;
   border-radius: 24px;
   border: 1px solid #c7c7c7;
   padding: 4rem;
@@ -140,6 +146,18 @@ const Content = styled.div`
   @media screen and (max-width: 768px) {
     padding: 1rem;
   }
+`;
+
+const RightBar = styled.div`
+  grid-column: span 3 / span 3;
+  height: 100%;
+  display: flex;
+  padding: 24px 12px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+  border-radius: 24px;
+  border: 1px solid #c7c7c7;
 `;
 
 const labelToFind = props.tab;
@@ -160,7 +178,7 @@ const StyledLink = styled.div`
   }
 `;
 
-// const [activateDebug, setActivateDebug] = useState(false);
+const [activateDebug, setActivateDebug] = useState(false);
 
 return (
   <LibraryWrapper>
@@ -171,7 +189,7 @@ return (
           return (
             <div className="title">
               {
-                // tab === "player" && (
+                // tab ===  "player" && (
                 //   <>
                 //     <label>
                 //       Show debug component:
@@ -181,7 +199,6 @@ return (
                 //         onChange={() => setActivateDebug(!activateDebug)}
                 //       />
                 //     </label>
-                //     <Player.Debug />
                 //   </>
                 // )
               }
@@ -223,6 +240,9 @@ return (
       <Content>
         <Widget src={activeTab.widget} loading="" />
       </Content>
+      <RightBar>
+        <Widget src={"video.every.near/widget/Player.Debug"} loading="" />
+      </RightBar>
     </GridContainer>
   </LibraryWrapper>
 );
