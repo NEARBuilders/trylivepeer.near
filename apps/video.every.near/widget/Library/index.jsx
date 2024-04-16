@@ -4,16 +4,19 @@ const { HeroBanner } = VM.require(
   HeroBanner: () => <></>,
 };
 
-const { Button } = VM.require("video.every.near/widget/Components.button") || {
+const { Button } = VM.require("UI.near/widget/atoms.Button") || {
   Button: () => <></>,
 };
-// const { Button } = VM.require("UI.near/atoms/Components.Button") || {
-//   Button: () => <></>,
-// };
 
 const { href } = VM.require("buildhub.near/widget/lib.url") || {
   href: () => {},
 };
+
+// const { Draggable } = VM.require(
+//   "video.every.near/widget/Library.Draggable"
+// ) || {
+//   href: () => {},
+// };
 
 const { tab } = props;
 
@@ -22,14 +25,31 @@ const tabs = {
     { label: "overview", widget: "video.every.near/widget/Library.Overview" },
   ],
   // livepeer: [
+  // subaccounts video -> every -> near
+  // / widget namespace
+  // / name of the widget
+  // . designated file structure
+
   //   { label: "player", widget: "video.every.near/widget/Library.Player" },
   //   { label: "creator", widget: "video.every.near/widget/Library.Creator" },
   // ],
   player: [
     { label: "player", widget: "video.every.near/widget/Player.Player" },
     {
-      label: "upload video",
-      widget: "video.every.near/widget/Player.UploadVideo",
+      label: "get upload url",
+      widget: "video.every.near/widget/Player.GetUploadUrl",
+    },
+    {
+      label: "direct upload",
+      widget: "video.every.near/widget/Player.DirectUploadAsset",
+    },
+    {
+      label: "resumable upload",
+      widget: "video.every.near/widget/Player.ResumableUploadAsset",
+    },
+    {
+      label: "debug",
+      widget: "video.every.near/widget/Player.Debug",
     },
   ],
   broadcast: [
@@ -140,6 +160,8 @@ const StyledLink = styled.div`
   }
 `;
 
+// const [activateDebug, setActivateDebug] = useState(false);
+
 return (
   <LibraryWrapper>
     <HeroBanner />
@@ -148,6 +170,21 @@ return (
         {Object.keys(tabs).map((tab) => {
           return (
             <div className="title">
+              {
+                // tab === "player" && (
+                //   <>
+                //     <label>
+                //       Show debug component:
+                //       <input
+                //         type="checkbox"
+                //         checked={isChecked}
+                //         onChange={() => setActivateDebug(!activateDebug)}
+                //       />
+                //     </label>
+                //     <Player.Debug />
+                //   </>
+                // )
+              }
               <p>{tab}</p>
               <div
                 className="d-flex flex-md-column"

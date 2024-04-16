@@ -13,10 +13,6 @@ return (
       <div className="col">
         <div>
           <h1>Player</h1>
-          <Widget
-            src="trylivepeer.near/widget/UploadVideo"
-            props={playerData}
-          />
           <Widget src="trylivepeer.near/widget/Player" props={playerData} />
         </div>
       </div>
