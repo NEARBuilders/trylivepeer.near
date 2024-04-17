@@ -128,7 +128,46 @@ return (
     </div>
     <div>
       <Heading> Preview </Heading>
-      <PreviewContent>Widget</PreviewContent>
+      <PreviewContent>
+        <Files
+          multiple={false}
+          accepts={["video/*"]}
+          minFileSize={1}
+          clickable
+          className="files-button"
+          onChange={(files) => {
+            if (!files || !files.length) return;
+            const [body] = files;
+            State.update({ currentUpload: body });
+          }}
+        >
+          Stage Video
+        </Files>
+        <Widget
+          src={"efiz.near/widget/Livepeer.Creator"}
+          props={{
+            video: state.currentUpload,
+            metadata: { title, description },
+            handleStatus: (status) => {
+              console.log(status);
+            },
+            handleProgress: (progress) => {
+              console.log(progress);
+            },
+            handleError: (error) => {
+              console.log(assets);
+            },
+            handleAssets: (assets) => {
+              console.log(assets);
+            },
+            Button: ({ onClick, disabled }) => (
+              <button onClick={onClick} disabled={disabled}>
+                Upload to Livepeer
+              </button>
+            ),
+          }}
+        />
+      </PreviewContent>
     </div>
     <UsageContent>
       <Heading>Usage</Heading>

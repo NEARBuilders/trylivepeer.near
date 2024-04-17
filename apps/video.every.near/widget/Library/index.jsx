@@ -12,10 +12,11 @@ const { href } = VM.require("buildhub.near/widget/lib.url") || {
   href: () => {},
 };
 
+// TODO: React objects shouldn't be dereferenced
 // const { Draggable } = VM.require(
 //   "video.every.near/widget/Library.Draggable"
 // ) || {
-//   href: () => {},
+//   href: () => <p>Draggable not present</p>,
 // };
 
 // TODO: why this is not working?
@@ -188,20 +189,18 @@ return (
         {Object.keys(tabs).map((tab) => {
           return (
             <div className="title">
-              {
-                // tab ===  "player" && (
-                //   <>
-                //     <label>
-                //       Show debug component:
-                //       <input
-                //         type="checkbox"
-                //         checked={isChecked}
-                //         onChange={() => setActivateDebug(!activateDebug)}
-                //       />
-                //     </label>
-                //   </>
-                // )
-              }
+              {tab === "player" && (
+                <>
+                  <label>
+                    Show debug component:
+                    <input
+                      type="checkbox"
+                      checked={isChecked}
+                      onChange={() => setActivateDebug(!activateDebug)}
+                    />
+                  </label>
+                </>
+              )}
               <p>{tab}</p>
               <div
                 className="d-flex flex-md-column"
