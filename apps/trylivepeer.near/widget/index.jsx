@@ -53,6 +53,7 @@ const CSS = styled.div`
 
 return (
   <CSS>
+    <h1>CIAO</h1>
     <Widget src="every.near/widget/app.view" props={{ config, ...props }} />
   </CSS>
 );

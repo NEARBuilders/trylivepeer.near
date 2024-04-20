@@ -8,8 +8,7 @@
     "bw": "bos-workspace",
     "dev": "pnpm run dev:gateway && pnpm run dev:apps",
     "dev:gateway": "cd gateway && pnpm run build",
-    "dev:apps": "pnpm run bw ws dev -g ./gateway/dist",
-    "init": "git submodule update --init --recursive && pnpm install"
+    "dev:apps": "pnpm run bw ws dev"
   },
   "devDependencies": {
     "bos-workspace": "^1.0.0-alpha",
