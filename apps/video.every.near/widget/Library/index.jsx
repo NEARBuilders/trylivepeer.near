@@ -41,7 +41,7 @@ const tabs = {
   //   { label: "creator", widget: "video.every.near/widget/Library.Creator" },
   // ],
   player: [
-    { label: "player", widget: "video.every.near/widget/Player.Player" },
+    { label: "player", widget: "video.every.near/widget/Library.Player" },
     {
       label: "get upload url",
       widget: "video.every.near/widget/Player.GetUploadUrl",
@@ -135,7 +135,7 @@ const SideBar = styled.div`
 `;
 
 const Content = styled.div`
-  grid-column: span 6 / span 6;
+  grid-column: span 9 / span 9;
   border-radius: 24px;
   border: 1px solid #c7c7c7;
   padding: 4rem;
@@ -149,17 +149,17 @@ const Content = styled.div`
   }
 `;
 
-const RightBar = styled.div`
-  grid-column: span 3 / span 3;
-  height: 100%;
-  display: flex;
-  padding: 24px 12px;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 14px;
-  border-radius: 24px;
-  border: 1px solid #c7c7c7;
-`;
+// const RightBar = styled.div`
+//   grid-column: span 3 / span 3;
+//   height: 100%;
+//   display: flex;
+//   padding: 24px 12px;
+//   flex-direction: column;
+//   align-items: flex-start;
+//   gap: 14px;
+//   border-radius: 24px;
+//   border: 1px solid #c7c7c7;
+// `;
 
 const labelToFind = props.tab;
 const activeTab =
@@ -191,14 +191,14 @@ return (
             <div className="title">
               {tab === "player" && (
                 <>
-                  <label>
+                  {/* <label>
                     Show debug component:
                     <input
                       type="checkbox"
                       checked={isChecked}
                       onChange={() => setActivateDebug(!activateDebug)}
                     />
-                  </label>
+                  </label> */}
                 </>
               )}
               <p>{tab}</p>
@@ -239,9 +239,9 @@ return (
       <Content>
         <Widget src={activeTab.widget} loading="" />
       </Content>
-      <RightBar>
+      {/* <RightBar>
         <Widget src={"video.every.near/widget/Player.Debug"} loading="" />
-      </RightBar>
+      </RightBar> */}
     </GridContainer>
   </LibraryWrapper>
 );

@@ -105,9 +105,10 @@ return (
       </h1>
     </div>
     <div>
-      {" "}
       <Heading> Preview </Heading>
-      <PreviewContent>Widget</PreviewContent>
+      <PreviewContent>
+        <Widget src="video.every.near/widget/Player.Player" />
+      </PreviewContent>
     </div>
     <UsageContent>
       <Heading>Usage</Heading>

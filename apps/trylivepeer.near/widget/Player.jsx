@@ -3,6 +3,6 @@
 return (
   <>
     <Player.GetPlaybackId />
-    <Player.Display value={props.key} props={props.playerProps} />
+    <Player.Display value={props.key} {...props.playerProps} />
   </>
 );
