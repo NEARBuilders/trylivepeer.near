@@ -308,7 +308,10 @@ return (
               },
             },
             Item: (p) => (
-              <Widget src="video.every.near/widget/card" props={{ ...p }} />
+              <Widget
+                src="video.every.near/widget/Components.suggested-video"
+                props={{ ...p }}
+              />
             ),
             Layout: List,
             buildPath: (item) => `${item.accountId}/thing/${item.value.id}`,
