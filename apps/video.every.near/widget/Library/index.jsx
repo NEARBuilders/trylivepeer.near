@@ -44,29 +44,29 @@ const tabs = {
     { label: "player", widget: "video.every.near/widget/Library.Player" },
     {
       label: "get upload url",
-      widget: "video.every.near/widget/Player.GetUploadUrl",
+      widget: "video.every.near/widget/Library.GetUploadUrl",
     },
     {
       label: "direct upload",
-      widget: "video.every.near/widget/Player.DirectUploadAsset",
+      widget: "video.every.near/widget/Library.DirectUploadAsset",
     },
     {
       label: "resumable upload",
-      widget: "video.every.near/widget/Player.ResumableUploadAsset",
+      widget: "video.every.near/widget/Library.ResumableUploadAsset",
     },
     {
-      label: "debug",
-      widget: "video.every.near/widget/Player.Debug",
+      label: "sandbox",
+      widget: "video.every.near/widget/Player.Sandbox",
     },
   ],
   broadcast: [
     {
       label: "broadcast",
-      widget: "video.every.near/widget/Broadcast.Broadcast",
+      widget: "video.every.near/widget/Library.Broadcast",
     },
     {
       label: "generate stream",
-      widget: "video.every.near/widget/Broadcast.GenerateStream",
+      widget: "video.every.near/widget/Library.GenerateStream",
     },
   ],
 };
