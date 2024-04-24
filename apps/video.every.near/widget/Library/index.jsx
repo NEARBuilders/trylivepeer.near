@@ -41,22 +41,26 @@ const tabs = {
   //   { label: "creator", widget: "video.every.near/widget/Library.Creator" },
   // ],
   player: [
-    { label: "player", widget: "video.every.near/widget/Library.Player" },
+    { label: "Player", widget: "video.every.near/widget/Library.Player" },
     {
-      label: "get upload url",
+      label: "GetUploadUrl",
       widget: "video.every.near/widget/Library.GetUploadUrl",
     },
     {
-      label: "direct upload",
+      label: "DirectUpload",
       widget: "video.every.near/widget/Library.DirectUploadAsset",
     },
     {
-      label: "resumable upload",
+      label: "ResumableUpload",
       widget: "video.every.near/widget/Library.ResumableUploadAsset",
     },
     {
-      label: "sandbox",
-      widget: "video.every.near/widget/Player.Sandbox",
+      label: "GetSrc",
+      widget: "video.every.near/widget/Library.GetSrc",
+    },
+    {
+      label: "Sandbox",
+      widget: "video.every.near/widget/Library.Sandbox",
     },
   ],
   broadcast: [

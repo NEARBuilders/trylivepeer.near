@@ -1,6 +1,1 @@
-return (
-  <>
-    <Player.GetPlaybackId />
-    <Player.Display value={props.key} props={props.playerProps} />
-  </>
-);
+return <Player.Display value={props.key} props={props.playerProps} />;

@@ -2,7 +2,7 @@
 // which renders gateway/components/Player
 return (
   <>
-    <Player.GetPlaybackId />
+    <Player.GetSrc />
     <Player.Display value={props.key} {...props.playerProps} />
   </>
 );

@@ -33,7 +33,7 @@ const PreviewContent = styled.div`
 
 const WidgetCode = `
 \`\`\`js
-<Widget src={"efiz.near/widget/Player.ResumableUploadAsset"} />
+<Widget src={"efiz.near/widget/Player.GetSrc"} />
 \`\`\`
 `;
 
@@ -94,30 +94,75 @@ return (
           fontWeight: "",
         }}
       >
-        ResumableUploadAsset
+        GetSrc
       </h1>
     </div>
     <div>
       <Heading> Preview </Heading>
       <PreviewContent>
-        <Widget src="video.every.near/widget/Player.ResumableUploadAsset" />
+        <Widget src="video.every.near/widget/Player.GetSrc" />
       </PreviewContent>
     </div>
     <div>
       <Heading>Description</Heading>
       <p>
-        This component will allow you to upload an asset to Livepeer Studio
-        using the tus library. This upload supports slow connections and
-        interruptions and it's generally more reliable than DirectUploadAsset,
-        especially when the asset size is big. Before uploading you need to
-        generate the upload url using the `GetUploadUrl` component. After the
-        upload is finished, you can generate the `src` object necessary for the
-        player to display the video using the `GetSrc` component.
+        This component will generate the `src` object necessary for the `Player`
+        component to display the video.
       </p>
     </div>
     <UsageContent>
       <Heading>Usage</Heading>
       <Markdown text={WidgetCode} />
+    </UsageContent>
+    <UsageContent>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th
+              style={{
+                fontWeight: 600,
+              }}
+            >
+              Error name
+            </th>
+            <th
+              style={{
+                fontWeight: 600,
+              }}
+            >
+              Reason
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td
+              style={{
+                fontFamily: "monospace",
+              }}
+            >
+              not found
+            </td>
+            <td>
+              the playbackId to generate the src object has not been found in
+              your Livepeer Dashboard
+            </td>
+          </tr>
+          <tr>
+            <td
+              style={{
+                fontFamily: "monospace",
+              }}
+            >
+              asset is not ready for playback
+            </td>
+            <td>
+              Livepeer Studio has not finished processing the asset or the asset
+              has not yet been uploaded.
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </UsageContent>
   </Container>
 );

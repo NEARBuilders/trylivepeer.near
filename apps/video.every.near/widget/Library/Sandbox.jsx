@@ -7,7 +7,7 @@ return (
     <h4>2. or with resumable upload (more reliable):</h4>
     <Player.ResumableUploadAsset />
     <h4>3. get the `src` object</h4>
-    <Player.GetPlaybackId />
+    <Player.GetSrc />
     <h4>4. Display the asset</h4>
     <Player.Display value={props.key} props={props.playerProps} />
     <Player.Debug />

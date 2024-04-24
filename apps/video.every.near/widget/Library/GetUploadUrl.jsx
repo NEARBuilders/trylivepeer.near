@@ -33,14 +33,7 @@ const PreviewContent = styled.div`
 
 const WidgetCode = `
 \`\`\`js
-<Widget
-src={"efiz.near/widget/Livepeer.Player"}
-props={{
-  title: "Original Keyboard Cat!",
-  playbackId: "8b3bdqjtdj4jsjwa",
-  PosterImage: <img src="https://example.com" alt={"Original Keyboard Cat!"} />
-}}
-/>
+<Widget src={"efiz.near/widget/Player.GetUploadUrl"} />
 \`\`\`
 `;
 
@@ -112,7 +105,17 @@ return (
     </div>
     <div>
       <Heading>Description</Heading>
-      <p>This component...</p>
+      <p>
+        This component, given the asset name, will return the upload urls
+        necessary to upload an asset and will create a playbackId necessary for
+        the Player component to display the video.
+      </p>
+      <p>
+        With one url you can upload the asset using the `DirectUploadAsset`
+        component. With the tus url you can upload the asset using the
+        `ResumableUploadAsset` component, which is more reliable, especially
+        when the connection is slow.
+      </p>
     </div>
     <UsageContent>
       <Heading>Usage</Heading>
