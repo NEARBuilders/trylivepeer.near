@@ -59,18 +59,30 @@ const tabs = {
       widget: "video.every.near/widget/Library.GetSrc",
     },
     {
-      label: "Sandbox",
-      widget: "video.every.near/widget/Library.Sandbox",
+      label: "PlayerApiKey",
+      widget: "video.every.near/widget/Library.PlayerApiKey",
+    },
+    {
+      label: "Player Sandbox",
+      widget: "video.every.near/widget/Library.PlayerSandbox",
     },
   ],
   broadcast: [
     {
-      label: "broadcast",
+      label: "Broadcast",
       widget: "video.every.near/widget/Library.Broadcast",
     },
     {
-      label: "generate stream",
+      label: "GenerateStream",
       widget: "video.every.near/widget/Library.GenerateStream",
+    },
+    {
+      label: "ApiKey",
+      widget: "video.every.near/widget/Library.BroadcastApiKey",
+    },
+    {
+      label: "Broadcast Sandbox",
+      widget: "video.every.near/widget/Library.BroadcastSandbox",
     },
   ],
 };
