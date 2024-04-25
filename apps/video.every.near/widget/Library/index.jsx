@@ -77,7 +77,7 @@ const tabs = {
       widget: "video.every.near/widget/Library.GenerateStream",
     },
     {
-      label: "ApiKey",
+      label: "Broadcast ApiKey",
       widget: "video.every.near/widget/Library.BroadcastApiKey",
     },
     {

@@ -112,7 +112,10 @@ return (
     </div>
     <div>
       <Heading>Description</Heading>
-      <p>This component...</p>
+      <p>
+        This component will generate a stream key given a name necessary for the
+        Broadcast.Player component to start a live stream.
+      </p>
     </div>
     <UsageContent>
       <Heading>Usage</Heading>

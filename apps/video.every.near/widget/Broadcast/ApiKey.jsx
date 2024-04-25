@@ -1,1 +1,0 @@
-return <Broadcast.ApiKey />;
