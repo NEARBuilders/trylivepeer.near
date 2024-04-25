@@ -87,6 +87,10 @@ const PropertiesContent = styled.div`
   }
 `;
 
+const MonospaceText = styled.span`
+  font-family: monospace;
+`;
+
 return (
   <Container>
     <div>
@@ -147,7 +151,8 @@ return (
                 fontWeight: 600,
               }}
             >
-              Description
+              This component enables the configuration of the Livepeer Studio
+              API key.
             </th>
           </tr>
         </thead>
@@ -163,9 +168,12 @@ return (
             <td>boolean</td>
             <td>false</td>
             <td>
-              When the component is automated it doesn't display UI and will set
-              the apiKey in the Broadcast component player based on the property
-              "apiKey"
+              When automated, this component operates without a user interface
+              and automatically configures the
+              <MonospaceText>apiKey</MonospaceText> in the
+              <MonospaceText>Broadcast.Player</MonospaceText>
+              component using the specified{" "}
+              <MonospaceText>apiKey</MonospaceText> property.
             </td>
           </tr>
           <tr>
@@ -178,7 +186,10 @@ return (
             </td>
             <td>string</td>
             <td>""</td>
-            <td>value of the apiKey set by the component.</td>
+            <td>
+              Value of the <MonospaceText>apiKey</MonospaceText> as configured
+              by the component.
+            </td>
           </tr>
         </tbody>
       </table>

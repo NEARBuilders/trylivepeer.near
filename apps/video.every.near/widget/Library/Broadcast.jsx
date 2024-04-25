@@ -105,7 +105,10 @@ return (
     </div>
     <div>
       <Heading>Description</Heading>
-      <p>This component given a stream key will start a video live stream.</p>
+      <p>
+        This component initiates a live video stream using a provided stream
+        key.
+      </p>
     </div>
     <UsageContent>
       <Heading>Usage</Heading>

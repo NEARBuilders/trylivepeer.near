@@ -81,6 +81,10 @@ const PropertiesContent = styled.div`
   }
 `;
 
+const MonospaceText = styled.span`
+  font-family: monospace;
+`;
+
 return (
   <Container>
     <div>
@@ -106,13 +110,14 @@ return (
     <div>
       <Heading>Description</Heading>
       <p>
-        This component will allow you to upload an asset to Livepeer Studio
-        using the tus library. This upload supports slow connections and
-        interruptions and it's generally more reliable than DirectUploadAsset,
-        especially when the asset size is big. Before uploading you need to
-        generate the upload url using the `GetUploadUrl` component. After the
-        upload is finished, you can generate the `src` object necessary for the
-        player to display the video using the `GetSrc` component.
+        This component facilitates the uploading of large assets to Livepeer
+        Studio via the tus library, enhancing reliability, especially over slow
+        or unstable connections. To initiate an upload, generate an upload URL
+        using the <MonospaceText>GetUploadUrl</MonospaceText> component. Upon
+        completion of the upload, utilize the
+        <MonospaceText>GetSrc</MonospaceText> component to generate the
+        <MonospaceText>src</MonospaceText>
+        object required for video playback in the player component.
       </p>
     </div>
     <UsageContent>

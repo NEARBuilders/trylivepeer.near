@@ -81,6 +81,10 @@ const PropertiesContent = styled.div`
   }
 `;
 
+const MonospaceText = styled.span`
+  font-family: monospace;
+`;
+
 return (
   <Container>
     <div>
@@ -105,17 +109,14 @@ return (
     </div>
     <div>
       <Heading>Description</Heading>
-      <p>
-        This component, given the asset name, will return the upload urls
-        necessary to upload an asset and will create a playbackId necessary for
-        the Player component to display the video.
-      </p>
-      <p>
-        With one url you can upload the asset using the `DirectUploadAsset`
-        component. With the tus url you can upload the asset using the
-        `ResumableUploadAsset` component, which is more reliable, especially
-        when the connection is slow.
-      </p>
+      This component accepts an asset name and provides the upload URLs required
+      for asset uploads, as well as generating a playback ID essential for the
+      <MonospaceText>Player</MonospaceText> component to display the video.
+      Utilize the <MonospaceText>DirectUploadAsset</MonospaceText>
+      component for standard uploads via a single URL. For more robust uploads,
+      especially in conditions of slow connectivity, use the
+      <MonospaceText>ResumableUploadAsset</MonospaceText> component with the
+      provided tus URL.
     </div>
     <UsageContent>
       <Heading>Usage</Heading>

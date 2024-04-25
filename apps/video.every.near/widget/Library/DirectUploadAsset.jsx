@@ -81,6 +81,10 @@ const PropertiesContent = styled.div`
   }
 `;
 
+const MonospaceText = styled.span`
+  font-family: monospace;
+`;
+
 return (
   <Container>
     <div>
@@ -106,11 +110,12 @@ return (
     <div>
       <Heading>Description</Heading>
       <p>
-        This component will allow you to upload an asset to Livepeer Studio.
-        Before uploading you need to generate the upload url using the
-        `GetUploadUrl` component. After the upload is finished, you can generate
-        the `src` object necessary for the player to display the video using the
-        `GetSrc` component.
+        This component facilitates asset uploads to Livepeer Studio. Begin by
+        generating the upload URL with the{" "}
+        <MonospaceText>GetUploadUrl</MonospaceText> component. Once the upload
+        is complete, use the <MonospaceText>GetSrc</MonospaceText> component to
+        generate the <MonospaceText>src</MonospaceText> object required for the
+        player to display the video.
       </p>
     </div>
     <UsageContent>

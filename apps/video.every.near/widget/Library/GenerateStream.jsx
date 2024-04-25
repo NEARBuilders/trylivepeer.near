@@ -88,6 +88,10 @@ const PropertiesContent = styled.div`
   }
 `;
 
+const MonospaceText = styled.span`
+  font-family: monospace;
+`;
+
 return (
   <Container>
     <div>
@@ -113,8 +117,9 @@ return (
     <div>
       <Heading>Description</Heading>
       <p>
-        This component will generate a stream key given a name necessary for the
-        Broadcast.Player component to start a live stream.
+        This component generates a stream key based on a specified name, which
+        is essential for the <MonospaceText>Broadcast.Player</MonospaceText>{" "}
+        component to initiate a live stream.
       </p>
     </div>
     <UsageContent>

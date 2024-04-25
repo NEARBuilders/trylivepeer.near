@@ -111,7 +111,9 @@ return (
     </div>
     <div>
       <Heading>Description</Heading>
-      <p>This component allow you to set the Livepeer Studio api key.</p>
+      <p>
+        This component enables the configuration of the Livepeer Studio API key.
+      </p>
     </div>
     <UsageContent>
       <Heading>Usage</Heading>

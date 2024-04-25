@@ -114,9 +114,9 @@ return (
       <div>
         <Heading>Description</Heading>
         <p>
-          This component will display a video. You can create an asset through
-          the component's api and upload a video or you can provide directly the
-          information needed to display a video you already have.
+          This component facilitates video display. Users have the option to
+          generate a new asset via the component's API for video uploads or
+          directly supply the necessary details to display an existing video.
         </p>
       </div>
       <Heading>Usage</Heading>
