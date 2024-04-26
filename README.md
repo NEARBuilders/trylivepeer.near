@@ -43,10 +43,3 @@ Example code: https://docs.livepeer.org/sdks/react/Player
 https://docs.livepeer.org/sdks/react/migration/migration-4.x#broadcast
 
 Example code: https://docs.livepeer.org/sdks/react/Broadcast
-
-### TODO:
-
-- [x] Player Component
-- [x] Broadcast Component
-- [ ] ICreate clone of SDK for VM.require module (@mattb.near) : livepeer-js : https://docs.livepeer.org/sdks/
-- [ ] Ability to set default workspace
