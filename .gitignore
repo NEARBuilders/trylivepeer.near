@@ -3,4 +3,35 @@ node_modules
 .DS_Store
 
 /build
-/gateway
+
+gateway/node_modules
+gateway/.pnp
+gateway/.pnp.js
+
+# testing
+gateway/coverage
+gateway/test-results
+
+# production
+gateway/build
+gateway/dist
+
+# misc
+gateway/.DS_Store
+gateway/.env.local
+gateway/.env.development.local
+gateway/.env.test.local
+gateway/.env.production.local
+gateway/.wrangler/
+
+gateway/npm-debug.log*
+gateway/yarn-debug.log*
+gateway/yarn-error.log*
+
+#IDE
+gateway/.idea
+
+gateway/target
+gateway/neardev
+
+gateway/.env
