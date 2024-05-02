@@ -97,6 +97,12 @@ function App(props) {
           "Player.ApiKey": (props) => {
             return <VideoPlayer.ApiKey {...props} />;
           },
+          "Player.GetAssets": (props) => {
+            return <VideoPlayer.GetAssets {...props} />;
+          },
+          "Player.FileUploader": (props) => {
+            return <VideoPlayer.FileUploader {...props} />;
+          },
           Broadcast: (props) => {
             return <BroadcastComponent {...props} />;
           },

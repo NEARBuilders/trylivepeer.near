@@ -11,12 +11,13 @@ function createLivepeerInstance(apiKey) {
   return livepeerInstance;
 }
 
-const GetUploadUrl = () => {
+const GetUploadUrl = ({ url }) => {
   const {
     setAssetName,
     setPlaybackId,
     setResumableUploadUrl,
     setUploadUrl,
+    setSrc,
     apiKey,
   } = useStore();
 
@@ -26,7 +27,28 @@ const GetUploadUrl = () => {
 
   const livepeerInstance = createLivepeerInstance(API_KEY);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
+    if (url) {
+      // if url it means I want to communicate with the back-end
+      try {
+        const src = await fetch(url);
+
+        if (!src) {
+          console.log("-- error receiving data");
+          return;
+        }
+
+        src = src.json();
+
+        setSrc(src);
+        return;
+      } catch (error) {
+        console.log("Error:");
+        console.log(error.message);
+        return;
+      }
+    }
+
     event.preventDefault();
     generateUploadLink();
     setAssetName(name);
