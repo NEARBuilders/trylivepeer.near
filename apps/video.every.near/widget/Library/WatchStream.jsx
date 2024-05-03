@@ -104,6 +104,7 @@ return (
     <div>
       <Heading> Preview </Heading>
       <PreviewContent>
+        <Widget src="video.every.near/widget/Broadcast.Broadcast" />
         <Widget src="video.every.near/widget/Broadcast.WatchStream" />
       </PreviewContent>
     </div>
