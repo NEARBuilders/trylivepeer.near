@@ -33,7 +33,7 @@ const PreviewContent = styled.div`
 
 const WidgetCode = `
 \`\`\`js
-<Widget src={"efiz.near/widget/Player.GetSrc"} />
+<Widget src={"efiz.near/widget/Player.GetAssets"} />
 \`\`\`
 `;
 
@@ -98,7 +98,7 @@ return (
           fontWeight: "",
         }}
       >
-        GetSrc
+        Get Assets
       </h1>
     </div>
     <div>
@@ -110,65 +110,20 @@ return (
     <div>
       <Heading>Description</Heading>
       <p>
-        This component is responsible for generating the
-        <MonospaceText>src</MonospaceText> object required by the
-        <MonospaceText>Player</MonospaceText>
-        component to facilitate video display.
+        This component will fetch the list of assets in your Livepeer account.
+        It requires a the{" "}
+        <a
+          href="https://github.com/bb-face/livepeer-web-server"
+          target="_blank"
+        >
+          Livepeer web-server
+        </a>
+        up and running.
       </p>
     </div>
     <UsageContent>
       <Heading>Usage</Heading>
       <Markdown text={WidgetCode} />
-    </UsageContent>
-    <UsageContent>
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th
-              style={{
-                fontWeight: 600,
-              }}
-            >
-              Error name
-            </th>
-            <th
-              style={{
-                fontWeight: 600,
-              }}
-            >
-              Reason
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td
-              style={{
-                fontFamily: "monospace",
-              }}
-            >
-              not found
-            </td>
-            <td>
-              the playbackId to generate the src object has not been found in
-              your Livepeer Dashboard
-            </td>
-          </tr>
-          <tr>
-            <td
-              style={{
-                fontFamily: "monospace",
-              }}
-            >
-              asset is not ready for playback
-            </td>
-            <td>
-              Livepeer Studio has not finished processing the asset or the asset
-              has not yet been uploaded.
-            </td>
-          </tr>
-        </tbody>
-      </table>
     </UsageContent>
   </Container>
 );

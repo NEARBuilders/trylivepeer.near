@@ -33,7 +33,7 @@ const PreviewContent = styled.div`
 
 const WidgetCode = `
 \`\`\`js
-<Widget src={"efiz.near/widget/Broadcast.Player"} />
+<Widget src={"efiz.near/widget/Broadcast.WatchStream"} />
 \`\`\`
 `;
 
@@ -81,6 +81,10 @@ const PropertiesContent = styled.div`
   }
 `;
 
+const MonospaceText = styled.span`
+  font-family: monospace;
+`;
+
 return (
   <Container>
     <div>
@@ -94,7 +98,7 @@ return (
           fontWeight: "",
         }}
       >
-        Broadcast
+        Watch stream
       </h1>
     </div>
     <div>
@@ -107,8 +111,8 @@ return (
     <div>
       <Heading>Description</Heading>
       <p>
-        This component initiates a live video stream using a provided stream
-        key.
+        This component allow the user to watch the desired stream by providing
+        the stream <MonospaceText>playbackId</MonospaceText>.
       </p>
     </div>
     <UsageContent>
