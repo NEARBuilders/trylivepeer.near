@@ -1,25 +1,19 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { getSrc } from "@livepeer/react/external";
-import { Livepeer } from "livepeer";
 
+import createLivepeerInstance from "./LivepeerInstance";
 import { useStore } from "./state";
-
-function createLivepeerInstance(apiKey) {
-  const livepeerInstance = new Livepeer({
-    apiKey,
-  });
-
-  return livepeerInstance;
-}
 
 const GetSrc = () => {
   const { setSrc, setError, playbackId, apiKey } = useStore();
+  const [livepeer, setLivepeer] = useState(null);
 
-  const API_KEY = apiKey || process.env.REACT_APP_LIVEPEER_STUDIO_API_KEY;
+  useEffect(() => {
+    if (!apiKey) return;
+    setLivepeer(createLivepeerInstance(apiKey));
+  }, [apiKey]);
 
-  const livepeerInstance = createLivepeerInstance(API_KEY);
-
-  const getPlaybackSource = async (playbackId, livepeer = livepeerInstance) => {
+  const getPlaybackSource = async (playbackId) => {
     if (!livepeer) throw new Error("Livepeer instance not found");
 
     try {
@@ -45,7 +39,7 @@ const GetSrc = () => {
 
   return (
     <button type="button" onClick={fetchSrc}>
-      get src
+      Get asset Src
     </button>
   );
 };

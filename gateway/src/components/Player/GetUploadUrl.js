@@ -1,15 +1,7 @@
-import React, { useState } from "react";
-import { Livepeer } from "livepeer";
+import React, { useState, useEffect } from "react";
 
+import createLivepeerInstance from "./LivepeerInstance";
 import { useStore } from "./state";
-
-function createLivepeerInstance(apiKey) {
-  const livepeerInstance = new Livepeer({
-    apiKey,
-  });
-
-  return livepeerInstance;
-}
 
 const GetUploadUrl = ({ url }) => {
   const {
@@ -21,11 +13,14 @@ const GetUploadUrl = ({ url }) => {
     apiKey,
   } = useStore();
 
+  const [livepeer, setLivepeer] = useState(null);
+
+  useEffect(() => {
+    if (!apiKey) return;
+    setLivepeer(createLivepeerInstance(apiKey));
+  }, [apiKey]);
+
   const [name, setName] = useState("");
-
-  const API_KEY = apiKey || process.env.REACT_APP_LIVEPEER_STUDIO_API_KEY;
-
-  const livepeerInstance = createLivepeerInstance(API_KEY);
 
   const handleSubmit = async (event) => {
     if (url) {
@@ -55,7 +50,7 @@ const GetUploadUrl = ({ url }) => {
   };
 
   const generateUploadLink = async () => {
-    const result = await livepeerInstance.asset.create({
+    const result = await livepeer.asset.create({
       name,
     });
 

@@ -1,31 +1,21 @@
 import React, { useState } from "react";
-import { Livepeer } from "livepeer";
 import { getSrc } from "@livepeer/react/external";
+
+import createLivepeerInstance from "./LivepeerInstance";
 import { useStore } from "./state";
-
-function createLivepeerInstance(apiKey) {
-  const livepeerInstance = new Livepeer({
-    apiKey,
-  });
-
-  return livepeerInstance;
-}
-
-const API_KEY = process.env.REACT_APP_LIVEPEER_STUDIO_API_KEY;
-
-const livepeerInstance = createLivepeerInstance(API_KEY);
 
 const FileUploader = () => {
   const { setError, setSrc, setPlaybackId } = useStore();
-
   const [file, setFile] = useState(null);
   const [fileName, setFileName] = useState("");
+  const [livepeer, setLivepeer] = useState(null);
 
-  const getPlaybackSource = async (
-    playbackId,
-    livepeer = livepeerInstance,
-    retryCount = 10
-  ) => {
+  useEffect(() => {
+    if (!apiKey) return;
+    setLivepeer(createLivepeerInstance(apiKey));
+  }, [apiKey]);
+
+  const getPlaybackSource = async (playbackId, retryCount = 10) => {
     if (!livepeer) throw new Error("Livepeer instance not found");
 
     const attemptFetch = async (attemptsRemaining) => {

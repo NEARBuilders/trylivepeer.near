@@ -9,39 +9,28 @@ import {
 } from "@livepeer/react/assets";
 import { getSrc } from "@livepeer/react/external";
 
+import createLivepeerInstance from "./LivepeerInstance";
 import { useStore } from "./state";
-
 import Settings from "./Settings";
-
-import { Livepeer } from "livepeer";
-
-function createLivepeerInstance(apiKey) {
-  const livepeerInstance = new Livepeer({
-    apiKey,
-  });
-
-  return livepeerInstance;
-}
 
 const Display = (props) => {
   const { src, setSrc, setPlaybackId, setError, apiKey } = useStore();
 
-  const API_KEY = apiKey || process.env.REACT_APP_LIVEPEER_STUDIO_API_KEY;
-
-  const livepeerInstance = createLivepeerInstance(API_KEY);
-
+  const [livepeer, setLivepeer] = useState(null);
   const [s, setS] = useState();
+
+  useEffect(() => {
+    if (!apiKey) return;
+    setLivepeer(createLivepeerInstance(apiKey));
+  }, [apiKey]);
 
   const { playbackId } = props;
 
-  const getPlaybackSource = async (playbackId, livepeer = livepeerInstance) => {
+  const getPlaybackSource = async (playbackId) => {
     if (!livepeer) throw new Error("Livepeer instance not found");
 
     try {
       const playbackInfo = await livepeer.playback.get(playbackId);
-      // const a = "9bc9jzmv6rdt1gqr";
-      // const playbackInfo = await livepeer.playback.get(a);
-
       const src = getSrc(playbackInfo.playbackInfo);
 
       return src;
@@ -51,7 +40,6 @@ const Display = (props) => {
   };
 
   const fetchSrc = async () => {
-    // const fetchedSrc = await getPlaybackSource(_, livepeer);
     try {
       const fetchedSrc = await getPlaybackSource(playbackId);
       setSrc(fetchedSrc);
