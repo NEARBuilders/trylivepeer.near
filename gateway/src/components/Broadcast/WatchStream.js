@@ -1,10 +1,8 @@
 import React, { useState } from "react";
-import { useStore } from "./state";
 
 const WatchStream = () => {
-  const { setStreamKey } = useStore();
-
   const [inputValue, setInputValue] = useState("");
+  const [streamLink, setStreamLink] = useState("");
 
   const handleChange = (event) => {
     setInputValue(event.target.value);
@@ -12,20 +10,31 @@ const WatchStream = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    setStreamKey(inputValue);
+    setStreamLink(inputValue);
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        value={inputValue}
-        onChange={handleChange}
-        placeholder="Enter stream key to watch"
-      />
-      <p>Current Input: {inputValue}</p>
-      <button type="submit">Watch stream</button>
-    </form>
+    <div>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          value={inputValue}
+          onChange={handleChange}
+          placeholder="Enter playbackId to watch"
+        />
+        <p>Current Input: {inputValue}</p>
+        <button type="submit">Watch stream</button>
+      </form>
+      {streamLink && (
+        <iframe
+          src={`https://lvpr.tv?v=${streamLink}`}
+          frameborder="0"
+          allowfullscreen
+          allow="autoplay; encrypted-media; picture-in-picture"
+          sandbox="allow-same-origin allow-scripts"
+        ></iframe>
+      )}
+    </div>
   );
 };
 
