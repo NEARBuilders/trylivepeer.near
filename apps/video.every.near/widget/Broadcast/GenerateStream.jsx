@@ -1,3 +1,1 @@
-return (
-	<Broadcast.GenerateStream />
-);
+return <Broadcast.GenerateStream />;

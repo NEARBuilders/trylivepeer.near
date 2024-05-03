@@ -115,6 +115,9 @@ function App(props) {
           "Broadcast.Debug": (props) => {
             return <BroadcastComponent.Debug {...props} />;
           },
+          "Broadcast.WatchStream": (props) => {
+            return <BroadcastComponent.WatchStream {...props} />;
+          },
           "Broadcast.ApiKey": (props) => {
             return <BroadcastComponent.ApiKey {...props} />;
           },

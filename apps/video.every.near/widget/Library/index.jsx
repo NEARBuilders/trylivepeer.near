@@ -89,6 +89,10 @@ const tabs = {
       widget: "video.every.near/widget/Library.BroadcastApiKey",
     },
     {
+      label: "Watch Stream",
+      widget: "video.every.near/widget/Library.WatchStream",
+    },
+    {
       label: "Broadcast Sandbox",
       widget: "video.every.near/widget/Library.BroadcastSandbox",
     },
