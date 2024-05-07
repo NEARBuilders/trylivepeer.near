@@ -21,13 +21,24 @@ jobs:
           node-version: "21"
           registry-url: "https://registry.npmjs.org/"
 
+      - name: Check for changes in gateway
+        id: has_changes
+        run: |
+          if git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep -q 'gateway/'; then
+            echo 'changed=true' >> $GITHUB_ENV
+          else
+            echo 'changed=false' >> $GITHUB_ENV
+
       - name: Install dependencies
+        if: env.changed == 'true'
         run: yarn
 
       - name: Build your project
+        if: env.changed == 'true'
         run: yarn build
 
       - name: Publish to npm
+        if: env.changed == 'true'
         run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.PUBLISH_NPM_TOKEN }}
