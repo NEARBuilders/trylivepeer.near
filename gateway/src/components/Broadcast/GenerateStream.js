@@ -6,6 +6,7 @@ const GenerateStream = () => {
 
   const API_KEY = apiKey || process.env.REACT_APP_LIVEPEER_STUDIO_API_KEY;
 
+  const [record, setRecord] = useState(false);
   const [name, setName] = useState("");
 
   const createStream = async (event) => {
@@ -20,6 +21,7 @@ const GenerateStream = () => {
         },
         body: JSON.stringify({
           name,
+          record,
         }),
       });
 
@@ -40,6 +42,14 @@ const GenerateStream = () => {
   return (
     <>
       <form onSubmit={createStream}>
+        <label>
+          Recorded
+          <input
+            type="checkbox"
+            checked={record}
+            onChange={(event) => setRecord(event.target.checked)}
+          />
+        </label>
         <label>
           Stream name:
           <input
