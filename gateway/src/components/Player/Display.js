@@ -45,7 +45,7 @@ const Display = (props) => {
       setSrc(fetchedSrc);
       setS(fetchedSrc);
     } catch (error) {
-      setError(erorr.message);
+      setError(error.message);
     }
   };
 

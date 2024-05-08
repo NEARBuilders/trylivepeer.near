@@ -33,7 +33,7 @@ const GetSrc = () => {
       const fetchedSrc = await getPlaybackSource(playbackId);
       setSrc(fetchedSrc);
     } catch (error) {
-      setError(erorr.message);
+      setError(error.message);
     }
   };
 
