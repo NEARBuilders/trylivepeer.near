@@ -73,9 +73,12 @@ const Display = (props) => {
   }
 
   return (
-    <Player.Root src={s}>
+    <Player.Root src={s} style={{ color: "white" }}>
       <Player.Container>
-        <Player.Video title="Live stream" />
+        <Player.Video
+          style={{ height: "100%", marginLeft: "auto", marginRight: "auto" }}
+          title="Live stream"
+        />
 
         <Player.LoadingIndicator asChild>
           <Loading />
@@ -114,12 +117,24 @@ const Display = (props) => {
                 style={{
                   width: 25,
                   height: 25,
+                  color: "white",
                 }}
               >
-                <Player.PlayingIndicator asChild matcher={false}>
+                <Player.PlayingIndicator
+                  style={{
+                    color: "white",
+                  }}
+                  asChild
+                  matcher={false}
+                >
                   <PlayIcon />
                 </Player.PlayingIndicator>
-                <Player.PlayingIndicator asChild>
+                <Player.PlayingIndicator
+                  style={{
+                    color: "white",
+                  }}
+                  asChild
+                >
                   <PauseIcon />
                 </Player.PlayingIndicator>
               </Player.PlayPauseTrigger>
@@ -132,6 +147,8 @@ const Display = (props) => {
                     backgroundColor: "#ef4444",
                     height: 8,
                     width: 8,
+
+                    color: "white",
                     borderRadius: 9999,
                   }}
                 />
@@ -142,12 +159,25 @@ const Display = (props) => {
                 style={{
                   width: 25,
                   height: 25,
+                  color: "white",
                 }}
               >
-                <Player.VolumeIndicator asChild matcher={false}>
+                <Player.VolumeIndicator
+                  style={{
+                    color: "white",
+                  }}
+                  asChild
+                  matcher={false}
+                >
                   <MuteIcon />
                 </Player.VolumeIndicator>
-                <Player.VolumeIndicator asChild matcher={true}>
+                <Player.VolumeIndicator
+                  style={{
+                    color: "white",
+                  }}
+                  asChild
+                  matcher={true}
+                >
                   <UnmuteIcon />
                 </Player.VolumeIndicator>
               </Player.MuteTrigger>
@@ -192,7 +222,7 @@ const Display = (props) => {
                 />
               </Player.Volume>
             </div>
-            <Settings />
+            <Settings style={{ color: "white" }} />
           </div>
           <Seek
             style={{
@@ -205,19 +235,6 @@ const Display = (props) => {
             }}
           />
         </Player.Controls>
-
-        {/*
-<Player.Controls className="flex items-center justify-center">
-					<Player.PlayPauseTrigger className="w-10 h-10">
-						<Player.PlayingIndicator asChild matcher={false}>
-							<PlayIcon />
-						</Player.PlayingIndicator>
-						<Player.PlayingIndicator asChild>
-							<PauseIcon />
-						</Player.PlayingIndicator>
-					</Player.PlayPauseTrigger>
-				</Player.Controls>
-					*/}
       </Player.Container>
     </Player.Root>
   );
@@ -237,7 +254,7 @@ const Seek = forwardRef(({ children, ...props }, forwardedRef) => (
       <Player.SeekBuffer
         style={{
           position: "absolute",
-          backgroundColor: "rgba(0, 0, 0, 0.5)",
+          backgroundColor: "rgba(255, 255, 255, 0.5)",
           borderRadius: 9999,
           height: "100%",
         }}
