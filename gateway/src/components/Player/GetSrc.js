@@ -11,11 +11,20 @@ const GetSrc = () => {
     const livepeer = createLivepeerInstance();
 
     try {
+      console.log("-- livepeer.playback");
+      // TODO: use livepeer (js) 3.1
       const playbackInfo = await livepeer.playback.get(playbackId);
+      // const srcInfo = await livepeer.asset.get(playbackId);
+
+      console.log("playbackInfo:");
+      console.log(playbackInfo);
+      // console.log(srcInfo);
       const src = getSrc(playbackInfo.playbackInfo);
 
       return src;
     } catch (error) {
+      console.log("-- HERE");
+      console.log(error);
       setError(error.message);
     }
   };
