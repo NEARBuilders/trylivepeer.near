@@ -73,12 +73,6 @@ const Display = (props) => {
     return <p>Loading</p>;
   }
 
-  if (!playbackId && !props.playbackId) {
-    <button type="button" onClick={fetchSrc}>
-      get src
-    </button>;
-  }
-
   return (
     <Player.Root src={src} style={{ color: "white" }}>
       <Player.Container>
