@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import createLivepeerInstance from "./LivepeerInstance";
+import { createLivepeerInstance } from "./LivepeerInstance";
 import { useStore } from "./state";
 
 const GetUploadUrl = ({ url }) => {
@@ -10,15 +10,7 @@ const GetUploadUrl = ({ url }) => {
     setResumableUploadUrl,
     setUploadUrl,
     setSrc,
-    apiKey,
   } = useStore();
-
-  const [livepeer, setLivepeer] = useState(null);
-
-  useEffect(() => {
-    if (!apiKey) return;
-    setLivepeer(createLivepeerInstance(apiKey));
-  }, [apiKey]);
 
   const [name, setName] = useState("");
 
@@ -44,19 +36,24 @@ const GetUploadUrl = ({ url }) => {
       }
     }
 
+    console.log("-- here no url");
     event.preventDefault();
     generateUploadLink();
     setAssetName(name);
   };
 
   const generateUploadLink = async () => {
+    const livepeer = createLivepeerInstance();
     const result = await livepeer.asset.create({
       name,
     });
 
-    setUploadUrl(result.object.url);
-    setResumableUploadUrl(result.object.tusEndpoint);
-    setPlaybackId(result.object.asset.playbackId);
+    console.log("-- here");
+    console.log(result);
+
+    setUploadUrl(result.data.url);
+    setResumableUploadUrl(result.data.tusEndpoint);
+    setPlaybackId(result.data.asset.playbackId);
   };
 
   return (

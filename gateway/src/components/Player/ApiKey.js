@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 import { useStore } from "./state";
+import { createLivepeerInstance } from "./LivepeerInstance";
 
 const ApiKey = () => {
   const { setApiKey } = useStore();
@@ -10,6 +11,7 @@ const ApiKey = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     setApiKey(apiKeyValue);
+    createLivepeerInstance(apiKeyValue);
   };
 
   return (

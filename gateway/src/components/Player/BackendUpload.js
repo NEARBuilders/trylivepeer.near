@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { getSrc } from "@livepeer/react/external";
 
-import createLivepeerInstance from "./LivepeerInstance";
+import { createLivepeerInstance } from "./LivepeerInstance";
 import { useStore } from "./state";
 
 const FileUploader = () => {
