@@ -20,49 +20,40 @@ const Display = (props) => {
   const livepeer = createLivepeerInstance();
 
   const currentPlaybackId = props.playbackId || playbackId;
+  console.log("-- currentPlaybackId");
+  console.log(currentPlaybackId);
 
   const getPlaybackSource = async () => {
-    console.log("-- -- -- in getPlaybackSource");
     if (!livepeer) throw new Error("Livepeer instance not found");
 
     try {
-      console.log("-- -- -- calling livepeer.playback.get");
-      console.log("-- -- -- with playbackId: ", currentPlaybackId);
       const playbackInfo = await livepeer.playback.get(currentPlaybackId);
-      console.log("-- -- -- after livepeer");
       const src = getSrc(playbackInfo.playbackInfo);
-      console.log("-- -- -- src: ", src);
 
       return src;
     } catch (error) {
-      console.log("-- -- -- error:");
-      console.log(error.message);
       setError(error.message);
     }
   };
 
   const fetchSrc = async () => {
     try {
-      console.log("-- calling getPlaybackSource");
       const fetchedSrc = await getPlaybackSource();
 
       setSrc(fetchedSrc);
     } catch (error) {
-      console.log("-- -- error in fetchSrc");
       setError(error.message);
     }
   };
 
   useEffect(() => {
+    setSrc(null);
+
     const asyncGetSrc = async () => {
       if (!livepeer || !currentPlaybackId) {
-        console.log("-- something is missing");
-        console.log(livepeer);
-        console.log(currentPlaybackId);
         return;
       }
 
-      console.log("-- calling fetchSrc");
       await fetchSrc();
     };
 
