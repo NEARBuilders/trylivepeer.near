@@ -51,9 +51,15 @@ const GetUploadUrl = ({ url }) => {
     console.log("-- here");
     console.log(result);
 
-    setUploadUrl(result.data.url);
-    setResumableUploadUrl(result.data.tusEndpoint);
-    setPlaybackId(result.data.asset.playbackId);
+    // // This is for livepeer 3.1
+    // setUploadUrl(result.data.url);
+    // setResumableUploadUrl(result.data.tusEndpoint);
+    // setPlaybackId(result.data.asset.playbackId);
+
+    // This is for livepeer 3.0.2:
+    setUploadUrl(result.object.url);
+    setResumableUploadUrl(result.object.tusEndpoint);
+    setPlaybackId(result.object.asset.playbackId);
   };
 
   return (
