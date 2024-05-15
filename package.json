@@ -6,13 +6,14 @@
   "license": "MIT",
   "scripts": {
     "bw": "bos-workspace",
-    "dev": "pnpm run dev:gateway && pnpm run dev:apps",
-    "dev:gateway": "cd gateway && pnpm run build",
-    "dev:apps": "pnpm run bw ws dev -g gateway/dist/"
+    "dev": "concurrently \"pnpm run dev:gateway\" \"wait-on gateway/dist/index.html && pnpm run dev:apps\"",
+    "dev:apps": "pnpm run bw ws dev -g ./gateway/dist/",
+    "dev:gateway": "cd gateway && pnpm run dev"
   },
   "devDependencies": {
     "bos-workspace": "^1.0.0-alpha",
-    "concurrently": "^8.2.2"
+    "concurrently": "^8.2.2",
+    "wait-on": "^7.2.0"
   },
   "dependencies": {
     "@radix-ui/react-popover": "1.0.7",
