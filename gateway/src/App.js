@@ -14,12 +14,10 @@ import {
   useLocation,
 } from "react-router-dom";
 
-import { VideoPlayer } from "./components/Player/Player";
 import { BroadcastComponent } from "./components/Broadcast/Broadcast";
+import { VideoPlayer } from "./components/Player/Player";
 
 import useRedirectMap from "./useRedirectMap";
-
-const SESSION_STORAGE_REDIRECT_MAP_KEY = "nearSocialVMredirectMap";
 
 function Viewer({ widgetSrc, code, initialProps }) {
   const { components: redirectMap } = useRedirectMap();
@@ -54,95 +52,98 @@ function Viewer({ widgetSrc, code, initialProps }) {
 }
 
 function App(props) {
+  const { src, code, initialProps, rpc, selectorPromise } = props;
   const { initNear } = useInitNear();
 
   useAccount();
   useEffect(() => {
-    initNear &&
-      initNear({
-        networkId: "mainnet",
-        selector: props.selectorPromise,
-        customElements: {
-          Link: (props) => {
-            if (!props.to && props.href) {
-              props.to = props.href;
-              delete props.href;
-            }
-            if (props.to) {
-              props.to = sanitizeUrl(props.to);
-            }
-            return <Link {...props} />;
-          },
-          Player: (props) => {
-            return <VideoPlayer {...props} />;
-          },
-          "Player.Display": (props) => {
-            return <VideoPlayer.Display {...props} />;
-          },
-          "Player.GetSrc": (props) => {
-            return <VideoPlayer.GetSrc {...props} />;
-          },
-          "Player.GetUploadUrl": (props) => {
-            return <VideoPlayer.GetUploadUrl {...props} />;
-          },
-          "Player.DirectUploadAsset": (props) => {
-            return <VideoPlayer.DirectUploadAsset {...props} />;
-          },
-          "Player.ResumableUploadAsset": (props) => {
-            return <VideoPlayer.ResumableUploadAsset {...props} />;
-          },
-          "Player.Debug": (props) => {
-            return <VideoPlayer.Debug {...props} />;
-          },
-          "Player.ApiKey": (props) => {
-            return <VideoPlayer.ApiKey {...props} />;
-          },
-          "Player.GetAssets": (props) => {
-            return <VideoPlayer.GetAssets {...props} />;
-          },
-          "Player.FileUploader": (props) => {
-            return <VideoPlayer.FileUploader {...props} />;
-          },
-          Broadcast: (props) => {
-            return <BroadcastComponent {...props} />;
-          },
-          "Broadcast.Player": (props) => {
-            return <BroadcastComponent.Player {...props} />;
-          },
-          "Broadcast.GenerateStream": (props) => {
-            return <BroadcastComponent.GenerateStream {...props} />;
-          },
-          "Broadcast.Debug": (props) => {
-            return <BroadcastComponent.Debug {...props} />;
-          },
-          "Broadcast.WatchStream": (props) => {
-            return <BroadcastComponent.WatchStream {...props} />;
-          },
-          "Broadcast.ApiKey": (props) => {
-            return <BroadcastComponent.ApiKey {...props} />;
-          },
+    const networkId = "mainnet";
+
+    const config = {
+      networkId: networkId,
+      selector: selectorPromise,
+      customElements: {
+        Link: (props) => {
+          if (!props.to && props.href) {
+            props.to = props.href;
+            delete props.href;
+          }
+          if (props.to) {
+            props.to = sanitizeUrl(props.to);
+          }
+          return <Link {...props} />;
         },
-        features: {
-          enableComponentSrcDataKey: true,
+        Player: (props) => {
+          return <VideoPlayer {...props} />;
         },
-        config: {
-          defaultFinality: undefined,
+        "Player.Display": (props) => {
+          return <VideoPlayer.Display {...props} />;
         },
-      });
+        "Player.GetSrc": (props) => {
+          return <VideoPlayer.GetSrc {...props} />;
+        },
+        "Player.GetUploadUrl": (props) => {
+          return <VideoPlayer.GetUploadUrl {...props} />;
+        },
+        "Player.DirectUploadAsset": (props) => {
+          return <VideoPlayer.DirectUploadAsset {...props} />;
+        },
+        "Player.ResumableUploadAsset": (props) => {
+          return <VideoPlayer.ResumableUploadAsset {...props} />;
+        },
+        "Player.Debug": (props) => {
+          return <VideoPlayer.Debug {...props} />;
+        },
+        "Player.ApiKey": (props) => {
+          return <VideoPlayer.ApiKey {...props} />;
+        },
+        "Player.GetAssets": (props) => {
+          return <VideoPlayer.GetAssets {...props} />;
+        },
+        "Player.FileUploader": (props) => {
+          return <VideoPlayer.FileUploader {...props} />;
+        },
+        Broadcast: (props) => {
+          return <BroadcastComponent {...props} />;
+        },
+        "Broadcast.Player": (props) => {
+          return <BroadcastComponent.Player {...props} />;
+        },
+        "Broadcast.GenerateStream": (props) => {
+          return <BroadcastComponent.GenerateStream {...props} />;
+        },
+        "Broadcast.Debug": (props) => {
+          return <BroadcastComponent.Debug {...props} />;
+        },
+        "Broadcast.WatchStream": (props) => {
+          return <BroadcastComponent.WatchStream {...props} />;
+        },
+        "Broadcast.ApiKey": (props) => {
+          return <BroadcastComponent.ApiKey {...props} />;
+        },
+      },
+      features: {
+        enableComponentSrcDataKey: true,
+      },
+      config: {
+        defaultFinality: undefined,
+      },
+    };
+
+    if (rpc) {
+      config.config.nodeUrl = rpc;
+    }
+
+    initNear && initNear(config);
   }, [initNear]);
 
   const router = createBrowserRouter([
     {
-      path: "/",
+      path: "/*",
       element: (
-        <Viewer
-          widgetSrc={props.src}
-          code={props.code}
-          initialProps={props.initialProps}
-        />
+        <Viewer widgetSrc={src} code={code} initialProps={initialProps} />
       ),
     },
-    { path: "/*", element: <Viewer /> },
   ]);
 
   return <RouterProvider router={router} />;
