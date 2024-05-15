@@ -1,42 +1,62 @@
-import React, { useState } from "react";
-import { Livepeer } from "livepeer";
+import React, { useState, useEffect } from "react";
 
+import { createLivepeerInstance } from "./LivepeerInstance";
 import { useStore } from "./state";
 
-function createLivepeerInstance(apiKey) {
-  const livepeerInstance = new Livepeer({
-    apiKey,
-  });
-
-  return livepeerInstance;
-}
-
-const GetUploadUrl = () => {
+const GetUploadUrl = ({ url }) => {
   const {
     setAssetName,
     setPlaybackId,
     setResumableUploadUrl,
     setUploadUrl,
-    apiKey,
+    setSrc,
   } = useStore();
 
   const [name, setName] = useState("");
 
-  const API_KEY = apiKey || process.env.REACT_APP_LIVEPEER_STUDIO_API_KEY;
+  const handleSubmit = async (event) => {
+    if (url) {
+      // if url it means I want to communicate with the back-end
+      try {
+        const src = await fetch(url);
 
-  const livepeerInstance = createLivepeerInstance(API_KEY);
+        if (!src) {
+          console.log("-- error receiving data");
+          return;
+        }
 
-  const handleSubmit = (event) => {
+        src = src.json();
+
+        setSrc(src);
+        return;
+      } catch (error) {
+        console.log("Error:");
+        console.log(error.message);
+        return;
+      }
+    }
+
+    console.log("-- here no url");
     event.preventDefault();
     generateUploadLink();
     setAssetName(name);
   };
 
   const generateUploadLink = async () => {
-    const result = await livepeerInstance.asset.create({
+    const livepeer = createLivepeerInstance();
+    const result = await livepeer.asset.create({
       name,
     });
 
+    console.log("-- here");
+    console.log(result);
+
+    // // This is for livepeer 3.1
+    // setUploadUrl(result.data.url);
+    // setResumableUploadUrl(result.data.tusEndpoint);
+    // setPlaybackId(result.data.asset.playbackId);
+
+    // This is for livepeer 3.0.2:
     setUploadUrl(result.object.url);
     setResumableUploadUrl(result.object.tusEndpoint);
     setPlaybackId(result.object.asset.playbackId);

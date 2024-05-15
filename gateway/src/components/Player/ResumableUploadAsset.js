@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-// import tus from "tus-js-client";
 import * as tus from "tus-js-client";
 
 import { useStore } from "./state";

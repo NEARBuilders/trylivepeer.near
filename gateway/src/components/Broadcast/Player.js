@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { EnableVideoIcon, StopIcon } from "@livepeer/react/assets";
 import * as Broadcast from "@livepeer/react/broadcast";
 import { getIngest } from "@livepeer/react/external";
@@ -7,6 +7,11 @@ import { useStore } from "./state";
 
 const Player = (props) => {
   const { streamKey } = useStore();
+
+  useEffect(() => {
+    console.log("stream key change");
+    console.log(streamKey);
+  }, [streamKey]);
 
   if (!streamKey) return <div>stream key not found</div>;
 

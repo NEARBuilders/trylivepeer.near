@@ -1,4 +1,4 @@
-import React, { forwardRef, useEffect, useState } from "react";
+import React, { forwardRef, useEffect, useState, useCallback } from "react";
 import * as Player from "@livepeer/react/player";
 import {
   MuteIcon,
@@ -7,41 +7,27 @@ import {
   PlayIcon,
   UnmuteIcon,
 } from "@livepeer/react/assets";
-import { getSrc } from "@livepeer/react/external";
+import { LivepeerPhase, getSrc } from "@livepeer/react/external";
 
+import { createLivepeerInstance } from "./LivepeerInstance";
 import { useStore } from "./state";
-
 import Settings from "./Settings";
 
-import { Livepeer } from "livepeer";
-
-function createLivepeerInstance(apiKey) {
-  const livepeerInstance = new Livepeer({
-    apiKey,
-  });
-
-  return livepeerInstance;
-}
-
 const Display = (props) => {
-  const { src, setSrc, setPlaybackId, setError, apiKey } = useStore();
+  // there's a `props.playbackId` here
+  const { src, setSrc, playbackId, setError } = useStore();
 
-  const API_KEY = apiKey || process.env.REACT_APP_LIVEPEER_STUDIO_API_KEY;
+  const livepeer = createLivepeerInstance();
 
-  const livepeerInstance = createLivepeerInstance(API_KEY);
+  const currentPlaybackId = props.playbackId || playbackId;
+  console.log("-- currentPlaybackId");
+  console.log(currentPlaybackId);
 
-  const [s, setS] = useState();
-
-  const { playbackId } = props;
-
-  const getPlaybackSource = async (playbackId, livepeer = livepeerInstance) => {
+  const getPlaybackSource = async () => {
     if (!livepeer) throw new Error("Livepeer instance not found");
 
     try {
-      const playbackInfo = await livepeer.playback.get(playbackId);
-      // const a = "9bc9jzmv6rdt1gqr";
-      // const playbackInfo = await livepeer.playback.get(a);
-
+      const playbackInfo = await livepeer.playback.get(currentPlaybackId);
       const src = getSrc(playbackInfo.playbackInfo);
 
       return src;
@@ -51,43 +37,40 @@ const Display = (props) => {
   };
 
   const fetchSrc = async () => {
-    // const fetchedSrc = await getPlaybackSource(_, livepeer);
     try {
-      const fetchedSrc = await getPlaybackSource(playbackId);
+      const fetchedSrc = await getPlaybackSource();
+
       setSrc(fetchedSrc);
-      setS(fetchedSrc);
     } catch (error) {
-      setError(erorr.message);
+      setError(error.message);
     }
   };
 
   useEffect(() => {
-    if (src) {
-      setS(src);
-    }
-  }, [src]);
+    setSrc(null);
 
-  useEffect(() => {
-    if (playbackId) {
-      setPlaybackId(playbackId);
-      fetchSrc();
-    }
-  }, [playbackId]);
+    const asyncGetSrc = async () => {
+      if (!livepeer || !currentPlaybackId) {
+        return;
+      }
 
-  if (!s) {
+      await fetchSrc();
+    };
+
+    asyncGetSrc();
+  }, [livepeer, currentPlaybackId]);
+
+  if (!src) {
     return <p>Loading</p>;
   }
 
-  if (!playbackId) {
-    <button type="button" onClick={fetchSrc}>
-      get src
-    </button>;
-  }
-
   return (
-    <Player.Root src={s}>
+    <Player.Root src={src} style={{ color: "white" }}>
       <Player.Container>
-        <Player.Video title="Live stream" />
+        <Player.Video
+          style={{ height: "100%", marginLeft: "auto", marginRight: "auto" }}
+          title="Live stream"
+        />
 
         <Player.LoadingIndicator asChild>
           <Loading />
@@ -126,12 +109,24 @@ const Display = (props) => {
                 style={{
                   width: 25,
                   height: 25,
+                  color: "white",
                 }}
               >
-                <Player.PlayingIndicator asChild matcher={false}>
+                <Player.PlayingIndicator
+                  style={{
+                    color: "white",
+                  }}
+                  asChild
+                  matcher={false}
+                >
                   <PlayIcon />
                 </Player.PlayingIndicator>
-                <Player.PlayingIndicator asChild>
+                <Player.PlayingIndicator
+                  style={{
+                    color: "white",
+                  }}
+                  asChild
+                >
                   <PauseIcon />
                 </Player.PlayingIndicator>
               </Player.PlayPauseTrigger>
@@ -144,6 +139,8 @@ const Display = (props) => {
                     backgroundColor: "#ef4444",
                     height: 8,
                     width: 8,
+
+                    color: "white",
                     borderRadius: 9999,
                   }}
                 />
@@ -154,12 +151,25 @@ const Display = (props) => {
                 style={{
                   width: 25,
                   height: 25,
+                  color: "white",
                 }}
               >
-                <Player.VolumeIndicator asChild matcher={false}>
+                <Player.VolumeIndicator
+                  style={{
+                    color: "white",
+                  }}
+                  asChild
+                  matcher={false}
+                >
                   <MuteIcon />
                 </Player.VolumeIndicator>
-                <Player.VolumeIndicator asChild matcher={true}>
+                <Player.VolumeIndicator
+                  style={{
+                    color: "white",
+                  }}
+                  asChild
+                  matcher={true}
+                >
                   <UnmuteIcon />
                 </Player.VolumeIndicator>
               </Player.MuteTrigger>
@@ -204,7 +214,7 @@ const Display = (props) => {
                 />
               </Player.Volume>
             </div>
-            <Settings />
+            <Settings style={{ color: "white" }} />
           </div>
           <Seek
             style={{
@@ -217,19 +227,6 @@ const Display = (props) => {
             }}
           />
         </Player.Controls>
-
-        {/*
-<Player.Controls className="flex items-center justify-center">
-					<Player.PlayPauseTrigger className="w-10 h-10">
-						<Player.PlayingIndicator asChild matcher={false}>
-							<PlayIcon />
-						</Player.PlayingIndicator>
-						<Player.PlayingIndicator asChild>
-							<PauseIcon />
-						</Player.PlayingIndicator>
-					</Player.PlayPauseTrigger>
-				</Player.Controls>
-					*/}
       </Player.Container>
     </Player.Root>
   );
@@ -249,7 +246,7 @@ const Seek = forwardRef(({ children, ...props }, forwardedRef) => (
       <Player.SeekBuffer
         style={{
           position: "absolute",
-          backgroundColor: "rgba(0, 0, 0, 0.5)",
+          backgroundColor: "rgba(255, 255, 255, 0.5)",
           borderRadius: 9999,
           height: "100%",
         }}

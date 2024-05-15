@@ -66,6 +66,14 @@ const tabs = {
       label: "Player Sandbox",
       widget: "video.every.near/widget/Library.PlayerSandbox",
     },
+    {
+      label: "Backend Integration",
+      widget: "video.every.near/widget/Library.GetAssets",
+    },
+    {
+      label: "Backend Uploader",
+      widget: "video.every.near/widget/Library.FileUploader",
+    },
   ],
   broadcast: [
     {
@@ -79,6 +87,10 @@ const tabs = {
     {
       label: "Broadcast ApiKey",
       widget: "video.every.near/widget/Library.BroadcastApiKey",
+    },
+    {
+      label: "Watch Stream",
+      widget: "video.every.near/widget/Library.WatchStream",
     },
     {
       label: "Broadcast Sandbox",

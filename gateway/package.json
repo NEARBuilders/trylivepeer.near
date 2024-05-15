@@ -26,7 +26,7 @@
 		"collections": "^5.1.12",
 		"dotenv": "^16.4.5",
 		"error-polyfill": "^0.1.2",
-		"livepeer": "^3.0.2",
+		"livepeer": "3.0.2",
 		"local-storage": "^2.0.0",
 		"lucide-react": "^0.367.0",
 		"near-api-js": "^2.1.3",
@@ -42,19 +42,23 @@
 		"socket.io-client": "^4.7.2",
 		"styled-components": "^5.3.6",
 		"tus-js-client": "^4.1.0",
+		"zod": "^3.23.8",
 		"zustand": "^4.5.2"
 	},
 	"scripts": {
 		"webpack": "webpack",
-		"dev": "yarn run webpack -- --env mode=development",
-		"prod": "yarn run webpack -- --env mode=production",
-		"prod:analyze": "yarn run prod -- --env presets=analyze",
+		"dev": "yarn run webpack --env mode=development",
+		"prod": "yarn run webpack --env mode=production",
+		"prod:analyze": "yarn run prod --env presets=analyze",
 		"build": "yarn run prod",
 		"start": "yarn run dev && http-server -p 3000 dist --allowed-hosts=all",
 		"serve:prod": "http-server -p 3000 dist",
 		"generateimportmap": "(cd public && jspm link index.html -o index.html)",
 		"web4:deploy": "NEAR_ENV=mainnet npx web4-deploy dist psalomobos.near --nearfs",
-		"test": "npx playwright test"
+		"test": "npx playwright test",
+    "test:ui": "npx playwright test --ui",
+		"nearfs:publish-library:create:car": "ipfs-car pack dist/ --output dist.car",
+    "nearfs:publish-library:upload:car": "NODE_ENV=mainnet node ./node_modules/nearfs/scripts/upload-car.js dist.car"
 	},
 	"eslintConfig": {
 		"extends": [
@@ -92,6 +96,7 @@
 		"html-webpack-plugin": "^5.3.2",
 		"http-server": "^14.1.1",
 		"https-browserify": "^1.0.0",
+		"ipfs-car": "^1.2.0",
 		"jspm": "^3.1.0",
 		"mini-css-extract-plugin": "^2.2.2",
 		"os-browserify": "^0.3.0",

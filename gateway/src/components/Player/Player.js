@@ -5,6 +5,8 @@ import ResumableUploadAsset from "./ResumableUploadAsset";
 import DirectUploadAsset from "./DirectUploadAsset";
 import DebugState from "./DebugState";
 import ApiKey from "./ApiKey";
+import GetAssets from "./GetAssets";
+import FileUploader from "./BackendUpload";
 
 export const VideoPlayer = ({ children }) => {};
 
@@ -14,4 +16,6 @@ VideoPlayer.GetUploadUrl = GetUploadUrl;
 VideoPlayer.DirectUploadAsset = DirectUploadAsset;
 VideoPlayer.ResumableUploadAsset = ResumableUploadAsset;
 VideoPlayer.Debug = DebugState;
+VideoPlayer.GetAssets = GetAssets;
+VideoPlayer.FileUploader = FileUploader;
 VideoPlayer.ApiKey = ApiKey;
