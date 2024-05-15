@@ -20,8 +20,6 @@ const Display = (props) => {
   const livepeer = createLivepeerInstance();
 
   const currentPlaybackId = props.playbackId || playbackId;
-  console.log("-- currentPlaybackId");
-  console.log(currentPlaybackId);
 
   const getPlaybackSource = async () => {
     if (!livepeer) throw new Error("Livepeer instance not found");

@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { getSrc } from "@livepeer/react/external";
 
 import { createLivepeerInstance } from "./LivepeerInstance";
 import { useStore } from "./state";
 
 const FileUploader = () => {
-  const { setError, setSrc, setPlaybackId } = useStore();
+  const { setError, setSrc, setPlaybackId, apiKey } = useStore();
   const [file, setFile] = useState(null);
   const [fileName, setFileName] = useState("");
   const [livepeer, setLivepeer] = useState(null);
