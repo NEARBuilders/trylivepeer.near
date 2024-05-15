@@ -23,7 +23,6 @@ const GetSrc = () => {
 
       return src;
     } catch (error) {
-      console.log("-- HERE");
       console.log(error);
       setError(error.message);
     }

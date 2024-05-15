@@ -36,7 +36,6 @@ const GetUploadUrl = ({ url }) => {
       }
     }
 
-    console.log("-- here no url");
     event.preventDefault();
     generateUploadLink();
     setAssetName(name);
@@ -47,9 +46,6 @@ const GetUploadUrl = ({ url }) => {
     const result = await livepeer.asset.create({
       name,
     });
-
-    console.log("-- here");
-    console.log(result);
 
     // // This is for livepeer 3.1
     // setUploadUrl(result.data.url);
