@@ -9,6 +9,7 @@ class NearSocialViewerElement extends HTMLElement {
         this.attachShadow({ mode: "open" });
         this.shadowRoot.innerHTML = `<slot></slot>`;
         this.selectorPromise = new Promise(resolve => this.selectorPromiseResolve = resolve);
+        this.reactRoot = null;
     }
 
     set selector(selector) {
@@ -19,24 +20,26 @@ class NearSocialViewerElement extends HTMLElement {
         const container = document.createElement('div');
         this.appendChild(container);
 
-        const src = this.getAttribute('src');
-        const code = this.getAttribute('code');
-        const initialProps = this.getAttribute('initialProps');
-
-        const root = createRoot(container);
-        root.render(<App src={src} code={code} initialProps={JSON.parse(initialProps)} selectorPromise={this.selectorPromise}/>);
+        this.reactRoot = createRoot(container);
+        this.renderRoot();
     }
 
     static get observedAttributes() {
-        return ['src', 'code', 'initialProps'];
+        return ['src', 'code', 'initialprops', 'rpc'];
+    }
+
+    renderRoot() {
+        const src = this.getAttribute('src');
+        const code = this.getAttribute('code');
+        const initialProps = this.getAttribute('initialprops');
+        const rpc = this.getAttribute('rpc');
+
+        this.reactRoot.render(<App src={src} code={code} initialProps={JSON.parse(initialProps)} rpc={rpc} selectorPromise={this.selectorPromise} />);
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
-        // Re-render the component with new props when attributes change
         if (oldValue !== newValue) {
-            const container = this.shadowRoot.querySelector('div');
-            const root = createRoot(container);
-            root.render(<App {...{[name]: newValue}} />);
+            this.renderRoot();
         }
     }
 }
