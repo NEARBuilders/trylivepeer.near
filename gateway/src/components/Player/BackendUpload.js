@@ -11,8 +11,8 @@ const FileUploader = () => {
   const [livepeer, setLivepeer] = useState(null);
 
   useEffect(() => {
-    if (!apiKey) return;
-    setLivepeer(createLivepeerInstance(apiKey));
+    if (!apiKey) setLivepeer(createLivepeerInstance());
+    else setLivepeer(createLivepeerInstance(apiKey));
   }, [apiKey]);
 
   const getPlaybackSource = async (playbackId, retryCount = 10) => {
