@@ -1,0 +1,18 @@
+name: Deploy 'trylivepeer.near' App Components to Testnet
+
+on:
+  push:
+    branches: [develop]
+
+jobs:
+  deploy-mainnet:
+    uses: nearbuilders/bos-workspace/.github/workflows/deploy.yml@main
+    with:
+      bw-legacy: false
+      deploy-env: "testnet"
+      app-name: "trylivepeer.testnet"
+      deploy-account-address: trylivepeer.testnet
+      signer-account-address: trylivepeer.testnet
+      signer-public-key: ed25519:69H7x9XDqpjVpg73UWHBYUunHxH9t66UyJEwAf4TxjmK
+    secrets: 
+      SIGNER_PRIVATE_KEY: ${{ secrets.TRYLIVEPEER_SIGNER_PRIVATE_KEY_TESTNET }}
