@@ -3,10 +3,10 @@ const Container = styled.div`
   flex-direction: column;
   gap: 32px;
   h1 {
-    color: #292c2a;
-  
+    color: #a5a5a5;
+
     font-size: 24px;
-    font-weight: 500;
+    font-weight: 1000;
     line-height: 130%; /* 31.2px */
     letter-spacing: -0.48px;
     margin: 0;
@@ -14,10 +14,10 @@ const Container = styled.div`
 `;
 
 const Heading = styled.h3`
-  color: #292c2a;
+  color: #a5a5a5;
 
   font-size: 18px;
-  font-weight: 500;
+  font-weight: 900;
   line-height: 150%; /* 27px */
   letter-spacing: -0.18px;
   margin-bottom: 8px;
@@ -26,7 +26,8 @@ const Heading = styled.h3`
 const PreviewContent = styled.div`
   grid-column: span 9 / span 9;
   border-radius: 24px;
-  border: 1px solid #c7c7c7;
+  background-color: #2d2d2d;
+  border: 1px solid #23242b;
   padding: 4rem;
   word-break: normal;
 `;
@@ -45,23 +46,25 @@ const UsageContent = styled.div`
     }
   }
 `;
+const DescriptionContent = styled.div`
+  color: #a5a5a5;
+`;
 
 const PoweredBy = styled.h3`
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 15px;
 
   color: #a5a5a5 !important;
 
-
-  font-size: 12px !important;
+  font-size: 40px !important;
   line-height: 140% !important; /* 16.8px */
   font-weight: 400 !important;
   letter-spacing: -0.12px !important;
   margin-bottom: 8px !important;
 
   img {
-    height: 12px;
+    height: 20px;
     width: auto;
     object-fit: cover;
   }
@@ -109,7 +112,7 @@ return (
     </div>
     <div>
       <Heading>Description</Heading>
-      <p>
+      <DescriptionContent>
         This component facilitates the uploading of large assets to Livepeer
         Studio via the tus library, enhancing reliability, especially over slow
         or unstable connections. To initiate an upload, generate an upload URL
@@ -118,7 +121,7 @@ return (
         <MonospaceText>GetSrc</MonospaceText> component to generate the
         <MonospaceText>src</MonospaceText>
         object required for video playback in the player component.
-      </p>
+      </DescriptionContent>
     </div>
     <UsageContent>
       <Heading>Usage</Heading>

@@ -5,6 +5,8 @@ const { Feed } = VM.require("${alias_devs}/widget/Feed") ?? {
 const Grid = styled.div`
   display: flex;
   flex-direction: column;
+  color: #a5a5a5;
+  background-color: "#23242b";
 `;
 
 return (
@@ -38,7 +40,7 @@ return (
     Item={(p) => (
       <Widget
         loading={<div className="w-100" style={{ height: "200px" }} />}
-        src="${alias_mob}/widget/MainPage.N.Post"
+        src="${config_account}/widget/SocialPost.Post"
         props={{ accountId: p.accountId, blockHeight: p.blockHeight }}
       />
     )}
