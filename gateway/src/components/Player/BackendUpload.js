@@ -3,7 +3,7 @@ import { getSrc } from "@livepeer/react/external";
 
 import { useStore } from "./state";
 
-const FileUploader = () => {
+const FileUploader = ({ url }) => {
   const { setError, setSrc } = useStore();
 
   const [file, setFile] = useState(null);
@@ -12,9 +12,7 @@ const FileUploader = () => {
   const getPlaybackSource = async (playbackId, retryCount = 10) => {
     const attemptFetch = async (attemptsRemaining) => {
       try {
-        let result = await fetch(
-          `http://localhost:3000/playback/${playbackId}`
-        );
+        let result = await fetch(`${url}/playback/${playbackId}`);
 
         result = await result.json();
         const src = getSrc(result);
@@ -63,7 +61,7 @@ const FileUploader = () => {
     };
 
     try {
-      let result = await fetch("http://localhost:3000/upload", requestOptions);
+      let result = await fetch(`${url}/upload`, requestOptions);
       result = await result.json();
 
       const fetchedSrc = await getPlaybackSource(result.asset.playbackId);

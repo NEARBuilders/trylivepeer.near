@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useStore } from "../Broadcast/state";
 
-const WatchStream = () => {
+const WatchStream = ({ url }) => {
   const { setStreamKey } = useStore();
 
   const [inputValue, setInputValue] = useState("");
@@ -36,10 +36,7 @@ const WatchStream = () => {
     };
 
     try {
-      let result = await fetch(
-        "http://localhost:3000/stream/create",
-        requestOptions
-      );
+      let result = await fetch(`${url}/stream/create`, requestOptions);
 
       result = await result.json();
 
