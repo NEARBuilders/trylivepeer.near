@@ -60,14 +60,13 @@ const GetUploadUrl = ({ url }) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <label>
-        Asset name:
-        <input
-          type="text"
-          value={name}
-          onChange={(event) => setName(event.target.value)}
-        />
-      </label>
+      <label>Assets name:</label>
+      <input
+        type="text"
+        value={name}
+        onChange={(event) => setName(event.target.value)}
+      />
+
       <button type="submit">Generate link</button>
     </form>
   );

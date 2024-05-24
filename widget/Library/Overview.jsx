@@ -9,19 +9,18 @@ const { Button } = VM.require("${config_account}/widget/Components.button") || {
 const PoweredBy = styled.h3`
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 15px;
 
   color: #a5a5a5 !important;
 
-
-  font-size: 12px !important;
+  font-size: 40px !important;
   line-height: 140% !important; /* 16.8px */
   font-weight: 400 !important;
   letter-spacing: -0.12px !important;
   margin-bottom: 8px !important;
 
   img {
-    height: 12px;
+    height: 20px;
     width: auto;
     object-fit: cover;
   }
@@ -30,22 +29,23 @@ const PoweredBy = styled.h3`
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 20px;
+  border: 1px solid #23242b;
   h1 {
-    color: #292c2a;
-  
+    color: #a5a5a5;
+
     font-size: 24px;
     font-weight: 500;
     line-height: 130%; /* 31.2px */
     letter-spacing: -0.48px;
-    margin: 0;
+    margin-top: 40px;
     text-wrap: balance;
   }
 
   h3 {
-    color: #292c2a;
-  
-    font-size: 18px;
+    color: #a5a5a5;
+
+    font-size: 20px;
     font-weight: 500;
     line-height: 150%; /* 27px */
     letter-spacing: -0.18px;
@@ -54,7 +54,7 @@ const Container = styled.div`
 
   p {
     color: #777d7a;
-  
+
     font-size: 16px;
     line-height: 150%; /* 24px */
     letter-spacing: -0.16px;

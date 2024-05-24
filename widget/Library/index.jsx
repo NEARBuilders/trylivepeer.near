@@ -4,10 +4,6 @@ const { HeroBanner } = VM.require(
   HeroBanner: () => <></>,
 };
 
-const { Button } = VM.require("${alias_every}/widget/components") || {
-  Button: ({children}) => <button>{children}</button>,
-};
-
 const { href } = VM.require("${alias_devs}/widget/lib.url") || {
   href: () => {},
 };
@@ -29,7 +25,7 @@ const { tab } = props;
 
 const tabs = {
   library: [
-    { label: "overview", widget: "${config_account}/widget/Library.Overview" },
+    { label: "Overview", widget: "${config_account}/widget/Library.Overview" },
   ],
   // livepeer: [
   // subaccounts video -> every -> near
@@ -105,7 +101,6 @@ const LibraryWrapper = styled.div`
   flex-direction: column;
   gap: 2rem;
   height: 100%;
-
   @media (max-width: 768px) {
     padding: 1.5rem;
   }
@@ -131,10 +126,11 @@ const SideBar = styled.div`
   align-items: flex-start;
   gap: 14px;
   border-radius: 24px;
-  border: 1px solid #c7c7c7;
+  border: 1px solid #23242b;
 
   .title {
     width: 100%;
+    color: #dde4e1;
   }
 
   p {
@@ -165,8 +161,9 @@ const SideBar = styled.div`
 const Content = styled.div`
   grid-column: span 9 / span 9;
   border-radius: 24px;
-  border: 1px solid #c7c7c7;
+  border: 1px solid #23242b;
   padding: 4rem;
+  background-color: #252525;
   word-break: normal;
   @media (max-width: 1010px) {
     grid-column: span 10 / span 10;
@@ -201,8 +198,23 @@ const StyledLink = styled.div`
     text-decoration: none;
     width: 100%;
 
-    button {
+    .button1 {
       width: 100%;
+      background: #000000;
+      border: 1px solid #23242b;
+      color: #ffffff;
+      width: 300px;
+      height: 50px;
+      padding: 10px 12px 10px 12px;
+      gap: 12px;
+      border-radius: 8px;
+      opacity: 0px;
+      transition: opacity 0.7s ease, background-color 0.7s ease;
+
+      &:hover {
+        opacity: 1;
+        background-color: #555555;
+      }
     }
   }
 `;
@@ -248,13 +260,7 @@ return (
                           },
                         })}
                       >
-                        <Button
-                          variant={
-                            activeTab.label === item.label ? "primary" : ""
-                          }
-                        >
-                          {item.label}
-                        </Button>
+                        <button className="button1">{item.label}</button>
                       </Link>
                     </StyledLink>
                   );

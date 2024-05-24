@@ -7,29 +7,33 @@ const config = {
     },
   },
   blocks: {
-    // customize the header
     Header: () => (
-      <div className="row">
-        <div className="col-12">
-          <div className="d-flex justify-content-between align-items-center border p-3">
-            <h1>trylivepeer</h1>
-            <div>
-              <Link to="/${config_account}/widget/index?page=social">
-                <button className="button">Social</button>
-              </Link>
-              <Link to="/${config_account}/widget/index?page=sandbox">
-                <button className="button">Sandbox</button>
-              </Link>
-              <Link to="/${config_account}/widget/index?page=library">
-                <button className="button">Library</button>
-              </Link>
-            </div>
+      <div className="header-container">
+        <div></div>
+        <div className="header-content">
+          <h1 className="header-title">trylivepeer</h1>
+          <div className="flex gap-4">
+            <Link to={`/${config_account}/widget/index?page=social`}>
+              <button className="header-button">Social</button>
+            </Link>
+            <Link to={`/${config_account}/widget/index?page=sandbox`}>
+              <button className="header-button">Sandbox</button>
+            </Link>
+            <Link to={`/${config_account}/widget/index?page=library`}>
+              <button className="header-button">Library</button>
+            </Link>
           </div>
         </div>
       </div>
     ),
     // customize the footer
-    Footer: () => <>powered by livepeer, built on near, a part of everything</>,
+    Footer: () => (
+      <div className="footer-container">
+        <div className="footer-content">
+          Powered by livepeer, built on NEAR, a part of everything
+        </div>
+      </div>
+    ),
   },
   router: {
     param: "page",
@@ -54,7 +58,7 @@ const config = {
         blockHeight: "final",
         init: {
           name: "Library",
-          ...props
+          ...props,
         },
       },
       social: {
@@ -73,7 +77,67 @@ const CSS = styled.div`
   .button {
   }
 
-  height: 100vh;
+  background-color: black;
+
+  .header-container {
+    top: 100px;
+    background-color: black;
+
+    margin-bottom: 20px;
+  }
+
+  .header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+  }
+
+  .header-title {
+    color: gray;
+    font-size: 50px;
+    font-weight: bold;
+    font-family: inherit;
+  }
+  .header-button {
+    background-color: #23242b;
+    color: #dde4e1;
+    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: opacity 0.3s ease, background-color 0.3s ease;
+    &:hover {
+      opacity: 1;
+      background-color: #555555;
+    }
+  }
+  .footer-container {
+    position: sticky;
+    left: 500px;
+
+    width: 540px;
+    background-color: #2d2d2d;
+    color: #dde4e1;
+    padding: 20px;
+    text-align: center;
+    justify-content: center;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+  }
+
+  .footer-content {
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  @media (min-width: 768px) {
+    .footer-content {
+      flex-direction: row;
+      justify-content: space-between;
+      padding: 0 20px;
+    }
+  }
 `;
 
 return (
