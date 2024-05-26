@@ -44,6 +44,7 @@ const FileUploader = ({ url }) => {
   };
 
   const handleSubmit = async (event) => {
+    setSrc(null);
     event.preventDefault();
     if (!file) {
       alert("Please select a file first!");

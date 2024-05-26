@@ -1,5 +1,6 @@
-import React, { forwardRef, useEffect, useState, useCallback } from "react";
+import React, { forwardRef, useEffect } from "react";
 import * as Player from "@livepeer/react/player";
+import styled, { keyframes } from "styled-components";
 import {
   MuteIcon,
   PauseIcon,
@@ -7,15 +8,29 @@ import {
   PlayIcon,
   UnmuteIcon,
 } from "@livepeer/react/assets";
-import { LivepeerPhase, getSrc } from "@livepeer/react/external";
+import { getSrc } from "@livepeer/react/external";
 
 import { createLivepeerInstance } from "./LivepeerInstance";
 import { useStore } from "./state";
 import Settings from "./Settings";
 
+const spin = keyframes`
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+`;
+
+const Loader = styled.div`
+  border: 12px solid #f3f3f3;
+  border-top: 12px solid black;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  animation: ${spin} 1.5s linear infinite;
+`;
+
 const Display = (props) => {
   // there's a `props.playbackId` here
-  const { src, setSrc, playbackId, setError } = useStore();
+  const { src, setSrc, playbackId, setError, loading, setLoading } = useStore();
 
   const livepeer = createLivepeerInstance();
 
@@ -46,20 +61,32 @@ const Display = (props) => {
 
   useEffect(() => {
     setSrc(null);
+    setLoading(true);
 
     const asyncGetSrc = async () => {
       if (!livepeer || !currentPlaybackId) {
+        setLoading(false);
         return;
       }
 
-      await fetchSrc();
+      try {
+        await fetchSrc();
+      } catch (e) {
+        console.log(e.message);
+      } finally {
+        setLoading(false);
+      }
     };
 
     asyncGetSrc();
-  }, [livepeer, currentPlaybackId]);
+  }, [livepeer, currentPlaybackId, src]);
+
+  if (loading) {
+    return <Loader />;
+  }
 
   if (!src) {
-    return <p>Loading</p>;
+    return <></>;
   }
 
   return (

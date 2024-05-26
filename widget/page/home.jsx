@@ -1,42 +1,78 @@
+const Dropdown = styled.select`
+  ping: 10px;
+  margin: 20px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+`;
+
+const OptionComponent = styled.div`
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+  width: 80%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Option1 = () => (
+  <OptionComponent>
+    Api key
+    <Player.ApiKey />
+    <Player.GetUploadUrl />
+    <Player.ResumableUploadAsset />
+    <Player.GetSrc />
+    <Player.Display />
+  </OptionComponent>
+);
+
+const Option2 = ({ url }) => {
+  return (
+    <OptionComponent>
+      <Player.FileUploader url={url} />
+      <Player.Display />
+    </OptionComponent>
+  );
+};
+
+const Option3 = () => (
+  <OptionComponent>
+    <Player.FileUploader
+      url={"https://livepeer-webserver-613b208ef083.herokuapp.com"}
+    />
+    <Player.Display />
+  </OptionComponent>
+);
+
+const [selectedOption, setSelectedOption] = useState("apiKey");
+const [url, setUrl] = useState("");
+
+const handleSelectOption = (event) => {
+  setSelectedOption(event.target.value);
+};
+
+function handleInputChange(event) {
+  setUrl(event.target.value);
+}
+
 return (
   <div className="container">
-    <div className="row my-4">
-      <div className="col-12">
-        <div className="d-flex flex-wrap justify-content-between">
-          {/* Placeholder for the nine circles */}
-          {[...Array(9)].map((_, idx) => (
-            <div key={idx} className="m-2">
-              <div
-                className="rounded-circle border"
-                style={{ width: "100px", height: "100px" }}
-              ></div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-
-    <div className="row">
-      <div className="col-6">
-        <div className="border p-3">
-          <p>description</p>
-        </div>
-      </div>
-      <div className="col-3">
-        <Link to="/trylivepeer.near/widget/index?page=social">
-          <button className="button">Social</button>
-        </Link>
-      </div>
-      <div className="col-3">
-        <Link to="/trylivepeer.near/widget/index?page=sandbox">
-          <button className="button">Sandbox</button>
-        </Link>
-      </div>
-      <div className="col-3">
-        <Link to="/trylivepeer.near/widget/index?page=library">
-          <button className="button">Library</button>
-        </Link>
-      </div>
-    </div>
+    Select how you want to initialise the components:
+    <Dropdown value={selectedOption} onChange={handleSelectOption}>
+      <option value="apiKey">Provide api key</option>
+      <option value="localServer">Use your local server</option>
+      <option value="remoteServer">Use a remote server</option>
+    </Dropdown>
+    {selectedOption === "apiKey" && <Option1 />}
+    {selectedOption === "localServer" && (
+      <>
+        <input type="text" onChange={handleInputChange} value={url} />
+        <Option2 url={url} />
+      </>
+    )}
+    {selectedOption === "remoteServer" && <Option3 />}
   </div>
 );

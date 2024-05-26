@@ -22,6 +22,8 @@ export const useStore = create(
     setError: (value) => set(() => ({ error: value })),
     apiKey: "",
     setApiKey: (value) => set(() => ({ apiKey: value })),
+    loading: false,
+    setLoading: (value) => set(() => ({ loading: value })),
   }))
 );
 
