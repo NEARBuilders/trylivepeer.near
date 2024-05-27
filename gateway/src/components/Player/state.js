@@ -24,6 +24,11 @@ export const useStore = create(
     setApiKey: (value) => set(() => ({ apiKey: value })),
     loading: false,
     setLoading: (value) => set(() => ({ loading: value })),
+    clearState: () =>
+      set(() => ({
+        src: null,
+        livepeer: null,
+      })),
   }))
 );
 

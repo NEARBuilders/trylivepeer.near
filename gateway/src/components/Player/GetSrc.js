@@ -5,7 +5,7 @@ import { createLivepeerInstance } from "./LivepeerInstance";
 import { useStore } from "./state";
 
 const GetSrc = ({ url }) => {
-  const { setSrc, setError, playbackId, setLoading } = useStore();
+  const { setSrc, setError, playbackId, setLoading, clearState } = useStore();
 
   const getPlaybackSource = async (playbackId) => {
     if (url) {
@@ -40,6 +40,7 @@ const GetSrc = ({ url }) => {
   const fetchSrc = async () => {
     setError("");
     setLoading(true);
+    clearState();
 
     try {
       const fetchedSrc = await getPlaybackSource(playbackId);

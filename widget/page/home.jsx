@@ -38,17 +38,54 @@ const Option2 = ({ url }) => {
   );
 };
 
-const Option3 = () => (
-  <OptionComponent>
-    <Player.FileUploader
-      url={"https://livepeer-webserver-613b208ef083.herokuapp.com"}
-    />
-    <Player.Display />
-  </OptionComponent>
-);
+const UploadVideoRemoteCode = `
+\`\`\`js
+<Player.FileUploader
+	url={"https://livepeer-webserver-613b208ef083.herokuapp.com"}
+/>
+<Player.Display />
+\`\`\`
+`;
+
+const DisplayVideoRemoteCode = `
+\`\`\`js
+<Player.Display
+	url={"https://livepeer-webserver-613b208ef083.herokuapp.com"}
+	playbackId={"62fa7rxnbjzmoj2a"}
+/>
+\`\`\`
+`;
+
+const Option3 = ({ a, handleClick }) => {
+  return (
+    <OptionComponent>
+      <div>
+        How to upload a video:
+        <Markdown text={UploadVideoRemoteCode} />
+        <Player.FileUploader
+          url={"https://livepeer-webserver-613b208ef083.herokuapp.com"}
+        />
+        <Player.Display />
+      </div>
+      <div>
+        <button type="button" onClick={() => handleClick()}>
+          Click me
+        </button>
+        how to display a video already uploaded starting from the playback id:
+        {a && <Markdown text={DisplayVideoRemoteCode} />}
+      </div>
+    </OptionComponent>
+  );
+};
 
 const [selectedOption, setSelectedOption] = useState("apiKey");
+const [displayVideo, setDisplayVideo] = useState(false);
 const [url, setUrl] = useState("");
+const [a, setA] = useState(false);
+
+function handleClick() {
+  setA(!a);
+}
 
 const handleSelectOption = (event) => {
   setSelectedOption(event.target.value);
@@ -73,6 +110,8 @@ return (
         <Option2 url={url} />
       </>
     )}
-    {selectedOption === "remoteServer" && <Option3 />}
+    {selectedOption === "remoteServer" && (
+      <Option3 a={a} handleClick={handleClick} />
+    )}
   </div>
 );

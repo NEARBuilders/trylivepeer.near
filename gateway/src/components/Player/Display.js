@@ -30,32 +30,44 @@ const Loader = styled.div`
 
 const Display = (props) => {
   // there's a `props.playbackId` here
-  const { src, setSrc, playbackId, setError, loading, setLoading } = useStore();
+  const { src, setSrc, playbackId, setError, loading, setLoading, clearState } =
+    useStore();
+
+  const url = props.url;
 
   const livepeer = createLivepeerInstance();
 
   const currentPlaybackId = props.playbackId || playbackId;
 
   const getPlaybackSource = async () => {
-    if (!livepeer) throw new Error("Livepeer instance not found");
+    clearState();
 
-    try {
-      const playbackInfo = await livepeer.playback.get(currentPlaybackId);
-      const src = getSrc(playbackInfo.playbackInfo);
+    if (url) {
+      try {
+        let result = await fetch(`${url}/playback/${currentPlaybackId}`);
 
-      return src;
-    } catch (error) {
-      setError(error.message);
-    }
-  };
+        result = await result.json();
+        const src = getSrc(result);
 
-  const fetchSrc = async () => {
-    try {
-      const fetchedSrc = await getPlaybackSource();
+        setSrc(src);
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      const livepeer = createLivepeerInstance();
 
-      setSrc(fetchedSrc);
-    } catch (error) {
-      setError(error.message);
+      try {
+        // TODO: use livepeer (js) 3.1
+        const playbackInfo = await livepeer.playback.get(playbackId);
+        // const srcInfo = await livepeer.asset.get(playbackId);
+
+        const src = getSrc(playbackInfo.playbackInfo);
+
+        setSrc(src);
+      } catch (error) {
+        console.log(error);
+        setError(error.message);
+      }
     }
   };
 
@@ -68,7 +80,7 @@ const Display = (props) => {
 
       try {
         setLoading(true);
-        await fetchSrc();
+        await getPlaybackSource();
       } catch (e) {
         console.log(e.message);
       } finally {
