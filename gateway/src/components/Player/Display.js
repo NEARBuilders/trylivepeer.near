@@ -60,9 +60,6 @@ const Display = (props) => {
   };
 
   useEffect(() => {
-    setSrc(null);
-    setLoading(true);
-
     const asyncGetSrc = async () => {
       if (!livepeer || !currentPlaybackId) {
         setLoading(false);
@@ -70,6 +67,7 @@ const Display = (props) => {
       }
 
       try {
+        setLoading(true);
         await fetchSrc();
       } catch (e) {
         console.log(e.message);
@@ -79,14 +77,14 @@ const Display = (props) => {
     };
 
     asyncGetSrc();
-  }, [livepeer, currentPlaybackId, src]);
+  }, [livepeer, currentPlaybackId]);
 
   if (loading) {
     return <Loader />;
   }
 
   if (!src) {
-    return <></>;
+    return <>Src not ready</>;
   }
 
   return (

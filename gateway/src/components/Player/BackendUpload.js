@@ -4,7 +4,7 @@ import { getSrc } from "@livepeer/react/external";
 import { useStore } from "./state";
 
 const FileUploader = ({ url }) => {
-  const { setError, setSrc } = useStore();
+  const { setError, setSrc, setLoading } = useStore();
 
   const [file, setFile] = useState(null);
   const [fileName, setFileName] = useState("");
@@ -44,7 +44,8 @@ const FileUploader = ({ url }) => {
   };
 
   const handleSubmit = async (event) => {
-    setSrc(null);
+    setLoading(true);
+    // setSrc(null);
     event.preventDefault();
     if (!file) {
       alert("Please select a file first!");
@@ -66,11 +67,12 @@ const FileUploader = ({ url }) => {
       result = await result.json();
 
       const fetchedSrc = await getPlaybackSource(result.asset.playbackId);
-      console.log("-- setting src");
       setSrc(fetchedSrc);
     } catch (error) {
       console.log("-- error");
       console.log(error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
