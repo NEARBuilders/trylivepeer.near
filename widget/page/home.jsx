@@ -56,7 +56,7 @@ const DisplayVideoRemoteCode = `
 \`\`\`
 `;
 
-const Option3 = ({ a, handleClick }) => {
+const Option3 = ({ showVideo, handleClick }) => {
   return (
     <OptionComponent>
       <div>
@@ -72,7 +72,13 @@ const Option3 = ({ a, handleClick }) => {
           Click me
         </button>
         how to display a video already uploaded starting from the playback id:
-        {a && <Markdown text={DisplayVideoRemoteCode} />}
+        <Markdown text={DisplayVideoRemoteCode} />
+        {showVideo && (
+          <Player.Display
+            url={"https://livepeer-webserver-613b208ef083.herokuapp.com"}
+            playbackId={"62fa7rxnbjzmoj2a"}
+          />
+        )}
       </div>
     </OptionComponent>
   );
@@ -81,18 +87,20 @@ const Option3 = ({ a, handleClick }) => {
 const [selectedOption, setSelectedOption] = useState("apiKey");
 const [displayVideo, setDisplayVideo] = useState(false);
 const [url, setUrl] = useState("");
-const [a, setA] = useState(false);
+const [inputSet, setInputSet] = useState(false);
+const [showVideo, setShowVideo] = useState(false);
 
 function handleClick() {
-  setA(!a);
+  setShowVideo(!showVideo);
 }
 
 const handleSelectOption = (event) => {
   setSelectedOption(event.target.value);
 };
 
-function handleInputChange(event) {
-  setUrl(event.target.value);
+function resetUrl() {
+  setUrl("");
+  setInputSet(false);
 }
 
 return (
@@ -106,12 +114,26 @@ return (
     {selectedOption === "apiKey" && <Option1 />}
     {selectedOption === "localServer" && (
       <>
-        <input type="text" onChange={handleInputChange} value={url} />
+        {!inputSet ? (
+          <div>
+            <input
+              type="text"
+              onChange={(event) => setUrl(event.target.value)}
+              value={url}
+            />
+            <button onClick={() => setInputSet(true)}>Set url</button>
+          </div>
+        ) : (
+          <>
+            <span>using: {url}</span>
+            <button onClick={resetUrl}>X</button>
+          </>
+        )}
         <Option2 url={url} />
       </>
     )}
     {selectedOption === "remoteServer" && (
-      <Option3 a={a} handleClick={handleClick} />
+      <Option3 showVideo={showVideo} handleClick={handleClick} />
     )}
   </div>
 );
