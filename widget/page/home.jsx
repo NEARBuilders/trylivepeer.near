@@ -4,6 +4,22 @@ const Container = styled.div`
   color: #dde4e1;
   justify-content: center;
   align-items: center;
+  min-height: calc(100vh - 175px);
+`;
+
+const Button = styled.button`
+  padding: 12px 16px;
+  border: none;
+  border-radius: 4px;
+  background-color: #000;
+  color: #a5a5a5;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #1c1a1a;
+  }
 `;
 
 const StlyedInput = styled.input`
@@ -137,8 +153,41 @@ const Option1 = () => (
 const Option2 = ({ url }) => {
   return (
     <OptionComponent>
+      <div>
+        <h3>Description:</h3>
+        <p style={{ textAlign: "left" }}>
+          For the second option, you can provide your own web server URL. You
+          may use a basic web server available in this{" "}
+          <a
+            href="https://github.com/bb-face/livepeer-web-server"
+            target="_blank"
+          >
+            repository
+          </a>{" "}
+          for testing purposes. Once the link is configured, you can utilize the
+          components to upload and display a video.
+        </p>
+        <h3>External data:</h3>
+        {!inputSet ? (
+          <div>
+            <StlyedInput
+              type="text"
+              onChange={(event) => setUrl(event.target.value)}
+              value={url}
+            />
+            <Button onClick={() => setInputSet(true)}>Set url</Button>
+          </div>
+        ) : (
+          <>
+            {url}
+            <Button onClick={resetUrl}>X</Button>
+          </>
+        )}
+      </div>
+      <h3>Code:</h3>
       <Markdown text={localServerCode} />
       <Player.FileUploader url={url} />
+      <Separator />
       <Player.Display />
     </OptionComponent>
   );
@@ -148,26 +197,24 @@ const Option3 = ({ showVideo, handleClick }) => {
   return (
     <OptionComponent>
       <div>
-        How to upload a video:
-        <Markdown text={uploadVideoRemoteCode} />
-        <Player.FileUploader
+        <h3>Description:</h3>
+        <p style={{ textAlign: "left" }}>
+          These components are connected to our deployed server, eliminating the
+          need for additional setup. This example demonstrates how to display a
+          video using the playbackId and URL properties of the component
+        </p>
+      </div>
+      <h3>Code:</h3>
+      <Markdown text={displayVideoRemoteCode} />
+      <Button type="button" onClick={() => handleClick()}>
+        Click me
+      </Button>
+      {showVideo && (
+        <Player.Display
           url={"https://livepeer-webserver-613b208ef083.herokuapp.com"}
+          playbackId={"62fa7rxnbjzmoj2a"}
         />
-        <Player.Display />
-      </div>
-      <div>
-        <button type="button" onClick={() => handleClick()}>
-          Click me
-        </button>
-        how to display a video already uploaded starting from the playback id:
-        <Markdown text={displayVideoRemoteCode} />
-        {showVideo && (
-          <Player.Display
-            url={"https://livepeer-webserver-613b208ef083.herokuapp.com"}
-            playbackId={"62fa7rxnbjzmoj2a"}
-          />
-        )}
-      </div>
+      )}
     </OptionComponent>
   );
 };
@@ -261,22 +308,12 @@ return (
         {selectedOption === "apiKey" && <Option1 />}
         {selectedOption === "localServer" && (
           <>
-            {!inputSet ? (
-              <div>
-                <StlyedInput
-                  type="text"
-                  onChange={(event) => setUrl(event.target.value)}
-                  value={url}
-                />
-                <button onClick={() => setInputSet(true)}>Set url</button>
-              </div>
-            ) : (
-              <>
-                <span>using: {url}</span>
-                <button onClick={resetUrl}>X</button>
-              </>
-            )}
-            <Option2 url={url} />
+            <Option2
+              url={url}
+              inputSet={inputSet}
+              setInputSet={setInputSet}
+              resetUrl={resetUrl}
+            />
           </>
         )}
         {selectedOption === "remoteServer" && (
@@ -305,10 +342,7 @@ return (
                 />
               </div>
             ) : (
-              <>
-                <span>using: {url}</span>
-                <button onClick={resetUrl}>X</button>
-              </>
+              <button onClick={resetUrl}>X</button>
             )}
             <Option2Broadcast url={url} pId={pId} />
           </>
