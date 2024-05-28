@@ -1,15 +1,27 @@
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  color: white;
+  justify-content: center;
+  align-items: center;
+`;
+
+const StlyedInput = styled.input`
+  color: black;
+  padding: 4px;
+`;
+
 const Dropdown = styled.select`
   ping: 10px;
   margin: 20px 0;
   border: 1px solid #ccc;
   border-radius: 4px;
+  color: black;
 `;
 
 const OptionComponent = styled.div`
   padding: 20px;
-  border: 1px solid #ccc;
   border-radius: 4px;
-  background-color: #f9f9f9;
   width: 80%;
   text-align: center;
   display: flex;
@@ -58,6 +70,24 @@ const broadcastApiKeyCode = `
 <Broadcast.ApiKey />
 <Broadcast.GenerateStream />
 <Broadcast.Player />
+\`\`\`
+`;
+
+const broadcastLocalCode = `
+\`\`\`js
+<Broadcast.GenerateStream url={url} />
+<Broadcast.Player />
+<Broadcast.WatchStream pId={pId} />
+\`\`\`
+`;
+
+const broadcastRemoteCode = `
+\`\`\`js
+<Broadcast.GenerateStream
+url={"https://livepeer-webserver-613b208ef083.herokuapp.com"}
+/>
+<Broadcast.Player />
+<Broadcast.WatchStream pId={pId} />
 \`\`\`
 `;
 
@@ -111,7 +141,7 @@ const Option3 = ({ showVideo, handleClick }) => {
   );
 };
 
-const Option1Broadcast = ({ pId }) => {
+const Option1Broadcast = () => {
   return (
     <>
       Set api key and start a stream!
@@ -127,7 +157,7 @@ const Option2Broadcast = ({ url, pId }) => {
   return (
     <>
       Set api key and start a stream!
-      <Markdown text={broadcastApiKeyCode} />
+      <Markdown text={broadcastLocalCode} />
       <Broadcast.GenerateStream url={url} />
       <Broadcast.Player />
       Or you can insert a playbackId and watch a stream:
@@ -140,7 +170,7 @@ const Option3Broadcast = ({ pId }) => {
   return (
     <>
       Set api key and start a stream!
-      <Markdown text={broadcastApiKeyCode} />
+      <Markdown text={broadcastRemoteCode} />
       <Broadcast.GenerateStream
         url={"https://livepeer-webserver-613b208ef083.herokuapp.com"}
       />
@@ -169,7 +199,7 @@ function resetUrl() {
 }
 
 return (
-  <div className="container">
+  <Container>
     Select which component you want to check:
     <Dropdown
       value={selectedComponent}
@@ -194,7 +224,7 @@ return (
           <>
             {!inputSet ? (
               <div>
-                <input
+                <StlyedInput
                   type="text"
                   onChange={(event) => setUrl(event.target.value)}
                   value={url}
@@ -222,14 +252,14 @@ return (
           <>
             {!inputSet ? (
               <div>
-                <input
+                <StlyedInput
                   type="text"
                   onChange={(event) => setUrl(event.target.value)}
                   value={url}
                 />
                 <button onClick={() => setInputSet(true)}>Set url</button>
                 Provide a playbackId if you wanna watch a stream:
-                <input
+                <StlyedInput
                   type="text"
                   onChange={(event) => setPid(event.target.value)}
                   value={pId}
@@ -248,7 +278,7 @@ return (
           <>
             <div>
               Provide a playbackId if you wanna watch a stream:
-              <input
+              <StlyedInput
                 type="text"
                 onChange={(event) => setPid(event.target.value)}
                 value={pId}
@@ -259,5 +289,5 @@ return (
         )}
       </>
     )}
-  </div>
+  </Container>
 );

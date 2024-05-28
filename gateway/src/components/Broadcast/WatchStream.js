@@ -1,6 +1,8 @@
-import React, { useState } from "react";
-import { useStore } from "../Broadcast/state";
+import React from "react";
 import styled from "styled-components";
+
+import { useStore } from "../Broadcast/state";
+
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -56,30 +58,10 @@ const WatchStream = ({ pId }) => {
 
   return (
     <Container>
-      <Form onSubmit={createStream}>
-        <Input
-          type="text"
-          value={streamName}
-          onChange={(event) => setStreamName(event.target.value)}
-          placeholder="Enter stream name"
-        />
-        <Button type="submit">Create Stream</Button>
-      </Form>
-      <Form onSubmit={handleSubmit}>
-        <Input
-          type="text"
-          value={inputValue}
-          onChange={handleChange}
-          placeholder="Enter playbackId to watch"
-        />
-        <p>Current Input: {inputValue}</p>
-        <Button type="submit">Watch Stream</Button>
-      </Form>
-      {streamLink && (
+      {currentPlaybackId && (
         <IframeContainer>
-          {" "}
           <iframe
-            src={`https://lvpr.tv?v=${streamLink}`}
+            src={`https://lvpr.tv?v=${currentPlaybackId}`}
             frameborder="0"
             allowfullscreen
             allow="autoplay; encrypted-media; picture-in-picture"
