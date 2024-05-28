@@ -36,7 +36,7 @@ const PreviewContent = styled.div`
 const WidgetCode = `
 \`\`\`js
 <Widget
-src={"efiz.near/widget/Broadcast.ApiKey"}
+src={"${config_account}/widget/Broadcast.ApiKey"}
 props={{
   automated: true,
   apiKey: "8b3bdqjtdj4jsjwa",

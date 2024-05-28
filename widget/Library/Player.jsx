@@ -36,7 +36,7 @@ const PreviewContent = styled.div`
 const WidgetCode = `
 \`\`\`js
 <Widget
-src={"efiz.near/widget/Player.Player"}
+src={"${config_account}/widget/Player.Player"}
 props={{
   title: "Original Keyboard Cat!",
   playbackId: "8b3bdqjtdj4jsjwa",

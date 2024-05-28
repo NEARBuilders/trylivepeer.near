@@ -27,7 +27,7 @@ const item = {
 const link =
   props.link ??
   props.fullPostLink ??
-  `/mob.near/widget/MainPage.N.Post.Page?accountId=${accountId}&blockHeight=${blockHeight}`;
+  `/${alias_mob}/widget/MainPage.N.Post.Page?accountId=${accountId}&blockHeight=${blockHeight}`;
 
 const Wrapper = styled.div`
   margin: 0 -12px;
@@ -167,7 +167,7 @@ const contentWidget = (
         style={{ minHeight: "100px" }}
       />
     }
-    src="mob.near/widget/MainPage.N.Post.Content"
+    src="${alias_mob}/widget/MainPage.N.Post.Content"
     props={{
       content,
       raw,
@@ -191,7 +191,7 @@ return (
       <div className="left">
         <Widget
           loading=""
-          src="mob.near/widget/MainPage.N.Post.Left"
+          src="${alias_mob}/widget/MainPage.N.Post.Left"
           props={{ accountId, groupId }}
         />
       </div>
@@ -227,7 +227,7 @@ return (
           <div className="buttons d-flex justify-content-between">
             <Widget
               loading=""
-              src="mob.near/widget/N.CommentButton"
+              src="${alias_mob}/widget/N.CommentButton"
               props={{
                 disabled: permissions.disableComment,
                 onClick: () => State.update({ showReply: !state.showReply }),
@@ -235,7 +235,7 @@ return (
             />
             <Widget
               loading=""
-              src="mob.near/widget/N.RepostButton"
+              src="${alias_mob}/widget/N.RepostButton"
               props={{
                 disable: permissions.disableRepost,
                 notifyAccountId,
@@ -246,7 +246,7 @@ return (
             />
             <Widget
               loading=""
-              src="mob.near/widget/N.LikeButton"
+              src="${alias_mob}/widget/N.LikeButton"
               props={{
                 notifyAccountId,
                 item,
@@ -254,7 +254,7 @@ return (
             />
             <Widget
               loading=""
-              src="mob.near/widget/MainPage.N.Post.ShareButton"
+              src="${alias_mob}/widget/MainPage.N.Post.ShareButton"
               props={{ accountId, blockHeight, postType: "post", groupId }}
             />
           </div>
@@ -267,7 +267,7 @@ return (
       <div className="border-top">
         <Widget
           loading=""
-          src="mob.near/widget/MainPage.N.Comment.Compose"
+          src="${alias_mob}/widget/MainPage.N.Comment.Compose"
           props={{
             notifyAccountId,
             item,
@@ -282,7 +282,7 @@ return (
           <Widget
             key="comments"
             loading={false}
-            src="mob.near/widget/MainPage.N.Comment.Feed"
+            src="${alias_mob}/widget/MainPage.N.Comment.Feed"
             props={{
               item,
               highlightComment: props.highlightComment,

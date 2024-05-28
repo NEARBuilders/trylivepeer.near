@@ -35,7 +35,7 @@ const PreviewContent = styled.div`
 
 const WidgetCode = `
 \`\`\`js
-<Widget src={"efiz.near/widget/Broadcast.Player"} />
+<Widget src={"${config_account}/widget/Broadcast.Player"} />
 \`\`\`
 `;
 

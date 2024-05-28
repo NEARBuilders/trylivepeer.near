@@ -35,7 +35,7 @@ const PreviewContent = styled.div`
 
 const WidgetCode = `
 \`\`\`js
-<Widget src={"efiz.near/widget/Player.DirectUploadAsset"} />
+<Widget src={"${config_account}/widget/Player.DirectUploadAsset"} />
 \`\`\`
 `;
 

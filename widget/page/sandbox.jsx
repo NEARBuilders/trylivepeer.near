@@ -13,23 +13,23 @@ return (
       <div className="col">
         <div>
           <h1>Player</h1>
-          <Widget src="trylivepeer.near/widget/Player" props={playerData} />
+          <Widget src="${config_account}/widget/Player" props={playerData} />
         </div>
       </div>
       <div className="col">
         <div>
           <h1>Broadcast</h1>
           <Widget
-            src="trylivepeer.near/widget/GenerateStream"
+            src="${config_account}/widget/GenerateStream"
             props={broadcastData}
           />
           <Widget
-            src="trylivepeer.near/widget/Broadcast"
+            src="${config_account}/widget/Broadcast"
             props={broadcastData}
           />
         </div>
       </div>
     </div>
-    <Widget src="trylivepeer.near/widget/Library" />
+    <Widget src="${config_account}/widget/Library" />
   </>
 );

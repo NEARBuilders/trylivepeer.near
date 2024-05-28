@@ -10,7 +10,7 @@ const isPremium = !!props.isPremium;
 
 const Overlay = (props) => (
   <Widget
-    src="mob.near/widget/Profile.N.OverlayTrigger"
+    src="${alias_mob}/widget/Profile.N.OverlayTrigger"
     loading={props.children}
     props={{
       accountId,
@@ -84,7 +84,7 @@ return (
           <div className="flex-shrink-0">
             <Widget
               loading={""}
-              src="mob.near/widget/Checkmark"
+              src="${alias_mob}/widget/Checkmark"
               props={{ isPremium, accountId }}
             />
           </div>
@@ -108,7 +108,7 @@ return (
                 <a className="text-truncate fw-bold" href={link}>
                   <Widget
                     loading=""
-                    src="mob.near/widget/TimeAgo"
+                    src="${alias_mob}/widget/TimeAgo"
                     props={{ blockHeight }}
                   />
                 </a>
@@ -139,14 +139,14 @@ return (
           </li>
           <li>
             <Widget
-              src="mob.near/widget/MainPage.Common.HideAccount"
+              src="${alias_mob}/widget/MainPage.Common.HideAccount"
               props={{ accountId }}
             />
           </li>
           {props.flagItem && (
             <li>
               <Widget
-                src="mob.near/widget/MainPage.Common.FlagContent"
+                src="${alias_mob}/widget/MainPage.Common.FlagContent"
                 props={{
                   item: props.flagItem,
                   label: `Flag ${postType} for moderation`,

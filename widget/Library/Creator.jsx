@@ -50,7 +50,7 @@ const WidgetCode = `
 </Files>
 
 <Widget
-  src={"efiz.near/widget/Livepeer.Creator"}
+  src={"${config_account}/widget/Livepeer.Creator"}
   props={{
     video: state.currentUpload,
     metadata: { title, description },
@@ -144,7 +144,7 @@ return (
           Stage Video
         </Files>
         <Widget
-          src={"efiz.near/widget/Livepeer.Creator"}
+          src={"${config_account}/widget/Livepeer.Creator"}
           props={{
             video: state.currentUpload,
             metadata: { title, description },
