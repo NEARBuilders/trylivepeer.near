@@ -136,6 +136,21 @@ const Option2Broadcast = ({ url, pId }) => {
   );
 };
 
+const Option3Broadcast = ({ pId }) => {
+  return (
+    <>
+      Set api key and start a stream!
+      <Markdown text={broadcastApiKeyCode} />
+      <Broadcast.GenerateStream
+        url={"https://livepeer-webserver-613b208ef083.herokuapp.com"}
+      />
+      <Broadcast.Player />
+      Or you can insert a playbackId and watch a stream:
+      <Broadcast.WatchStream pId={pId} />
+    </>
+  );
+};
+
 const [selectedOption, setSelectedOption] = useState("apiKey");
 const [selectedComponent, setSelectedComponent] = useState("player");
 const [displayVideo, setDisplayVideo] = useState(false);
@@ -227,6 +242,19 @@ return (
               </>
             )}
             <Option2Broadcast url={url} pId={pId} />
+          </>
+        )}
+        {selectedOption === "remoteServer" && (
+          <>
+            <div>
+              Provide a playbackId if you wanna watch a stream:
+              <input
+                type="text"
+                onChange={(event) => setPid(event.target.value)}
+                value={pId}
+              />
+            </div>
+            <Option3Broadcast pId={pId} />
           </>
         )}
       </>
