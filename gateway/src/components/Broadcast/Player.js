@@ -4,6 +4,7 @@ import * as Broadcast from "@livepeer/react/broadcast";
 import { getIngest } from "@livepeer/react/external";
 
 import { useStore } from "./state";
+import styled from "styled-components";
 
 const Player = (props) => {
   const { streamKey } = useStore();

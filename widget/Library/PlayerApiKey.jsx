@@ -77,7 +77,6 @@ const PoweredBy = styled.h3`
 const PropertiesContent = styled.div`
   grid-column: span 9 / span 9;
   border-radius: 24px;
-  border: 1px solid #c7c7c7;
   padding: 1rem;
   word-break: normal;
   overflow-x: scroll;
@@ -125,70 +124,72 @@ return (
       <Markdown text={WidgetCode} />
     </UsageContent>
     <UsageContent>
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th
-              style={{
-                fontWeight: 600,
-              }}
-            >
-              Property
-            </th>
-            <th
-              style={{
-                fontWeight: 600,
-              }}
-            >
-              Type
-            </th>
-            <th
-              style={{
-                fontWeight: 600,
-              }}
-            >
-              Default value
-            </th>
-            <th
-              style={{
-                fontWeight: 600,
-              }}
-            >
-              Description
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td
-              style={{
-                fontFamily: "monospace",
-              }}
-            >
-              automated
-            </td>
-            <td>boolean</td>
-            <td>false</td>
-            <td>
-              When the component is automated it doesn't display UI and will set
-              the apiKey in the Player cast component player based on the
-              property "apiKey"
-            </td>
-          </tr>
-          <tr>
-            <td
-              style={{
-                fontFamily: "monospace",
-              }}
-            >
-              apiKey
-            </td>
-            <td>string</td>
-            <td>""</td>
-            <td>value of the apiKey set by the component.</td>
-          </tr>
-        </tbody>
-      </table>
+      <PropertiesContent>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th
+                style={{
+                  fontWeight: 600,
+                }}
+              >
+                Property
+              </th>
+              <th
+                style={{
+                  fontWeight: 600,
+                }}
+              >
+                Type
+              </th>
+              <th
+                style={{
+                  fontWeight: 600,
+                }}
+              >
+                Default value
+              </th>
+              <th
+                style={{
+                  fontWeight: 600,
+                }}
+              >
+                Description
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td
+                style={{
+                  fontFamily: "monospace",
+                }}
+              >
+                automated
+              </td>
+              <td>boolean</td>
+              <td>false</td>
+              <td>
+                When the component is automated it doesn't display UI and will
+                set the apiKey in the Player cast component player based on the
+                property "apiKey"
+              </td>
+            </tr>
+            <tr>
+              <td
+                style={{
+                  fontFamily: "monospace",
+                }}
+              >
+                apiKey
+              </td>
+              <td>string</td>
+              <td>""</td>
+              <td>value of the apiKey set by the component.</td>
+            </tr>
+          </tbody>
+        </table>
+      </PropertiesContent>
     </UsageContent>
   </Container>
 );

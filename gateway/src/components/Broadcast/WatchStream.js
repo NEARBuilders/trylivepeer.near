@@ -1,5 +1,53 @@
 import React, { useState } from "react";
 import { useStore } from "../Broadcast/state";
+import styled from "styled-components";
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background-color: #2d2d2d;
+  padding: 2rem;
+  border-radius: 16px;
+  color: #a5a5a5;
+`;
+
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+`;
+
+const Input = styled.input`
+  padding: 12px;
+  border: 1px solid #444;
+  border-radius: 4px;
+  background-color: #1c1c1c;
+  color: #a5a5a5;
+  font-size: 14px;
+
+  &:focus {
+    outline: none;
+    border-color: #666;
+  }
+`;
+
+const Button = styled.button`
+  padding: 12px 16px;
+  border: none;
+  border-radius: 4px;
+  background-color: #000;
+  color: #a5a5a5;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #1c1a1a;
+  }
+`;
+const IframeContainer = styled.div`
+  margin-top: 16px;
+`;
 
 const WatchStream = () => {
   const { setStreamKey } = useStore();
@@ -52,36 +100,39 @@ const WatchStream = () => {
   };
 
   return (
-    <div>
-      <form onSubmit={createStream}>
-        <input
+    <Container>
+      <Form onSubmit={createStream}>
+        <Input
           type="text"
           value={streamName}
           onChange={(event) => setStreamName(event.target.value)}
           placeholder="Enter stream name"
         />
-        <button type="submit">create stream</button>
-      </form>
-      <form onSubmit={handleSubmit}>
-        <input
+        <Button type="submit">Create Stream</Button>
+      </Form>
+      <Form onSubmit={handleSubmit}>
+        <Input
           type="text"
           value={inputValue}
           onChange={handleChange}
           placeholder="Enter playbackId to watch"
         />
         <p>Current Input: {inputValue}</p>
-        <button type="submit">Watch stream</button>
-      </form>
+        <Button type="submit">Watch Stream</Button>
+      </Form>
       {streamLink && (
-        <iframe
-          src={`https://lvpr.tv?v=${streamLink}`}
-          frameborder="0"
-          allowfullscreen
-          allow="autoplay; encrypted-media; picture-in-picture"
-          sandbox="allow-same-origin allow-scripts"
-        ></iframe>
+        <IframeContainer>
+          {" "}
+          <iframe
+            src={`https://lvpr.tv?v=${streamLink}`}
+            frameborder="0"
+            allowfullscreen
+            allow="autoplay; encrypted-media; picture-in-picture"
+            sandbox="allow-same-origin allow-scripts"
+          ></iframe>
+        </IframeContainer>
       )}
-    </div>
+    </Container>
   );
 };
 

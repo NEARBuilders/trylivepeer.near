@@ -27,7 +27,6 @@ const PreviewContent = styled.div`
   grid-column: span 9 / span 9;
   border-radius: 24px;
   background-color: #2d2d2d;
-  border: 1px solid #23242b;
   padding: 4rem;
   word-break: normal;
   color: #a5a5a5;

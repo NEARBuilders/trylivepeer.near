@@ -77,8 +77,6 @@ const PoweredBy = styled.h3`
 const PropertiesContent = styled.div`
   grid-column: span 9 / span 9;
   border-radius: 24px;
-  background-color: #2d2d2d;
-  border: 1px solid #23242b;
   padding: 1rem;
   word-break: normal;
   overflow-x: scroll;
@@ -129,77 +127,79 @@ return (
       <Markdown text={WidgetCode} />
     </UsageContent>
     <UsageContent>
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th
-              style={{
-                fontWeight: 600,
-              }}
-            >
-              Property
-            </th>
-            <th
-              style={{
-                fontWeight: 600,
-              }}
-            >
-              Type
-            </th>
-            <th
-              style={{
-                fontWeight: 600,
-              }}
-            >
-              Default value
-            </th>
-            <th
-              style={{
-                fontWeight: 600,
-              }}
-            >
-              This component enables the configuration of the Livepeer Studio
-              API key.
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td
-              style={{
-                fontFamily: "monospace",
-              }}
-            >
-              automated
-            </td>
-            <td>boolean</td>
-            <td>false</td>
-            <td>
-              When automated, this component operates without a user interface
-              and automatically configures the
-              <MonospaceText>apiKey</MonospaceText> in the
-              <MonospaceText>Broadcast.Player</MonospaceText>
-              component using the specified{" "}
-              <MonospaceText>apiKey</MonospaceText> property.
-            </td>
-          </tr>
-          <tr>
-            <td
-              style={{
-                fontFamily: "monospace",
-              }}
-            >
-              apiKey
-            </td>
-            <td>string</td>
-            <td>""</td>
-            <td>
-              Value of the <MonospaceText>apiKey</MonospaceText> as configured
-              by the component.
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <PropertiesContent>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th
+                style={{
+                  fontWeight: 600,
+                }}
+              >
+                Property
+              </th>
+              <th
+                style={{
+                  fontWeight: 600,
+                }}
+              >
+                Type
+              </th>
+              <th
+                style={{
+                  fontWeight: 600,
+                }}
+              >
+                Default value
+              </th>
+              <th
+                style={{
+                  fontWeight: 600,
+                }}
+              >
+                This component enables the configuration of the Livepeer Studio
+                API key.
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td
+                style={{
+                  fontFamily: "monospace",
+                }}
+              >
+                automated
+              </td>
+              <td>boolean</td>
+              <td>false</td>
+              <td>
+                When automated, this component operates without a user interface
+                and automatically configures the
+                <MonospaceText>apiKey</MonospaceText> in the
+                <MonospaceText>Broadcast.Player</MonospaceText>
+                component using the specified{" "}
+                <MonospaceText>apiKey</MonospaceText> property.
+              </td>
+            </tr>
+            <tr>
+              <td
+                style={{
+                  fontFamily: "monospace",
+                }}
+              >
+                apiKey
+              </td>
+              <td>string</td>
+              <td>""</td>
+              <td>
+                Value of the <MonospaceText>apiKey</MonospaceText> as configured
+                by the component.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </PropertiesContent>
     </UsageContent>
   </Container>
 );
