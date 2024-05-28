@@ -9,10 +9,7 @@ import styled from "styled-components";
 const Player = (props) => {
   const { streamKey } = useStore();
 
-  useEffect(() => {
-    console.log("stream key change");
-    console.log(streamKey);
-  }, [streamKey]);
+  useEffect(() => {}, [streamKey]);
 
   if (!streamKey) return <div>stream key not found</div>;
 

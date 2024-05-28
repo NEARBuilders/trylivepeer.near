@@ -49,55 +49,10 @@ const IframeContainer = styled.div`
   margin-top: 16px;
 `;
 
-const WatchStream = () => {
-  const { setStreamKey } = useStore();
+const WatchStream = ({ pId }) => {
+  const { playbackId } = useStore();
 
-  const [inputValue, setInputValue] = useState("");
-  const [streamLink, setStreamLink] = useState("");
-  const [streamName, setStreamName] = useState("");
-
-  const handleChange = (event) => {
-    setInputValue(event.target.value);
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    setStreamLink(inputValue);
-  };
-
-  const createStream = async (event) => {
-    event.preventDefault();
-
-    const myHeaders = new Headers();
-
-    myHeaders.append("Content-Type", "application/json");
-
-    const raw = JSON.stringify({
-      name: "test name",
-    });
-
-    const requestOptions = {
-      method: "POST",
-      headers: myHeaders,
-      body: raw,
-      redirect: "follow",
-    };
-
-    try {
-      let result = await fetch(
-        "http://localhost:3000/stream/create",
-        requestOptions
-      );
-
-      result = await result.json();
-
-      setStreamKey(result.streamKey);
-      setInputValue(result.playbackId);
-    } catch (error) {
-      console.log("-- error");
-      console.log(error.message);
-    }
-  };
+  const currentPlaybackId = pId || playbackId;
 
   return (
     <Container>

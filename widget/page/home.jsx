@@ -1,42 +1,263 @@
+const Dropdown = styled.select`
+  ping: 10px;
+  margin: 20px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+`;
+
+const OptionComponent = styled.div`
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+  width: 80%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+const apiKeyCode = `
+\`\`\`js
+<Player.ApiKey />
+<Player.GetUploadUrl />
+<Player.ResumableUploadAsset />
+<Player.GetSrc />
+<Player.Display />
+\`\`\`
+`;
+
+const localServerCode = `
+\`\`\`js
+<Player.FileUploader url={url} />
+<Player.Display />
+\`\`\`
+`;
+
+const uploadVideoRemoteCode = `
+\`\`\`js
+<Player.FileUploader
+	url={"https://livepeer-webserver-613b208ef083.herokuapp.com"}
+/>
+<Player.Display />
+\`\`\`
+`;
+
+const displayVideoRemoteCode = `
+\`\`\`js
+<Player.Display
+	url={"https://livepeer-webserver-613b208ef083.herokuapp.com"}
+	playbackId={"62fa7rxnbjzmoj2a"}
+/>
+\`\`\`
+`;
+
+const broadcastApiKeyCode = `
+\`\`\`js
+<Broadcast.ApiKey />
+<Broadcast.GenerateStream />
+<Broadcast.Player />
+\`\`\`
+`;
+
+const Option1 = () => (
+  <OptionComponent>
+    Api key
+    <Markdown text={apiKeyCode} />
+    <Player.ApiKey />
+    <Player.GetUploadUrl />
+    <Player.ResumableUploadAsset />
+    <Player.GetSrc />
+    <Player.Display />
+  </OptionComponent>
+);
+
+const Option2 = ({ url }) => {
+  return (
+    <OptionComponent>
+      <Markdown text={localServerCode} />
+      <Player.FileUploader url={url} />
+      <Player.Display />
+    </OptionComponent>
+  );
+};
+
+const Option3 = ({ showVideo, handleClick }) => {
+  return (
+    <OptionComponent>
+      <div>
+        How to upload a video:
+        <Markdown text={uploadVideoRemoteCode} />
+        <Player.FileUploader
+          url={"https://livepeer-webserver-613b208ef083.herokuapp.com"}
+        />
+        <Player.Display />
+      </div>
+      <div>
+        <button type="button" onClick={() => handleClick()}>
+          Click me
+        </button>
+        how to display a video already uploaded starting from the playback id:
+        <Markdown text={displayVideoRemoteCode} />
+        {showVideo && (
+          <Player.Display
+            url={"https://livepeer-webserver-613b208ef083.herokuapp.com"}
+            playbackId={"62fa7rxnbjzmoj2a"}
+          />
+        )}
+      </div>
+    </OptionComponent>
+  );
+};
+
+const Option1Broadcast = ({ pId }) => {
+  return (
+    <>
+      Set api key and start a stream!
+      <Markdown text={broadcastApiKeyCode} />
+      <Broadcast.ApiKey />
+      <Broadcast.GenerateStream />
+      <Broadcast.Player />
+    </>
+  );
+};
+
+const Option2Broadcast = ({ url, pId }) => {
+  return (
+    <>
+      Set api key and start a stream!
+      <Markdown text={broadcastApiKeyCode} />
+      <Broadcast.GenerateStream url={url} />
+      <Broadcast.Player />
+      Or you can insert a playbackId and watch a stream:
+      <Broadcast.WatchStream pId={pId} />
+    </>
+  );
+};
+
+const Option3Broadcast = ({ pId }) => {
+  return (
+    <>
+      Set api key and start a stream!
+      <Markdown text={broadcastApiKeyCode} />
+      <Broadcast.GenerateStream
+        url={"https://livepeer-webserver-613b208ef083.herokuapp.com"}
+      />
+      <Broadcast.Player />
+      Or you can insert a playbackId and watch a stream:
+      <Broadcast.WatchStream pId={pId} />
+    </>
+  );
+};
+
+const [selectedOption, setSelectedOption] = useState("apiKey");
+const [selectedComponent, setSelectedComponent] = useState("player");
+const [displayVideo, setDisplayVideo] = useState(false);
+const [url, setUrl] = useState("");
+const [pId, setPid] = useState("");
+const [inputSet, setInputSet] = useState(false);
+const [showVideo, setShowVideo] = useState(false);
+
+function handleClick() {
+  setShowVideo(!showVideo);
+}
+
+function resetUrl() {
+  setUrl("");
+  setInputSet(false);
+}
+
 return (
   <div className="container">
-    <div className="row my-4">
-      <div className="col-12">
-        <div className="d-flex flex-wrap justify-content-between">
-          {/* Placeholder for the nine circles */}
-          {[...Array(9)].map((_, idx) => (
-            <div key={idx} className="m-2">
-              <div
-                className="rounded-circle border"
-                style={{ width: "100px", height: "100px" }}
-              ></div>
+    Select which component you want to check:
+    <Dropdown
+      value={selectedComponent}
+      onChange={(event) => setSelectedComponent(event.target.value)}
+    >
+      <option value="player">Player</option>
+      <option value="broadcast">Broadcast</option>
+    </Dropdown>
+    Select how you want to initialise the components:
+    <Dropdown
+      value={selectedOption}
+      onChange={(event) => setSelectedOption(event.target.value)}
+    >
+      <option value="apiKey">Provide api key</option>
+      <option value="localServer">Use your local server</option>
+      <option value="remoteServer">Use a remote server</option>
+    </Dropdown>
+    {selectedComponent === "player" && (
+      <>
+        {selectedOption === "apiKey" && <Option1 />}
+        {selectedOption === "localServer" && (
+          <>
+            {!inputSet ? (
+              <div>
+                <input
+                  type="text"
+                  onChange={(event) => setUrl(event.target.value)}
+                  value={url}
+                />
+                <button onClick={() => setInputSet(true)}>Set url</button>
+              </div>
+            ) : (
+              <>
+                <span>using: {url}</span>
+                <button onClick={resetUrl}>X</button>
+              </>
+            )}
+            <Option2 url={url} />
+          </>
+        )}
+        {selectedOption === "remoteServer" && (
+          <Option3 showVideo={showVideo} handleClick={handleClick} />
+        )}
+      </>
+    )}
+    {selectedComponent === "broadcast" && (
+      <>
+        {selectedOption === "apiKey" && <Option1Broadcast />}
+        {selectedOption === "localServer" && (
+          <>
+            {!inputSet ? (
+              <div>
+                <input
+                  type="text"
+                  onChange={(event) => setUrl(event.target.value)}
+                  value={url}
+                />
+                <button onClick={() => setInputSet(true)}>Set url</button>
+                Provide a playbackId if you wanna watch a stream:
+                <input
+                  type="text"
+                  onChange={(event) => setPid(event.target.value)}
+                  value={pId}
+                />
+              </div>
+            ) : (
+              <>
+                <span>using: {url}</span>
+                <button onClick={resetUrl}>X</button>
+              </>
+            )}
+            <Option2Broadcast url={url} pId={pId} />
+          </>
+        )}
+        {selectedOption === "remoteServer" && (
+          <>
+            <div>
+              Provide a playbackId if you wanna watch a stream:
+              <input
+                type="text"
+                onChange={(event) => setPid(event.target.value)}
+                value={pId}
+              />
             </div>
-          ))}
-        </div>
-      </div>
-    </div>
-
-    <div className="row">
-      <div className="col-6">
-        <div className="border p-3">
-          <p>description</p>
-        </div>
-      </div>
-      <div className="col-3">
-        <Link to="/trylivepeer.near/widget/index?page=social">
-          <button className="button">Social</button>
-        </Link>
-      </div>
-      <div className="col-3">
-        <Link to="/trylivepeer.near/widget/index?page=sandbox">
-          <button className="button">Sandbox</button>
-        </Link>
-      </div>
-      <div className="col-3">
-        <Link to="/trylivepeer.near/widget/index?page=library">
-          <button className="button">Library</button>
-        </Link>
-      </div>
-    </div>
+            <Option3Broadcast pId={pId} />
+          </>
+        )}
+      </>
+    )}
   </div>
 );

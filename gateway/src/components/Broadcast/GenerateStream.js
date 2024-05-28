@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { useStore } from "./state";
-import styled from "styled-components";
-const GenerateStream = () => {
-  const { setStreamKey, setError, apiKey } = useStore();
+
+const GenerateStream = ({ url }) => {
+  const { setStreamKey, playbackId, setPlaybackId, setError, apiKey } =
+    useStore();
 
   const API_KEY = apiKey || process.env.REACT_APP_LIVEPEER_STUDIO_API_KEY;
 
@@ -12,30 +13,46 @@ const GenerateStream = () => {
   const createStream = async (event) => {
     event.preventDefault();
 
-    try {
-      const response = await fetch("https://livepeer.studio/api/stream", {
+    if (url) {
+      const response = await fetch(`${url}/stream/create`, {
         method: "POST",
         headers: {
-          Authorization: `Bearer ${API_KEY}`,
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          name,
-          record,
-        }),
+        body: JSON.stringify({ name, recorded: record }),
       });
 
-      if (!response.ok) {
-        setError("Network response was not ok");
-        return;
-      }
-
       const data = await response.json();
-      console.log("Stream created:", data);
 
       setStreamKey(data.streamKey);
-    } catch (error) {
-      setError(error.message);
+      setPlaybackId(data.playbackId);
+    } else {
+      try {
+        const response = await fetch("https://livepeer.studio/api/stream", {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${API_KEY}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name,
+            record,
+          }),
+        });
+
+        if (!response.ok) {
+          setError("Network response was not ok");
+          return;
+        }
+
+        const data = await response.json();
+        console.log("Stream created:", data);
+
+        setStreamKey(data.streamKey);
+        setPlaybackId(data.playbackId);
+      } catch (error) {
+        setError(error.message);
+      }
     }
   };
 
@@ -132,6 +149,12 @@ const GenerateStream = () => {
         </Label>
         <Button type="submit">Start stream</Button>
       </Form>
+      {playbackId && (
+        <>
+          <div>Sharable link: {`https://lvpr.tv?v=${playbackId}`}</div>
+          <div>Sharable playbackId: {playbackId}</div>
+        </>
+      )}
     </FormContainer>
   );
 };

@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { getSrc } from "@livepeer/react/external";
 
-import { createLivepeerInstance } from "./LivepeerInstance";
 import { useStore } from "./state";
 import styled from "styled-components";
 const Container = styled.div`
@@ -49,26 +48,20 @@ const Button = styled.button`
   }
 `;
 
-const FileUploader = () => {
-  const { setError, setSrc, setPlaybackId, apiKey } = useStore();
+const FileUploader = ({ url }) => {
+  const { setError, setSrc, setLoading } = useStore();
+
   const [file, setFile] = useState(null);
   const [fileName, setFileName] = useState("");
-  const [livepeer, setLivepeer] = useState(null);
-
-  useEffect(() => {
-    if (!apiKey) return;
-    setLivepeer(createLivepeerInstance(apiKey));
-  }, [apiKey]);
 
   const getPlaybackSource = async (playbackId, retryCount = 10) => {
-    if (!livepeer) throw new Error("Livepeer instance not found");
-
     const attemptFetch = async (attemptsRemaining) => {
       try {
-        const playbackInfo = await livepeer.playback.get(playbackId);
-        setPlaybackId(playbackInfo.playbackId);
+        let result = await fetch(`${url}/playback/${playbackId}`);
 
-        const src = getSrc(playbackInfo.playbackInfo);
+        result = await result.json();
+        const src = getSrc(result);
+
         return src;
       } catch (error) {
         if (attemptsRemaining === 0) {
@@ -96,6 +89,8 @@ const FileUploader = () => {
   };
 
   const handleSubmit = async (event) => {
+    setLoading(true);
+    // setSrc(null);
     event.preventDefault();
     if (!file) {
       alert("Please select a file first!");
@@ -113,15 +108,16 @@ const FileUploader = () => {
     };
 
     try {
-      let result = await fetch("http://localhost:3000/upload", requestOptions);
+      let result = await fetch(`${url}/upload`, requestOptions);
       result = await result.json();
 
       const fetchedSrc = await getPlaybackSource(result.asset.playbackId);
-      console.log("-- setting src");
       setSrc(fetchedSrc);
     } catch (error) {
       console.log("-- error");
       console.log(error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
