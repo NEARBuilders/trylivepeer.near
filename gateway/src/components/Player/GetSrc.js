@@ -3,6 +3,17 @@ import { getSrc } from "@livepeer/react/external";
 
 import { createLivepeerInstance } from "./LivepeerInstance";
 import { useStore } from "./state";
+import styled from "styled-components";
+const UploadContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  color: #a5a5a5;
+  padding: 16px;
+  border: 1px solid #23242b;
+  border-radius: 8px;
+  background-color: #2c2c2c;
+`;
 
 const GetSrc = ({ url }) => {
   const { setSrc, setError, playbackId, setLoading, clearState } = useStore();
@@ -53,9 +64,11 @@ const GetSrc = ({ url }) => {
   };
 
   return (
-    <button type="button" onClick={fetchSrc}>
-      Get asset Src
-    </button>
+    <UploadContainer>
+      <button type="button" onClick={fetchSrc}>
+        Get asset Src
+      </button>
+    </UploadContainer>
   );
 };
 

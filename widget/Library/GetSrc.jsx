@@ -74,7 +74,6 @@ const PoweredBy = styled.h3`
 const PropertiesContent = styled.div`
   grid-column: span 9 / span 9;
   border-radius: 24px;
-  border: 1px solid #c7c7c7;
   padding: 1rem;
   word-break: normal;
   overflow-x: scroll;
@@ -125,54 +124,56 @@ return (
       <Markdown text={WidgetCode} />
     </UsageContent>
     <UsageContent>
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th
-              style={{
-                fontWeight: 600,
-              }}
-            >
-              Error name
-            </th>
-            <th
-              style={{
-                fontWeight: 600,
-              }}
-            >
-              Reason
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td
-              style={{
-                fontFamily: "monospace",
-              }}
-            >
-              not found
-            </td>
-            <td>
-              the playbackId to generate the src object has not been found in
-              your Livepeer Dashboard
-            </td>
-          </tr>
-          <tr>
-            <td
-              style={{
-                fontFamily: "monospace",
-              }}
-            >
-              asset is not ready for playback
-            </td>
-            <td>
-              Livepeer Studio has not finished processing the asset or the asset
-              has not yet been uploaded.
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <PropertiesContent>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th
+                style={{
+                  fontWeight: 600,
+                }}
+              >
+                Error name
+              </th>
+              <th
+                style={{
+                  fontWeight: 600,
+                }}
+              >
+                Reason
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td
+                style={{
+                  fontFamily: "monospace",
+                }}
+              >
+                not found
+              </td>
+              <td>
+                the playbackId to generate the src object has not been found in
+                your Livepeer Dashboard
+              </td>
+            </tr>
+            <tr>
+              <td
+                style={{
+                  fontFamily: "monospace",
+                }}
+              >
+                asset is not ready for playback
+              </td>
+              <td>
+                Livepeer Studio has not finished processing the asset or the
+                asset has not yet been uploaded.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </PropertiesContent>
     </UsageContent>
   </Container>
 );
