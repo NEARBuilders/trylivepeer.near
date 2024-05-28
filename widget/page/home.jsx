@@ -1,7 +1,7 @@
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  color: white;
+  color: #dde4e1;
   justify-content: center;
   align-items: center;
 `;
@@ -12,11 +12,11 @@ const StlyedInput = styled.input`
 `;
 
 const Dropdown = styled.select`
-  ping: 10px;
-  margin: 20px 0;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  color: black;
+  background-color: #1c1c1c;
+  width: 300px;
+  height: 47px;
+  padding: 10px 20px 10px 20px;
+  border: 1px solid #444;
 `;
 
 const OptionComponent = styled.div`
@@ -28,6 +28,11 @@ const OptionComponent = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+`;
+
+const Separator = styled.div`
+  height: 10px;
+  width: 100%;
 `;
 
 const apiKeyCode = `
@@ -93,13 +98,39 @@ url={"https://livepeer-webserver-613b208ef083.herokuapp.com"}
 
 const Option1 = () => (
   <OptionComponent>
-    Api key
+    <div>
+      <h3>Description:</h3>
+      <p style={{ textAlign: "left" }}>
+        The first method for using our components involves directly providing
+        the API key in the front-end. After creating an account on Livepeer and
+        generating API keys, input them into the Player.ApiKey component to set
+        them. The keys will be stored in the Zustand state and will be
+        accessible in all other components. At this point, you can call the
+        Livepeer function to upload and display a video asset. Please note the
+        following:
+        <li>
+          There is a background process to parse the asset, so larger videos may
+          experience a delay before becoming playable.
+        </li>
+        <li>
+          There is an alternative component for video uploads called
+          DirectUploadAsset. While it is less reliable because it does not use
+          "tus," it remains a viable option.
+        </li>
+      </p>
+    </div>
+    <h3>Code:</h3>
     <Markdown text={apiKeyCode} />
     <Player.ApiKey />
+    <Separator />
     <Player.GetUploadUrl />
+    <Separator />
     <Player.ResumableUploadAsset />
+    <Separator />
     <Player.GetSrc />
+    <Separator />
     <Player.Display />
+    <Separator />
   </OptionComponent>
 );
 
@@ -200,23 +231,31 @@ function resetUrl() {
 
 return (
   <Container>
-    Select which component you want to check:
-    <Dropdown
-      value={selectedComponent}
-      onChange={(event) => setSelectedComponent(event.target.value)}
+    <div
+      style={{ display: "flex", width: "100%", justifyContent: "space-evenly" }}
     >
-      <option value="player">Player</option>
-      <option value="broadcast">Broadcast</option>
-    </Dropdown>
-    Select how you want to initialise the components:
-    <Dropdown
-      value={selectedOption}
-      onChange={(event) => setSelectedOption(event.target.value)}
-    >
-      <option value="apiKey">Provide api key</option>
-      <option value="localServer">Use your local server</option>
-      <option value="remoteServer">Use a remote server</option>
-    </Dropdown>
+      <div style={{ display: "flex", flexDirection: "column" }}>
+        Select which component you want to check:
+        <Dropdown
+          value={selectedComponent}
+          onChange={(event) => setSelectedComponent(event.target.value)}
+        >
+          <option value="player">Player</option>
+          <option value="broadcast">Broadcast</option>
+        </Dropdown>
+      </div>
+      <div style={{ display: "flex", flexDirection: "column" }}>
+        Select how you want to initialise the components:
+        <Dropdown
+          value={selectedOption}
+          onChange={(event) => setSelectedOption(event.target.value)}
+        >
+          <option value="apiKey">Provide api key</option>
+          <option value="localServer">Use your local server</option>
+          <option value="remoteServer">Use a remote server</option>
+        </Dropdown>
+      </div>
+    </div>
     {selectedComponent === "player" && (
       <>
         {selectedOption === "apiKey" && <Option1 />}

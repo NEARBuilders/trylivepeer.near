@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
+import styled from "styled-components";
 
 import { createLivepeerInstance } from "./LivepeerInstance";
 import { useStore } from "./state";
-import styled from "styled-components";
 
 const UploadContainer = styled.div`
   display: flex;
@@ -66,46 +66,22 @@ const UploadButton = styled.button`
   }
 `;
 
-const GetUploadUrl = ({ url }) => {
-  const {
-    setAssetName,
-    setPlaybackId,
-    setResumableUploadUrl,
-    setUploadUrl,
-    setSrc,
-  } = useStore();
+const GetUploadUrl = () => {
+  const { setAssetName, setPlaybackId, setResumableUploadUrl, setUploadUrl } =
+    useStore();
 
   const [name, setName] = useState("");
 
   const handleSubmit = async (event) => {
-    if (url) {
-      // if url it means I want to communicate with the back-end
-      try {
-        const src = await fetch(url);
-
-        if (!src) {
-          console.log("-- error receiving data");
-          return;
-        }
-
-        src = src.json();
-
-        setSrc(src);
-        return;
-      } catch (error) {
-        console.log("Error:");
-        console.log(error.message);
-        return;
-      }
-    }
-
     event.preventDefault();
-    generateUploadLink();
+
+    await generateUploadLink();
     setAssetName(name);
   };
 
   const generateUploadLink = async () => {
     const livepeer = createLivepeerInstance();
+
     const result = await livepeer.asset.create({
       name,
     });
@@ -123,19 +99,17 @@ const GetUploadUrl = ({ url }) => {
 
   return (
     <UploadContainer>
-      <form onSubmit={handleSubmit}>
-        <FormContainer>
-          <UploadLabel>
-            Assets name:
-            <UploadInput
-              type="text"
-              value={name}
-              onChange={(event) => setName(event.target.value)}
-            />
-            <UploadButton type="submit">Generate link</UploadButton>
-          </UploadLabel>
-        </FormContainer>
-      </form>
+      <FormContainer onSubmit={handleSubmit}>
+        <UploadLabel>
+          Assets name:
+          <UploadInput
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+          <UploadButton type="submit">Generate link</UploadButton>
+        </UploadLabel>
+      </FormContainer>
     </UploadContainer>
   );
 };

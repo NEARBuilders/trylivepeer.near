@@ -28,9 +28,11 @@ const config = {
     ),
     // customize the footer
     Footer: () => (
-      <div className="footer-container">
-        <div className="footer-content">
-          Powered by livepeer, built on NEAR, a part of everything
+      <div className="footer-wrapper">
+        <div className="footer-container">
+          <div className="footer-content">
+            Powered by livepeer, built on NEAR, a part of everything
+          </div>
         </div>
       </div>
     ),
@@ -112,10 +114,13 @@ const CSS = styled.div`
       background-color: #555555;
     }
   }
+  .footer-wrapper {
+    display: flex;
+    justify-content: center;
+  }
+
   .footer-container {
     position: sticky;
-    left: 500px;
-
     width: 540px;
     background-color: #2d2d2d;
     color: #dde4e1;
