@@ -163,7 +163,7 @@ const Option2 = ({ url }) => {
             target="_blank"
           >
             repository
-          </a>{" "}
+          </a>
           for testing purposes. Once the link is configured, you can utilize the
           components to upload and display a video.
         </p>
@@ -221,41 +221,157 @@ const Option3 = ({ showVideo, handleClick }) => {
 
 const Option1Broadcast = () => {
   return (
-    <>
-      Set api key and start a stream!
+    <OptionComponent>
+      <div>
+        <h3>Description:</h3>
+        <p style={{ textAlign: "left" }}>
+          The first method for using our components involves directly providing
+          the API key in the front-end. After creating an account on Livepeer
+          and generating API keys, input them into the Player.ApiKey component
+          to set them. The keys will be stored in the Zustand state and will be
+          accessible in all other components. At this point, you can call the
+          Livepeer function to start a stream!
+          <p>
+            To share the stream, use the link that appears after creating a
+            stream asset in the GenerateStream component, or use the WatchStream
+            component and provide the playbackId.
+          </p>
+        </p>
+      </div>
+      <h3>Code:</h3>
       <Markdown text={broadcastApiKeyCode} />
       <Broadcast.ApiKey />
+      <Separator />
       <Broadcast.GenerateStream />
+      <Separator />
       <Broadcast.Player />
-    </>
+      <Separator />
+    </OptionComponent>
   );
 };
 
 const Option2Broadcast = ({ url, pId }) => {
   return (
-    <>
-      Set api key and start a stream!
+    <OptionComponent>
+      <div>
+        <h3>Description:</h3>
+        <p style={{ textAlign: "left" }}>
+          For the second option, you can provide your own web server URL. You
+          may use a basic web server available in this{" "}
+          <a
+            href="https://github.com/bb-face/livepeer-web-server"
+            target="_blank"
+          >
+            repository
+          </a>
+          for testing purposes. Once the link is configured, you can utilize the
+          components to upload and display a video.
+        </p>
+        <h3>External data:</h3>
+        <div>
+          {!isPidSet ? (
+            <>
+              <StlyedInput
+                type="text"
+                onChange={(event) => setPid(event.target.value)}
+                value={pId}
+              />
+              <Button onClick={() => setIsPidSet(true)}>Set playbackId</Button>
+            </>
+          ) : (
+            <>
+              {pId}
+              <Button
+                onClick={() => {
+                  setPid("");
+                  setIsPidSet(false);
+                }}
+              >
+                X
+              </Button>
+            </>
+          )}
+          <div></div>
+          {!inputSet ? (
+            <div>
+              <StlyedInput
+                type="text"
+                onChange={(event) => setUrl(event.target.value)}
+                value={url}
+              />
+              <Button onClick={() => setInputSet(true)}>Set url</Button>
+            </div>
+          ) : (
+            <>
+              {url}
+              <Button
+                onClick={() => {
+                  setUrl("");
+                  setInputSet(false);
+                }}
+              >
+                X
+              </Button>
+            </>
+          )}
+        </div>
+      </div>
+      <h3>Code:</h3>
       <Markdown text={broadcastLocalCode} />
       <Broadcast.GenerateStream url={url} />
+      <Separator />
       <Broadcast.Player />
-      Or you can insert a playbackId and watch a stream:
-      <Broadcast.WatchStream pId={pId} />
-    </>
+      <Separator />
+      {isPidSet && <Broadcast.WatchStream pId={pId} />}
+    </OptionComponent>
   );
 };
 
 const Option3Broadcast = ({ pId }) => {
   return (
-    <>
-      Set api key and start a stream!
+    <OptionComponent>
+      <div>
+        <h3>Description:</h3>
+        <p style={{ textAlign: "left" }}>
+          This component functions identically to the previous one, but there is
+          no need to insert the server URL as it utilizes our own web server.
+        </p>
+        <h3>External data:</h3>
+        <div>
+          {!isPidSet ? (
+            <>
+              <StlyedInput
+                type="text"
+                onChange={(event) => setPid(event.target.value)}
+                value={pId}
+              />
+              <Button onClick={() => setIsPidSet(true)}>Set playbackId</Button>
+            </>
+          ) : (
+            <>
+              {pId}
+              <Button
+                onClick={() => {
+                  setPid("");
+                  setIsPidSet(false);
+                }}
+              >
+                X
+              </Button>
+            </>
+          )}
+        </div>
+      </div>
+      <h3>Code:</h3>
       <Markdown text={broadcastRemoteCode} />
       <Broadcast.GenerateStream
         url={"https://livepeer-webserver-613b208ef083.herokuapp.com"}
       />
+      <Separator />
       <Broadcast.Player />
-      Or you can insert a playbackId and watch a stream:
-      <Broadcast.WatchStream pId={pId} />
-    </>
+      <Separator />
+      {isPidSet && <Broadcast.WatchStream pId={pId} />}
+    </OptionComponent>
   );
 };
 
@@ -264,6 +380,7 @@ const [selectedComponent, setSelectedComponent] = useState("player");
 const [displayVideo, setDisplayVideo] = useState(false);
 const [url, setUrl] = useState("");
 const [pId, setPid] = useState("");
+const [isPidSet, setIsPidSet] = useState(false);
 const [inputSet, setInputSet] = useState(false);
 const [showVideo, setShowVideo] = useState(false);
 
@@ -325,40 +442,23 @@ return (
       <>
         {selectedOption === "apiKey" && <Option1Broadcast />}
         {selectedOption === "localServer" && (
-          <>
-            {!inputSet ? (
-              <div>
-                <StlyedInput
-                  type="text"
-                  onChange={(event) => setUrl(event.target.value)}
-                  value={url}
-                />
-                <button onClick={() => setInputSet(true)}>Set url</button>
-                Provide a playbackId if you wanna watch a stream:
-                <StlyedInput
-                  type="text"
-                  onChange={(event) => setPid(event.target.value)}
-                  value={pId}
-                />
-              </div>
-            ) : (
-              <button onClick={resetUrl}>X</button>
-            )}
-            <Option2Broadcast url={url} pId={pId} />
-          </>
+          <Option2Broadcast
+            url={url}
+            isPidSet={isPidSet}
+            setIsPidSet={setIsPidSet}
+            pId={pId}
+            setPid={setPid}
+            inputSet={inputSet}
+            setInputSet={setInputSet}
+          />
         )}
         {selectedOption === "remoteServer" && (
-          <>
-            <div>
-              Provide a playbackId if you wanna watch a stream:
-              <StlyedInput
-                type="text"
-                onChange={(event) => setPid(event.target.value)}
-                value={pId}
-              />
-            </div>
-            <Option3Broadcast pId={pId} />
-          </>
+          <Option3Broadcast
+            pId={pId}
+            setPid={setPid}
+            isPidSet={isPidSet}
+            setIsPidSet={setIsPidSet}
+          />
         )}
       </>
     )}
