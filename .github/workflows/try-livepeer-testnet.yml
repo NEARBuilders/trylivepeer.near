@@ -5,7 +5,7 @@ on:
     branches: [develop]
 
 jobs:
-  deploy-mainnet:
+  deploy-testnet:
     uses: nearbuilders/bos-workspace/.github/workflows/deploy.yml@main
     with:
       bw-legacy: false
