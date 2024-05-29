@@ -10,6 +10,7 @@ jobs:
     with:
       bw-legacy: false
       deploy-env: "testnet"
+      build-env: "testnet"
       app-name: "trylivepeer.testnet"
       deploy-account-address: trylivepeer.testnet
       signer-account-address: trylivepeer.testnet
