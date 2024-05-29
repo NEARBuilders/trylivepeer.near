@@ -1,35 +1,26 @@
-const playerData = {
-  key: "value",
-  playerProps: {
-    playbackId: "8b3bdqjtdj4jsjwa",
-  },
-};
-
-const broadcastData = {};
-
 return (
-  <>
-    <div className="row">
-      <div className="col">
-        <div>
-          <h1>Player</h1>
-          <Widget src="${config_account}/widget/Player" props={playerData} />
-        </div>
-      </div>
-      <div className="col">
-        <div>
-          <h1>Broadcast</h1>
-          <Widget
-            src="${config_account}/widget/GenerateStream"
-            props={broadcastData}
-          />
-          <Widget
-            src="${config_account}/widget/Broadcast"
-            props={broadcastData}
-          />
-        </div>
-      </div>
-    </div>
-    <Widget src="${config_account}/widget/Library" />
-  </>
+  <Editor
+    widgets={{
+      default: "buildhub.near/widget/app",
+      login: "buildhub.near/widget/login",
+      logout: "buildhub.near/widget/logout",
+      trialAccountBanner: "buildhub.near/widget/TrialAccountBanner",
+      onboardingFlow: "buildhub.near/widget/OnboardingFlow",
+
+      image: "mob.near/widget/Image",
+      feed: "buildhub.near/widget/Feed",
+      resources: "buildhub.near/widget/Resources",
+      viewSource: "mob.near/widget/WidgetSource",
+      widgetMetadataEditor: "buildhub.near/widget/WidgetMetadataEditor",
+      widgetMetadata: "buildhub.near/widget/WidgetMetadata",
+      profileImage: "mob.near/widget/ProfileImage",
+      notificationButton: "mob.near/widget/NotificationButton",
+      profilePage: "buildhub.near/widget/Profile",
+      profileName: "patrick.near/widget/ProfileName",
+      editorComponentSearch: "mob.near/widget/Editor.ComponentSearch",
+      profileInlineBlock: "mob.near/widget/Profile.InlineBlock",
+      viewHistory: "bozon.near/widget/WidgetHistory",
+    }}
+    setWidgetSrc={() => {}}
+  />
 );

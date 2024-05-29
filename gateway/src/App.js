@@ -18,6 +18,7 @@ import { BroadcastComponent } from "./components/Broadcast/Broadcast";
 import { VideoPlayer } from "./components/Player/Player";
 
 import useRedirectMap from "./useRedirectMap";
+import Editor from "./components/Editor/Editor";
 
 function Viewer({ widgetSrc, code, initialProps }) {
   const { components: redirectMap } = useRedirectMap();
@@ -121,6 +122,9 @@ function App(props) {
         "Broadcast.ApiKey": (props) => {
           return <BroadcastComponent.ApiKey {...props} />;
         },
+        "Editor": (props) => {
+          return <Editor {...props} />;
+        }
       },
       features: {
         enableComponentSrcDataKey: true,
