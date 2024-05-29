@@ -1,3 +1,22 @@
+const TelegramButton = styled.a`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  background-color: #ffffff;
+  color: white;
+  border-radius: 50%;
+  text-decoration: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #555555;
+    cursor: pointer;
+  }
+`;
+
 const config = {
   theme: {},
   layout: {
@@ -9,7 +28,6 @@ const config = {
   blocks: {
     Header: () => (
       <div className="header-container">
-        <div></div>
         <div className="header-content">
           <Link to={`/${config_index}`}>
             <h1 className="header-title">trylivepeer</h1>
@@ -24,6 +42,11 @@ const config = {
             <Link to={`/${config_index}?page=library`}>
               <button className="header-button">Library</button>
             </Link>
+            <TelegramButton>
+              <a href="https://t.me/+QgLwbmDEFgo5NTM1" target="_blank">
+                <img src="https://ipfs.near.social/ipfs/bafkreifg6zr4kse7ew7mv3l5wiw4bd7qbkpy6a4r6xndfq5lechsctronu" />
+              </a>
+            </TelegramButton>
           </div>
         </div>
       </div>
@@ -58,7 +81,7 @@ const config = {
         },
       },
       library: {
-        path: "${config_account}/widget/Library.index",
+        path: "${config_account}/widget/Library.Index",
         blockHeight: "final",
         init: {
           name: "Library",
