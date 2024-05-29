@@ -51,6 +51,10 @@ const Separator = styled.div`
   width: 100%;
 `;
 
+const MonospaceText = styled.span`
+  font-family: monospace;
+`;
+
 const apiKeyCode = `
 \`\`\`js
 <Player.ApiKey />
@@ -119,19 +123,19 @@ const Option1 = () => (
       <p style={{ textAlign: "left" }}>
         The first method for using our components involves directly providing
         the API key in the front-end. After creating an account on Livepeer and
-        generating API keys, input them into the Player.ApiKey component to set
-        them. The keys will be stored in the Zustand state and will be
-        accessible in all other components. At this point, you can call the
-        Livepeer function to upload and display a video asset. Please note the
-        following:
+        generating API keys, input them into the{" "}
+        <MonospaceText>Player.ApiKey</MonospaceText> component to set them. The
+        keys will be stored in the Zustand state and will be accessible in all
+        other components. At this point, you can call the Livepeer function to
+        upload and display a video asset. Please note the following:
         <li>
           There is a background process to parse the asset, so larger videos may
           experience a delay before becoming playable.
         </li>
         <li>
           There is an alternative component for video uploads called
-          DirectUploadAsset. While it is less reliable because it does not use
-          "tus," it remains a viable option.
+          <MonospaceText>DirectUploadAsset</MonospaceText>. While it is less
+          reliable because it does not use "tus," it remains a viable option.
         </li>
       </p>
     </div>
@@ -157,7 +161,7 @@ const Option2 = ({ url }) => {
         <h3>Description:</h3>
         <p style={{ textAlign: "left" }}>
           For the second option, you can provide your own web server URL. You
-          may use a basic web server available in this{" "}
+          may use a basic web server available in this
           <a
             href="https://github.com/bb-face/livepeer-web-server"
             target="_blank"
@@ -201,7 +205,8 @@ const Option3 = ({ showVideo, handleClick }) => {
         <p style={{ textAlign: "left" }}>
           These components are connected to our deployed server, eliminating the
           need for additional setup. This example demonstrates how to display a
-          video using the playbackId and URL properties of the component
+          video using the <MonospaceText>playbackId</MonospaceText> and{" "}
+          <MonospaceText>url</MonospaceText> properties of the component
         </p>
       </div>
       <h3>Code:</h3>
@@ -233,8 +238,9 @@ const Option1Broadcast = () => {
           Livepeer function to start a stream!
           <p>
             To share the stream, use the link that appears after creating a
-            stream asset in the GenerateStream component, or use the WatchStream
-            component and provide the playbackId.
+            stream asset in the <MonospaceText>GenerateStream</MonospaceText>{" "}
+            component, or use the <MonospaceText>WatchStream</MonospaceText>
+            component and provide the <MonospaceText>playbackId</MonospaceText>.
           </p>
         </p>
       </div>
@@ -257,7 +263,7 @@ const Option2Broadcast = ({ url, pId }) => {
         <h3>Description:</h3>
         <p style={{ textAlign: "left" }}>
           For the second option, you can provide your own web server URL. You
-          may use a basic web server available in this{" "}
+          may use a basic web server available in this
           <a
             href="https://github.com/bb-face/livepeer-web-server"
             target="_blank"
