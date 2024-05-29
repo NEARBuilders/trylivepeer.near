@@ -11,15 +11,17 @@ const config = {
       <div className="header-container">
         <div></div>
         <div className="header-content">
-          <h1 className="header-title">trylivepeer</h1>
+          <Link to={`/${config_index}`}>
+            <h1 className="header-title">trylivepeer</h1>
+          </Link>
           <div className="flex gap-4">
-            <Link to={`/${config_account}/widget/index?page=social`}>
+            <Link to={`/${config_index}?page=social`}>
               <button className="header-button">Social</button>
             </Link>
-            <Link to={`/${config_account}/widget/index?page=sandbox`}>
+            <Link to={`/${config_index}?page=sandbox`}>
               <button className="header-button">Sandbox</button>
             </Link>
-            <Link to={`/${config_account}/widget/index?page=library`}>
+            <Link to={`/${config_index}?page=library`}>
               <button className="header-button">Library</button>
             </Link>
           </div>
@@ -40,7 +42,7 @@ const config = {
   router: {
     param: "page",
     routes: {
-      index: {
+      Index: {
         path: "${config_account}/widget/page.home", // edit this locally
         blockHeight: "final",
         init: {
@@ -56,7 +58,7 @@ const config = {
         },
       },
       library: {
-        path: "${config_account}/widget/Library.index",
+        path: "${config_account}/widget/Library.Index",
         blockHeight: "final",
         init: {
           name: "Library",
