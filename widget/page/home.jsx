@@ -116,6 +116,28 @@ url={"https://livepeer-webserver-613b208ef083.herokuapp.com"}
 \`\`\`
 `;
 
+const TelegramButton = styled.a`
+  position: absolute;
+  bottom: -540px;
+  right: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  background-color: #ffffff;
+  color: white;
+  border-radius: 50%;
+  text-decoration: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #555555;
+    cursor: pointer;
+  }
+`;
+
 const Option1 = () => (
   <OptionComponent>
     <div>
@@ -468,5 +490,10 @@ return (
         )}
       </>
     )}
+    <TelegramButton>
+      <a href="https://t.me/+QgLwbmDEFgo5NTM1" target="_blank">
+        <img src="https://ipfs.near.social/ipfs/bafkreifg6zr4kse7ew7mv3l5wiw4bd7qbkpy6a4r6xndfq5lechsctronu" />
+      </a>
+    </TelegramButton>
   </Container>
 );
