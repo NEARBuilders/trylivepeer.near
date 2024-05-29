@@ -11,22 +11,11 @@ const Grid = styled.div`
 
 return (
   <Feed
+    showCompose={true}
     index={[
       {
-        action: "post",
-        key: "main",
-        options: {
-          limit: 10,
-          order: "desc",
-          accountId: props.accounts,
-        },
-        cacheOptions: {
-          ignoreCache: true,
-        },
-      },
-      {
-        action: "repost",
-        key: "main",
+        action: "hashtag",
+        key: "livepeer",
         options: {
           limit: 10,
           order: "desc",
