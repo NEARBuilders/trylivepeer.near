@@ -48,7 +48,6 @@ const FormContainer = styled.form`
     cursor: pointer;
     width: 300px;
     transition: background-color 0.3s ease;
-
     &:hover {
       background-color: #1c1a1a;
     }
