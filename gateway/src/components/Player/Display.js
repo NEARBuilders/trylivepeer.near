@@ -1,5 +1,6 @@
-import React, { forwardRef, useEffect, useState, useCallback } from "react";
+import React, { forwardRef, useEffect } from "react";
 import * as Player from "@livepeer/react/player";
+import styled, { keyframes } from "styled-components";
 import {
   MuteIcon,
   PauseIcon,
@@ -7,59 +8,95 @@ import {
   PlayIcon,
   UnmuteIcon,
 } from "@livepeer/react/assets";
-import { LivepeerPhase, getSrc } from "@livepeer/react/external";
+import { getSrc } from "@livepeer/react/external";
 
 import { createLivepeerInstance } from "./LivepeerInstance";
 import { useStore } from "./state";
 import Settings from "./Settings";
 
+const spin = keyframes`
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+`;
+
+const Loader = styled.div`
+  border: 12px solid #f3f3f3;
+  border-top: 12px solid black;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  animation: ${spin} 1.5s linear infinite;
+`;
+
 const Display = (props) => {
   // there's a `props.playbackId` here
-  const { src, setSrc, playbackId, setError } = useStore();
+  const { src, setSrc, playbackId, setError, loading, setLoading, clearState } =
+    useStore();
+
+  const url = props.url;
 
   const livepeer = createLivepeerInstance();
 
   const currentPlaybackId = props.playbackId || playbackId;
 
   const getPlaybackSource = async () => {
-    if (!livepeer) throw new Error("Livepeer instance not found");
+    clearState();
 
-    try {
-      const playbackInfo = await livepeer.playback.get(currentPlaybackId);
-      const src = getSrc(playbackInfo.playbackInfo);
+    if (url) {
+      try {
+        let result = await fetch(`${url}/playback/${currentPlaybackId}`);
 
-      return src;
-    } catch (error) {
-      setError(error.message);
-    }
-  };
+        result = await result.json();
+        const src = getSrc(result);
 
-  const fetchSrc = async () => {
-    try {
-      const fetchedSrc = await getPlaybackSource();
+        setSrc(src);
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      const livepeer = createLivepeerInstance();
 
-      setSrc(fetchedSrc);
-    } catch (error) {
-      setError(error.message);
+      try {
+        // TODO: use livepeer (js) 3.1
+        const playbackInfo = await livepeer.playback.get(playbackId);
+        // const srcInfo = await livepeer.asset.get(playbackId);
+
+        const src = getSrc(playbackInfo.playbackInfo);
+
+        setSrc(src);
+      } catch (error) {
+        console.log(error);
+        setError(error.message);
+      }
     }
   };
 
   useEffect(() => {
-    setSrc(null);
-
     const asyncGetSrc = async () => {
       if (!livepeer || !currentPlaybackId) {
+        setLoading(false);
         return;
       }
 
-      await fetchSrc();
+      try {
+        setLoading(true);
+        await getPlaybackSource();
+      } catch (e) {
+        console.log(e.message);
+      } finally {
+        setLoading(false);
+      }
     };
 
     asyncGetSrc();
   }, [livepeer, currentPlaybackId]);
 
+  if (loading) {
+    return <Loader />;
+  }
+
   if (!src) {
-    return <p>Loading</p>;
+    return <>Src not ready</>;
   }
 
   return (

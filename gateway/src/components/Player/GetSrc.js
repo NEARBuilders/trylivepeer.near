@@ -1,11 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { getSrc } from "@livepeer/react/external";
 
 import { createLivepeerInstance } from "./LivepeerInstance";
 import { useStore } from "./state";
+import styled from "styled-components";
+const UploadContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  color: #a5a5a5;
+  padding: 16px;
+  border: 1px solid #23242b;
+  border-radius: 8px;
+  background-color: #2c2c2c;
+`;
 
 const GetSrc = ({ url }) => {
-  const { setSrc, setError, playbackId } = useStore();
+  const { setSrc, setError, playbackId, setLoading, clearState } = useStore();
 
   const getPlaybackSource = async (playbackId) => {
     if (url) {
@@ -39,19 +50,25 @@ const GetSrc = ({ url }) => {
 
   const fetchSrc = async () => {
     setError("");
+    setLoading(true);
+    clearState();
 
     try {
       const fetchedSrc = await getPlaybackSource(playbackId);
       setSrc(fetchedSrc);
     } catch (error) {
       setError(error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <button type="button" onClick={fetchSrc}>
-      Get asset Src
-    </button>
+    <UploadContainer>
+      <button type="button" onClick={fetchSrc}>
+        Get asset Src
+      </button>
+    </UploadContainer>
   );
 };
 

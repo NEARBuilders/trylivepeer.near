@@ -2,9 +2,54 @@ import React, { useState } from "react";
 import { getSrc } from "@livepeer/react/external";
 
 import { useStore } from "./state";
+import styled from "styled-components";
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background-color: #2d2d2d;
+  padding: 2rem;
+  border-radius: 16px;
+  color: #a5a5a5;
+`;
+
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+`;
+
+const Input = styled.input`
+  padding: 12px;
+  border: 1px solid #444;
+  border-radius: 4px;
+  background-color: #1c1c1c;
+  color: #a5a5a5;
+  font-size: 14px;
+
+  &:focus {
+    outline: none;
+    border-color: #666;
+  }
+`;
+
+const Button = styled.button`
+  padding: 12px 16px;
+  border: none;
+  border-radius: 4px;
+  background-color: #000;
+  color: #a5a5a5;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #1c1a1a;
+  }
+`;
 
 const FileUploader = ({ url }) => {
-  const { setError, setSrc } = useStore();
+  const { setError, setSrc, setLoading } = useStore();
 
   const [file, setFile] = useState(null);
   const [fileName, setFileName] = useState("");
@@ -44,6 +89,8 @@ const FileUploader = ({ url }) => {
   };
 
   const handleSubmit = async (event) => {
+    setLoading(true);
+    // setSrc(null);
     event.preventDefault();
     if (!file) {
       alert("Please select a file first!");
@@ -65,26 +112,29 @@ const FileUploader = ({ url }) => {
       result = await result.json();
 
       const fetchedSrc = await getPlaybackSource(result.asset.playbackId);
-      console.log("-- setting src");
       setSrc(fetchedSrc);
     } catch (error) {
       console.log("-- error");
       console.log(error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input type="file" onChange={handleFileChange} />
-      <input
-        type="text"
-        placeholder="Enter file name here..."
-        value={fileName}
-        onChange={handleFileNameChange}
-        required
-      />
-      <button type="submit">Upload File</button>
-    </form>
+    <Container>
+      <Form onSubmit={handleSubmit}>
+        <Input type="file" onChange={handleFileChange} />
+        <Input
+          type="text"
+          placeholder="Enter file name here..."
+          value={fileName}
+          onChange={handleFileNameChange}
+          required
+        />
+        <Button type="submit">Upload File</Button>
+      </Form>
+    </Container>
   );
 };
 

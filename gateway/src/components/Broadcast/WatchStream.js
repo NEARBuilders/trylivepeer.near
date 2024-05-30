@@ -1,84 +1,41 @@
-import React, { useState } from "react";
+import React from "react";
+import styled from "styled-components";
+
 import { useStore } from "../Broadcast/state";
 
-const WatchStream = ({ url }) => {
-  const { setStreamKey } = useStore();
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background-color: #2d2d2d;
+  padding: 2rem;
+  border-radius: 16px;
+  color: #a5a5a5;
+`;
 
-  const [inputValue, setInputValue] = useState("");
-  const [streamLink, setStreamLink] = useState("");
-  const [streamName, setStreamName] = useState("");
+const IframeContainer = styled.div`
+  margin-top: 16px;
+`;
 
-  const handleChange = (event) => {
-    setInputValue(event.target.value);
-  };
+const WatchStream = ({ pId }) => {
+  const { playbackId } = useStore();
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    setStreamLink(inputValue);
-  };
-
-  const createStream = async (event) => {
-    event.preventDefault();
-
-    const myHeaders = new Headers();
-
-    myHeaders.append("Content-Type", "application/json");
-
-    const raw = JSON.stringify({
-      name: "test name",
-    });
-
-    const requestOptions = {
-      method: "POST",
-      headers: myHeaders,
-      body: raw,
-      redirect: "follow",
-    };
-
-    try {
-      let result = await fetch(`${url}/stream/create`, requestOptions);
-
-      result = await result.json();
-
-      setStreamKey(result.streamKey);
-      setInputValue(result.playbackId);
-    } catch (error) {
-      console.log("-- error");
-      console.log(error.message);
-    }
-  };
+  const currentPlaybackId = pId || playbackId;
 
   return (
-    <div>
-      <form onSubmit={createStream}>
-        <input
-          type="text"
-          value={streamName}
-          onChange={(event) => setStreamName(event.target.value)}
-          placeholder="Enter stream name"
-        />
-        <button type="submit">create stream</button>
-      </form>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          value={inputValue}
-          onChange={handleChange}
-          placeholder="Enter playbackId to watch"
-        />
-        <p>Current Input: {inputValue}</p>
-        <button type="submit">Watch stream</button>
-      </form>
-      {streamLink && (
-        <iframe
-          src={`https://lvpr.tv?v=${streamLink}`}
-          frameborder="0"
-          allowfullscreen
-          allow="autoplay; encrypted-media; picture-in-picture"
-          sandbox="allow-same-origin allow-scripts"
-        ></iframe>
+    <Container>
+      {currentPlaybackId && (
+        <IframeContainer>
+          <iframe
+            src={`https://lvpr.tv?v=${currentPlaybackId}`}
+            frameborder="0"
+            allowfullscreen
+            allow="autoplay; encrypted-media; picture-in-picture"
+            sandbox="allow-same-origin allow-scripts"
+          ></iframe>
+        </IframeContainer>
       )}
-    </div>
+    </Container>
   );
 };
 

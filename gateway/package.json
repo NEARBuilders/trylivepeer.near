@@ -17,6 +17,7 @@
 	"dependencies": {
 		"@braintree/sanitize-url": "^6.0.2",
 		"@livepeer/react": "^4.1.0",
+		"@monaco-editor/react": "^4.6.0",
 		"@playwright/test": "^1.38.1",
 		"@radix-ui/react-popover": "^1.0.7",
 		"big.js": "^6.1.1",

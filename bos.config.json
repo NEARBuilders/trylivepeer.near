@@ -1,0 +1,12 @@
+{
+	"account": "trylivepeer.near",
+	"aliases": ["./aliases.mainnet.json"],
+  "overrides": {
+    "testnet": {
+      "account": "trylivepeer.testnet",
+      "aliases": ["./aliases.testnet.json"],
+      "index": "trylivepeer.testnet/widget/Index"
+    }
+  },
+  "index": "trylivepeer.near/widget/Index"
+}

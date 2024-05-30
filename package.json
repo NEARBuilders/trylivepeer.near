@@ -7,11 +7,12 @@
   "scripts": {
     "bw": "bos-workspace",
     "dev": "concurrently \"pnpm run dev:gateway\" \"wait-on gateway/dist/index.html && pnpm run dev:apps\"",
-    "dev:apps": "pnpm run bw ws dev -g ./gateway/dist/",
+    "dev:apps": "pnpm run bw dev -g ./gateway/dist/",
+    "dev:apps:testnet": "pnpm run bw dev -n testnet -g ./gateway/dist/",
     "dev:gateway": "cd gateway && pnpm run dev"
   },
   "devDependencies": {
-    "bos-workspace": "^1.0.0-alpha",
+    "bos-workspace": "1.0.0-alpha.18",
     "concurrently": "^8.2.2",
     "wait-on": "^7.2.0"
   },
